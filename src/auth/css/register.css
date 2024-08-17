@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color:  #b370b0;
+    margin: 0;
+    padding: 0;
+    display: flow-root;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app {
+    display: flex;
+    padding: 10px;
+}
+
+.header {
+    font-family: 'Lobster', cursive;
+    font-size: 24px;
+    text-align: center;
+    color: #b370b0;
+}
+
+.modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    width: 30%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid  #b370b0;
+    border-radius: 20px;
+    box-shadow: 0 0 10px  #b370b0;
+    box-sizing: border-box;
+}
+
+h2 {
+    color: #b370b0;
+    text-align: center;
+    margin: 5px;
+}
+
+.header h3 {
+    font-family: 'Pacifico', cursive;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.subtext {
+    color: #000000;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #9b59b6;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color:  #9b59b6;
+    box-sizing: border-box;
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder {
+    color: #9b59b6;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-row.horizontal {
+    flex-direction: row;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color:  #b370b0;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-group button:hover {
+    background-color: #b370b0;
+}
+
+.link {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.link a {
+    color:  #b370b0;
+    text-decoration: none;
+}
+
+.link a:hover {
+    text-decoration: underline;
+}
+
+#custom-gender-container {
+    display: none;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+}
+
+#custom-gender-container.active {
+    display: block;
+    max-height: 200px;
+}
+
+.form-group.wide-input input {
+    width: calc(106% - 22px);
+}
+
+.form-group input[type="password"],
+.form-group input[type="email"] {
+    border: 1px solid #b370b0; /* Change border color to purple */
+}
+
+@media (min-width: 601px) {
+    .form-row.horizontal {
+        flex-direction: row;
+    }
+}
