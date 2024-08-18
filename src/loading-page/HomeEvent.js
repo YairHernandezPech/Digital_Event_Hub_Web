@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { FaSearch, FaFilter } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import NavbarHomeEvent from './NavbarHomeEvent';
+import './Css/newStyles.css'; // Asegúrate de que el archivo CSS esté importado
 
 const HomeEvent = () => {
     const [events, setEvents] = useState([]);
@@ -9,9 +10,8 @@ const HomeEvent = () => {
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
     const [categories, setCategories] = useState([]);
-    const [eventTypes, setEventTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedEventType, setSelectedEventType] = useState('');
+    const [selectedEventType, setSelectedEventType] = useState('Publico');
 
     const filterRef = useRef(null);
     const navigate = useNavigate();
@@ -20,13 +20,11 @@ const HomeEvent = () => {
         fetch('https://api-digitalevent.onrender.com/api/events/get/approved')
             .then(response => response.json())
             .then(data => {
-                console.log('Datos de eventos:', data);
-                setEvents(data);
-                setFilteredEvents(data);
-                const uniqueCategories = [...new Set(data.map(event => event.categoria))];
-                const uniqueEventTypes = [...new Set(data.map(event => event.tipo_evento))];
+                const publicEvents = data.filter(event => event.tipo_evento === 'Publico');
+                setEvents(publicEvents);
+                setFilteredEvents(publicEvents);
+                const uniqueCategories = [...new Set(publicEvents.map(event => event.categoria))];
                 setCategories(uniqueCategories);
-                setEventTypes(uniqueEventTypes);
             })
             .catch(error => console.error('Error fetching events:', error));
     }, []);
@@ -68,9 +66,7 @@ const HomeEvent = () => {
     return (
         <div>
             <NavbarHomeEvent />
-            <div style={{ padding: '30px',marginTop: '30px', maxWidth: '80%', margin: 'auto', backgroundColor: '#f7f8fa', borderRadius: '8px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}>
-                <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
-
+            <div style={{ padding: '25px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
                     <div style={{ flex: '1 1 auto', maxWidth: '600px', position: 'relative' }}>
                         <input
@@ -104,7 +100,6 @@ const HomeEvent = () => {
                         onClick={toggleFilters}
                         style={{
                             padding: '10px 20px',
-                            borderRadius: '25px',
                             border: 'none',
                             backgroundColor: '#6D3089',
                             color: 'white',
@@ -123,7 +118,7 @@ const HomeEvent = () => {
                 </div>
 
                 {showFilters && (
-                    <div ref={filterRef} style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
+                    <div ref={filterRef} style={{ backgroundColor: 'white', padding: '20px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)', marginBottom: '20px' }}>
                         <h3>Filtros</h3>
                         <div style={{ marginBottom: '15px' }}>
                             <label style={{ display: 'block', marginBottom: '5px' }}>Categoría</label>
@@ -145,40 +140,44 @@ const HomeEvent = () => {
                                 onChange={e => setSelectedEventType(e.target.value)}
                                 style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ddd', fontSize: '1em' }}
                             >
-                                <option value="">Todos</option>
-                                {eventTypes.map((type, index) => (
-                                    <option key={index} value={type}>{type}</option>
-                                ))}
+                                <option value="Publico">Publico</option>
                             </select>
                         </div>
                     </div>
                 )}
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
                     {filteredEvents.map(event => (
                         <div
                             key={event.evento_id}
-                            style={{
-                                padding: '20px',
-                                borderRadius: '8px',
-                                boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)',
-                                backgroundColor: 'white',
-                                cursor: 'pointer',
-                                textAlign: 'center',
-                                transition: 'transform 0.3s, box-shadow 0.3s',
-                            }}
+                            className="card"
                             onClick={() => handleEventClick(event.evento_id)}
                         >
-                            <img
-                                src={event.imagen_url || 'default-image-url.jpg'} // Cambia esto a una imagen por defecto si es necesario
-                                alt={event.evento_nombre}
+                            <div className="card-image-container">
+                                <img
+                                    src={event.imagen_url || 'default-image-url.jpg'}
+                                    alt={event.evento_nombre}
+                                    className="card-image"
+                                />
+                                <div className="card-overlay"></div>
+                            </div>
+                            <div className="card-content">
+                                <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px' }}>{event.evento_nombre}</h2>
+                                <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    
+                                    <p style={{ margin: '10px', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
 
-                                style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
-                            />
-                            <h2 style={{ margin: '10px 0', fontSize: '1.2em' }}>{event.evento_nombre}</h2>
-                            <p style={{ color: '#666' }}>{event.descripcion}</p>
-                            <p style={{ color: '#666' }}>{event.ubicacion}</p>
-                            <p style={{ color: '#999' }}>{new Date(event.fecha_inicio).toLocaleDateString()}</p>
+                                        <FaMapMarkerAlt style={{ marginRight: '5px', fontSize: '1em' }} />
+                                        {event.ubicacion}
+                                    </p>
+                                    <p style={{ margin: '0', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
+                                        <FaCalendarAlt style={{ marginRight: '5px', fontSize: '1em' }} />
+                                        {new Date(event.fecha_inicio).toLocaleDateString()}
+                                    </p>
+                                </div>
+                            </div>
+
                         </div>
                     ))}
                 </div>
