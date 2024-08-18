@@ -9,9 +9,8 @@ const HomeEvent = () => {
     const [filteredEvents, setFilteredEvents] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
     const [categories, setCategories] = useState([]);
-    const [eventTypes, setEventTypes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedEventType, setSelectedEventType] = useState('');
+    const [selectedEventType, setSelectedEventType] = useState('Publico'); // Establece el tipo de evento como 'Publico'
 
     const filterRef = useRef(null);
     const navigate = useNavigate();
@@ -21,12 +20,12 @@ const HomeEvent = () => {
             .then(response => response.json())
             .then(data => {
                 console.log('Datos de eventos:', data);
-                setEvents(data);
-                setFilteredEvents(data);
-                const uniqueCategories = [...new Set(data.map(event => event.categoria))];
-                const uniqueEventTypes = [...new Set(data.map(event => event.tipo_evento))];
+                // Filtrar los eventos para que solo traigan los de tipo 'Publico'
+                const publicEvents = data.filter(event => event.tipo_evento === 'Publico');
+                setEvents(publicEvents);
+                setFilteredEvents(publicEvents);
+                const uniqueCategories = [...new Set(publicEvents.map(event => event.categoria))];
                 setCategories(uniqueCategories);
-                setEventTypes(uniqueEventTypes);
             })
             .catch(error => console.error('Error fetching events:', error));
     }, []);
@@ -68,7 +67,7 @@ const HomeEvent = () => {
     return (
         <div>
             <NavbarHomeEvent />
-            <div style={{ padding: '30px',marginTop: '30px', maxWidth: '80%', margin: 'auto', backgroundColor: '#f7f8fa', borderRadius: '8px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}>
+            <div style={{ padding: '30px', marginTop: '30px', maxWidth: '80%', margin: 'auto', backgroundColor: '#f7f8fa', borderRadius: '8px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
@@ -145,10 +144,7 @@ const HomeEvent = () => {
                                 onChange={e => setSelectedEventType(e.target.value)}
                                 style={{ padding: '10px', borderRadius: '5px', border: '1px solid #ddd', fontSize: '1em' }}
                             >
-                                <option value="">Todos</option>
-                                {eventTypes.map((type, index) => (
-                                    <option key={index} value={type}>{type}</option>
-                                ))}
+                                <option value="Publico">Publico</option>
                             </select>
                         </div>
                     </div>
@@ -172,7 +168,6 @@ const HomeEvent = () => {
                             <img
                                 src={event.imagen_url || 'default-image-url.jpg'} // Cambia esto a una imagen por defecto si es necesario
                                 alt={event.evento_nombre}
-
                                 style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
                             />
                             <h2 style={{ margin: '10px 0', fontSize: '1.2em' }}>{event.evento_nombre}</h2>
