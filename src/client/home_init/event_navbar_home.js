@@ -16,11 +16,23 @@ const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
     padding: theme.spacing(2),
     boxShadow: 'none',
     position: 'relative',
-    zIndex:1,
+    zIndex: 1,
+    '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Superposición oscura
+        zIndex: 1,
+    },
     '& > div': {
+        position: 'relative',
+        zIndex: 2,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start', // Align items to the left
+        alignItems: 'flex-start',
     },
 }));
 
@@ -119,18 +131,18 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
     return (
         <>
             <CustomNavbarContainer position="static" backgroundImage={imageUrl}>
-                <Toolbar style={{width:'90%'}}>
+                <Toolbar style={{ width: '90%' }}>
                     {authorizedBy && <Info variant="body1">Organizado por {authorizedBy}</Info>}
-                    
+
                     <Stack direction="row" spacing={1}>
-                        <Title variant="h1">{title} </Title>
-                        <Chip label={eventType} color={eventType == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }}/>
+                        <Title variant="h1">{title}</Title>
+                        <Chip label={eventType} color={eventType === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
                     <p>Description: {description}</p>
-                    
+
                     <Info variant="body1">Fecha: {date} a las {time}</Info>
-                    { location && <Info variant="body1">Te esperamos en el {location}</Info> }
-                    <br/>
+                    {location && <Info variant="body1">Te esperamos en el {location}</Info>}
+                    <br />
                 </Toolbar>
                 <div style={floatingDivStyle}>
                     <Typography variant="h4" fontWeight={800}>Categoría: {category}</Typography>
@@ -138,14 +150,14 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
             </CustomNavbarContainer>
 
             <Box sx={{
-                    width: '100%',
-                    '@media (min-width:600px)': {
-                        width: '90%' 
-                    },
-                    margin: '0 auto'
-                }}
+                width: '100%',
+                '@media (min-width:600px)': {
+                    width: '90%'
+                },
+                margin: '0 auto'
+            }}
             >
-                <Grid container spacing={2} style={{width:'90%'}}>
+                <Grid container spacing={2} style={{ width: '90%' }}>
                     <Grid item xs={12} sm={6}>
                         <CustomMapCard>
                             <CardContent>
@@ -156,7 +168,7 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                     <Grid item xs={12} sm={6}>
                         <CustomInfoCard>
                             <CardContent>
-                            <Typography variant="h6">Información Adicional</Typography>
+                                <Typography variant="h6">Información Adicional</Typography>
                                 <Typography variant="body2">
                                     <strong>Título:</strong> {title}
                                 </Typography>
@@ -184,17 +196,17 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                     </Grid>
                 </Grid>
             </Box>
-            
+
 
             {/* Boton para navegar al evento */}
-            <Fab color="secondary" aria-label="add" variant="extended"  onClick={handleSeatSelection} sx={{
+            <Fab color="secondary" aria-label="add" variant="extended" onClick={handleSeatSelection} sx={{
                 position: 'fixed',
                 bottom: 20,
                 right: 30,
                 zIndex: 1000,
                 borderRadius: '5px',
             }}>
-                <SeatIcon sx={{ mr: 1 }}/> Seleccionar Asientos
+                <SeatIcon sx={{ mr: 1 }} /> Seleccionar Asientos
             </Fab>
         </>
     );
