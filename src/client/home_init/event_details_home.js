@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import EventInformationNavbar from './event_navbar_home'; // Asegúrate de que la ruta sea correcta
 import { CircularProgress, Box } from '@mui/material';
+import NavbarHomeEvent from '../../loading-page/NavbarHomeEvent';
 
 const EventDetailClient = () => {
     const { eventId } = useParams();
@@ -60,11 +61,13 @@ const EventDetailClient = () => {
 
     return (
         <div>
+            <NavbarHomeEvent />
             <EventInformationNavbar
                 title={event.evento_nombre}
                 imageUrl={event.imagen_url}
                 date={`${new Date(event.fecha_inicio).toLocaleDateString()} - ${new Date(event.fecha_termino).toLocaleDateString()}`}
                 time={event.hora}
+                description={event.descripcion}
                 location={event.ubicacion}
                 category={event.categoria}
                 eventType={event.tipo_evento}
