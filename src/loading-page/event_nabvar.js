@@ -4,7 +4,6 @@ import { Chip, Stack, Box } from '@mui/material';
 
 // Estilos para el primer Navbar
 const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
-    
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -12,11 +11,23 @@ const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
     padding: theme.spacing(2),
     boxShadow: 'none',
     position: 'relative',
-    zIndex:1,
+    zIndex: 1,
+    '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Superposición oscura
+        zIndex: 1,
+    },
     '& > div': {
+        position: 'relative',
+        zIndex: 2,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start', // Align items to the left
+        alignItems: 'flex-start',
     },
 }));
 
@@ -92,30 +103,30 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
         <>
             {/* Primer Navbar con fondo de imagen */}
             <NavbarContainer position="static" backgroundImage={imageUrl}>
-                <Toolbar style={{width:'90%'}}>
+                <Toolbar style={{ width: '90%' }}>
                     {organizer && <Info variant="body1">Organizado por {organizer}</Info>}
-                    
+
                     <Stack direction="row" spacing={1}>
-                        <Title variant="h1">{title} </Title>
-                        <Chip label={eventType} color={eventType == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }}/>
+                        <Title variant="h1">{title}</Title>
+                        <Chip label={eventType} color={eventType == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
                     <p>Description: {description}</p>
-                    
+
                     <Info variant="body1">Fecha: {date} a las {time}</Info>
-                    { location && <Info variant="body1">Te esperamos en el {location}</Info> }
-                    <br/>
+                    {location && <Info variant="body1">Te esperamos en el {location}</Info>}
+                    <br />
                 </Toolbar>
                 <div style={floatingDivStyle}>
                     <Typography variant="h4" fontWeight={800}>Categoría: {category}</Typography>
                 </div>
             </NavbarContainer>
             <Box sx={{
-                    width: '100%',
-                    '@media (min-width:600px)': {
-                        width: '90%' 
-                    },
-                    margin: '0 auto'
-                }}
+                width: '100%',
+                '@media (min-width:600px)': {
+                    width: '90%'
+                },
+                margin: '0 auto'
+            }}
             >
                 <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
@@ -160,7 +171,7 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
                     </Grid>
                 </Grid>
             </Box>
-            
+
         </>
     );
 };
