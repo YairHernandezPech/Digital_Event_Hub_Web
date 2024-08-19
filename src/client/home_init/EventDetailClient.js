@@ -231,8 +231,8 @@ const HomeEventClient = () => {
                                 <div className="card-overlay"></div>
                             </div>
                             <div className="card-content">
-                                <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px' }}>{event.evento_nombre}</h2>
-                                <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
+                                <h4 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px', color: 'white' }}>{event.evento_nombre}</h4>
+                                <p style={{ fontSize: '12px', margin: '10px' }}>{event.descripcion}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     
                                     <p style={{ margin: '10px', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
