@@ -86,7 +86,7 @@ const HomeEventClient = () => {
     return (
         <div>
             {/* <ClientNavbarHome /> */}
-              {user ? (
+              {/* {user ? (
         <CardContent>
             <Typography variant="h5" component="div" gutterBottom>
                 Bienvenido, {user.nombre}!
@@ -128,7 +128,7 @@ const HomeEventClient = () => {
         </CardContent>
             ) : (
             <p>Cargando...</p>
-            )}
+            )} */}
             <div style={{ padding: '30px'}}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
 
@@ -215,7 +215,7 @@ const HomeEventClient = () => {
                     </div>
                 )}
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px', maxWidth: '1140px',margin: '0px auto' }}>
                     {filteredEvents.map(event => (
                         <div
                             key={event.evento_id}
@@ -231,7 +231,7 @@ const HomeEventClient = () => {
                                 <div className="card-overlay"></div>
                             </div>
                             <div className="card-content">
-                                <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px' }}>{event.evento_nombre}</h2>
+                                <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px', color: 'white' }}>{event.evento_nombre}</h2>
                                 <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     
