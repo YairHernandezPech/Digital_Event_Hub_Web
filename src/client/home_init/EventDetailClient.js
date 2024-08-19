@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import ClientNavbarHome from './navbar_home';
 import './Css/newStyles.css';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 
@@ -86,7 +85,7 @@ const HomeEventClient = () => {
 
     return (
         <div>
-            <ClientNavbarHome />
+            {/* <ClientNavbarHome /> */}
               {user ? (
         <CardContent>
             <Typography variant="h5" component="div" gutterBottom>

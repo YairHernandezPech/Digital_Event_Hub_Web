@@ -1,12 +1,7 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Importar los componentes de las páginas
-import Inicio from './loading-page/inicio';
-import QuienesSomos from './loading-page/quienes-somos';
-import Servicios from './loading-page/servicio';
-import Contacto from './loading-page/contactos';
-import HomeEvent from './loading-page/HomeEvent';
 import Escenarios from './client/Escenarios/componentes/Escenarios';
 import EventDetail from './loading-page/event_detail';
 import EventDetailClient from './client/home_init/event_details_home';
@@ -15,18 +10,26 @@ import Login from './auth/login';
 import Registro from './auth/register';
 import ResetPassword from './auth/reset_password';
 
+
+const RedirectToCustomHTML = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Redirigir a custom-index.html dentro de custom-folder en la carpeta public
+    window.location.href = '/landing-page/home.html';
+  }, [navigate]);
+
+  return null;
+};
+
 const App = () => {
   return (
     <Router>
       <Routes>
         {/* Rutas del lading_Page*/}
-        <Route path="/" element={<Inicio />} />
-        <Route path="/quienes-somos" element={<QuienesSomos />} />
-        <Route path="/servicios" element={<Servicios />} />
-        <Route path="/contacto" element={<Contacto />} />
-        <Route path="/cliente" element={<HomeEvent />} />
-        {/* Detalles del evento usuario no registrado*/}
+        <Route path="/" element={<RedirectToCustomHTML />} />
         <Route path="/evento/:eventId" element={<EventDetail />} />
+
 
         {/* Rutas del login, registro y reset password*/}
         <Route path="/login" element={<Login />} />

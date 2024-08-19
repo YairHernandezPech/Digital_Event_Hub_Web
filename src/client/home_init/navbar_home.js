@@ -6,17 +6,7 @@ import logo from '../../loading-page/imagenes/logo-2.png';
 
 const ClientNavbarHome = () => {
   return (
-    <header>
-
-      <nav>
-        <ul>
-        <div className="logo-container">
-          <img src={logo} alt="Logo" width="140" height="140" />
-        </div>
-        
-        </ul>
-      </nav>
-    </header>
+<></>
   );
 };
 
