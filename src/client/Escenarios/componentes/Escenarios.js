@@ -8,7 +8,7 @@ import Escenario1 from '../Scenary1/Index'
 import Escenario3 from '../Scenary3'
 import Escenario4 from '../Scenary4'
 import axios from 'axios';
-import NavbarHomeEvent from './../../../loading-page/NavbarHomeEvent';
+import Navbar from './../../../loading-page/Navbar';
 import { Fab } from '@mui/material';
 
 const Escenarios = () => {
@@ -70,7 +70,7 @@ const Escenarios = () => {
 
     return (
         <Fragment>
-            <NavbarHomeEvent />
+            <Navbar />
             { eventData && <Header eventData={eventData} /> }
             <div className="main-container">
                 <div className="content-container">

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './Css/styles.css'; // Asegúrate de que tu CSS esté en esta ruta
-
-// Importar imágenes
-import logo from './imagenes/logo-2.png';
+import './Css/styles.css';
+import Navbar from './Navbar';
 import evento1 from './imagenes/1.jpg';
 import evento2 from './imagenes/2.jpg';
 import evento3 from './imagenes/3.jpg';
@@ -61,24 +59,7 @@ const Inicio = () => {
 
   return (
     <div>
-      <header>
-        <div className="logo-container">
-          <img src={logo} alt="Logo" width="140" height="140" />
-          <h1 >Bienvenidos</h1>
-        </div>
-        <nav>
-          <ul>
-            <li><a className="link" href="/">Inicio</a></li>
-            
-            <li><a className="link" href="/quienes-somos">Quienes Somos</a></li>
-            <li><a className="link" href="/servicios">Servicios</a></li>
-            <li><a className="link" href="/contacto">Contacto</a></li>
-            <li><a className="link" href="/cliente">Eventos</a></li>
-            <li><a href="login" className="login-button">Iniciar sesión</a></li>
-            <li><a href="registro" className="login-button">Registrarse</a></li>
-          </ul>
-        </nav>
-      </header>
+      <Navbar />
 
       <div className="main-content">
         <div className="content-wrapper">
@@ -126,13 +107,13 @@ const Inicio = () => {
             <div className="container-redes col-6 col-sm-3">
               <h4>Nuestras Redes Sociales</h4>
               <div className="social-icons">
-                <a className="Facebook" href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
-                <a className="Instagram" href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
-                <a className="Twitter-X" href="#" target="_blank" rel="noopener noreferrer">
+                <a className="Facebook" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
+                <a className="Instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
+                <a className="Twitter-X" href="https://x.com" target="_blank" rel="noopener noreferrer">
                   <img src={twitterLogo} alt="X Logo" />
                 </a>
-                <a className="WhatsApp" href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-whatsapp"></i></a>
-                <a className="Youtube" href="#" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
+                <a className="WhatsApp" href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer"><i className="fab fa-whatsapp"></i></a>
+                <a className="Youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
               </div>
               <p>¡Síguenos en nuestras redes sociales para estar informado!</p>
             </div>

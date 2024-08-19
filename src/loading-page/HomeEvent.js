@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import NavbarHomeEvent from './NavbarHomeEvent';
+import Navbar from './Navbar';
 import './Css/newStyles.css'; // Asegúrate de que el archivo CSS esté importado
 
 const HomeEvent = () => {
@@ -65,7 +65,7 @@ const HomeEvent = () => {
 
     return (
         <div>
-            <NavbarHomeEvent />
+            <Navbar />
             <div style={{ padding: '25px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
                     <div style={{ flex: '1 1 auto', maxWidth: '600px', position: 'relative' }}>
@@ -162,7 +162,7 @@ const HomeEvent = () => {
                                 <div className="card-overlay"></div>
                             </div>
                             <div className="card-content">
-                                <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px' }}>{event.evento_nombre}</h2>
+                                <h4 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px', color:'white' }}>{event.evento_nombre}</h4>
                                 <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     

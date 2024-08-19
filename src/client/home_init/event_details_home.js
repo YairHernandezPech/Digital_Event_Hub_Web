@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import EventInformationNavbar from './event_navbar_home'; // Asegúrate de que la ruta sea correcta
 import { CircularProgress, Box } from '@mui/material';
-import NavbarHomeEvent from '../../loading-page/NavbarHomeEvent';
+import Navbar from '../../loading-page/Navbar';
 
 const EventDetailClient = () => {
     const { eventId } = useParams();
@@ -61,7 +61,7 @@ const EventDetailClient = () => {
 
     return (
         <div>
-            <NavbarHomeEvent />
+            <Navbar />
             <EventInformationNavbar
                 title={event.evento_nombre}
                 imageUrl={event.imagen_url}
