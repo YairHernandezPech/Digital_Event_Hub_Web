@@ -8,6 +8,7 @@ import Escenario1 from '../Scenary1/Index'
 import Escenario3 from '../Scenary3'
 import Escenario4 from '../Scenary4'
 import axios from 'axios';
+import { Fab } from '@mui/material';
 
 const Escenarios = () => {
     const { id } = useParams();
@@ -68,7 +69,7 @@ const Escenarios = () => {
 
     return (
         <Fragment>
-            <Header eventData={eventData} />
+            { eventData && <Header eventData={eventData} /> }
             <div className="main-container">
                 <div className="content-container">
                     <div className="left-column" style={{ display: "flex" }}>
@@ -81,8 +82,18 @@ const Escenarios = () => {
                     </div>
                 </div>
             </div>
-            <button type="button" className="btn b-rigth" style={{ transform: 'translateY(40%)' }} onClick={handleSubmit}>Seleccionar</button>
-            
+            {/* <button type="button" className="btn b-rigth" style={{ transform: 'translateY(40%)' }} onClick={handleSubmit}>Seleccionar</button> */}
+            <Fab color="secondary" aria-label="add" variant="extended"  onClick={handleSubmit} sx={{
+                position: 'fixed',
+                bottom: 20,
+                right: 30,
+                zIndex: 1000,
+                borderRadius: '5px',
+            }}>
+                Seleccionar
+            </Fab>
+            <br/>
+            <br/>
         </Fragment>
     );
 }

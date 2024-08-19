@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Container, Button, styled, Card, CardContent, Grid } from '@mui/material';
+import { Chip, Stack, Box } from '@mui/material';
 
 // Estilos para el primer Navbar
 const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
-    position: 'relative',
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     color: 'white',
     padding: theme.spacing(2),
     boxShadow: 'none',
-    '& .MuiToolbar-root': {
-        backgroundColor: 'transparent', // Remove the toolbar background color
-    },
+    position: 'relative',
+    zIndex: 1,
     '&::before': {
         content: '""',
         position: 'absolute',
@@ -20,22 +19,32 @@ const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Dark overlay
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Superposición oscura
         zIndex: 1,
     },
     '& > div': {
-        position: 'relative', // Ensure content is above the overlay
+        position: 'relative',
         zIndex: 2,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start', // Align items to the left
+        alignItems: 'flex-start',
     },
 }));
+
+const floatingDivStyle = {
+    position: 'absolute',
+    bottom: '0',
+    right: '0',
+    backgroundColor: '#88158d', // Color para visualizar el div flotante
+    padding: '10px 20px',
+    borderRadius: '20px 0px 0px 0px',
+};
 
 const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
     textAlign: 'left', // Align title to the left
     marginBottom: theme.spacing(1), // Add margin below the title
+    fontSize: '4.5rem'
 }));
 
 const Info = styled(Typography)(({ theme }) => ({
@@ -94,70 +103,75 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
         <>
             {/* Primer Navbar con fondo de imagen */}
             <NavbarContainer position="static" backgroundImage={imageUrl}>
-                <Toolbar style={{width:'90%'}}>
-                    <Button
-                        color="inherit"
-                        style={{ marginLeft: 'auto' }}
-                        href="/registro"
-                    >
-                        Registrarse
-                    </Button>
-                    <Info variant="body1">Organizado por {organizer}</Info>
-                    <Title variant="h1">{title}</Title>
+                <Toolbar style={{ width: '90%' }}>
+                    {organizer && <Info variant="body1">Organizado por {organizer}</Info>}
+
+                    <Stack direction="row" spacing={1}>
+                        <Title variant="h1">{title}</Title>
+                        <Chip label={eventType} color={eventType == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
+                    </Stack>
                     <p>Description: {description}</p>
-                    
+
                     <Info variant="body1">Fecha: {date} a las {time}</Info>
-                    <Info variant="body1">Te esperamos en el {location}</Info>
-                    <Info variant="body1">Evento {eventType} de {category}</Info>
-                    <Info variant="body1">Autorizado por: {authorizedBy}</Info>
+                    {location && <Info variant="body1">Te esperamos en el {location}</Info>}
                     <br />
                 </Toolbar>
+                <div style={floatingDivStyle}>
+                    <Typography variant="h4" fontWeight={800}>Categoría: {category}</Typography>
+                </div>
             </NavbarContainer>
-            <Grid container spacing={2} style={{width:'90%'}}>
-                <Grid item xs={12} sm={6}>
-                    <MapCard>
-                        <CardContent>
-                            <div id="map" style={{ width: '100%', height: '400px' }}></div>
-                        </CardContent>
-                    </MapCard>
-                </Grid>
-            <Grid item xs={12} sm={6}>
+            <Box sx={{
+                width: '100%',
+                '@media (min-width:600px)': {
+                    width: '90%'
+                },
+                margin: '0 auto'
+            }}
+            >
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <MapCard>
+                            <CardContent>
+                                <div id="map" style={{ width: '100%', height: '400px' }}></div>
+                            </CardContent>
+                        </MapCard>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
                         <InfoCard>
-                        <CardContent>
-    <Typography variant="h6">Información Adicional</Typography>
-    <Typography variant="body2">
-        <strong>Título:</strong> {title}
-    </Typography>
-    <Typography variant="body2">
-        <strong>Fecha:</strong> {date}
-    </Typography>
-    <Typography variant="body2">
-        <strong>Hora:</strong> {time}
-    </Typography>
-    <Info variant="h1">{description}</Info>
-    <Typography variant="body2">
-        <strong>Ubicación:</strong> {location}
-    </Typography>
-    <Typography variant="body2">
-        <strong>Categoría:</strong> {category}
-    </Typography>
-    <Typography variant="body2">
-        <strong>Tipo de Evento:</strong> {eventType}
-    </Typography>
-    <Typography variant="body2">
-        <strong>Organizado por:</strong> {organizer}
-    </Typography>
-    <Typography variant="body2">
-        <strong>Autorizado por:</strong> {authorizedBy}
-    </Typography>
-    {/* Aquí puedes agregar más detalles o información adicional sobre el evento. */}
-</CardContent>
-
+                            <CardContent>
+                                <Typography variant="h6">Información Adicional</Typography>
+                                <Typography variant="body2">
+                                    <strong>Título:</strong> {title}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Fecha:</strong> {date}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Hora:</strong> {time}
+                                </Typography>
+                                <Info variant="h1">{description}</Info>
+                                <Typography variant="body2">
+                                    <strong>Ubicación:</strong> {location}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Categoría:</strong> {category}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Tipo de Evento:</strong> {eventType}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Organizado por:</strong> {organizer}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Autorizado por:</strong> {authorizedBy}
+                                </Typography>
+                                {/* Aquí puedes agregar más detalles o información adicional sobre el evento. */}
+                            </CardContent>
                         </InfoCard>
                     </Grid>
                 </Grid>
-            <br />
-            <hr />
+            </Box>
+
         </>
     );
 };

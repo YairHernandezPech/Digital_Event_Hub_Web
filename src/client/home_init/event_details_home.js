@@ -65,6 +65,7 @@ const EventDetailClient = () => {
                 imageUrl={event.imagen_url}
                 date={`${new Date(event.fecha_inicio).toLocaleDateString()} - ${new Date(event.fecha_termino).toLocaleDateString()}`}
                 time={event.hora}
+                description={event.descripcion}
                 location={event.ubicacion}
                 category={event.categoria}
                 eventType={event.tipo_evento}

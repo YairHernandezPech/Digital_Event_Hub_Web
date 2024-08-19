@@ -5,6 +5,7 @@
     background-color: white;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    
 }
 
 .card:hover {
@@ -14,6 +15,7 @@
 
 .card-image-container {
     position: relative;
+    
 }
 
 .card-image {
@@ -39,7 +41,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro para el contenido */
+    background-color: #7e2181b5; /* Fondo oscuro para el contenido */
     color: white;
     padding: 20px;
     transform: translateY(100%);
