@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './Css/styles.css'; // Asegúrate de que tu CSS esté en esta ruta
 import './Css/quienes-somos.css'; // Asegúrate de que tu CSS esté en esta ruta
+import Navbar from './Navbar';
 
 // Importar imágenes desde la carpeta correcta
 import logo from './imagenes/logo-2.png';
@@ -49,23 +50,7 @@ const QuienesSomos = () => {
 
   return (
     <div>
-      <header>
-        <div className="logo-container">
-          <img src={logo} alt="Logo" width="145" height="145" />
-          <h1 >Nosotros</h1>
-        </div>
-        <nav>
-          <ul>
-            <li><a className="link" href="/">Inicio</a></li>
-            <li><a className="link" href="/quienes-somos">Quienes Somos</a></li>
-            <li><a className="link" href="/servicios">Servicios</a></li>
-            <li><a className="link" href="/contacto">Contacto</a></li>
-            <li><a className="link" href="/cliente">Eventos</a></li>
-            <li><a href="login" className="login-button">Iniciar sesión</a></li>
-            <li><a href="registro" className="login-button">Registrarse</a></li>
-          </ul>
-        </nav>
-      </header>
+      <Navbar title="Nosotros"/>
       <br />
       <div className="container-quienes-somos">
         <div className="row justify-content-center">
@@ -85,7 +70,7 @@ const QuienesSomos = () => {
               <p>
                 Donde creemos que la tecnología es una de las herramientas más poderosas y lo que buscamos es que
                 usted tenga el poder de aprovechar esta ventaja y que sea tu aliado y no tu enemigo, <b>¡y si no
-                sabes nada acerca de la tecnología no te preocupes nosotros mismos te podemos guiar!</b>
+                  sabes nada acerca de la tecnología no te preocupes nosotros mismos te podemos guiar!</b>
               </p>
             </div>
           </div>

@@ -5,28 +5,12 @@ import './Css/contacto.css';
 import logo from './imagenes/logo-2.png';
 import twitterLogo from './imagenes/Twitter-X-White-Logo-PNG-1.png';
 import footerLogo from './imagenes/logo.jpg';
+import Navbar from './Navbar';
 
 const Contacto = () => {
     return (
         <div>
-            <header>
-                <div className="logo-container">
-                    <img src={logo} alt="Logo" width="145" height="145" />
-                    <h1>Contatanos</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a className="link" href="/">Inicio</a></li>
-                        
-                        <li><a className="link" href="/quienes-somos">Quienes Somos</a></li>
-                        <li><a className="link" href="/servicios">Servicios</a></li>
-                        <li><a className="link" href="/contacto">Contacto</a></li>
-                        <li><a className="link" href="/cliente">Eventos</a></li>
-                        <li><a href="login" className="login-button">Iniciar sesión</a></li>
-                        <li><a href="registro" className="login-button">Registrarse</a></li>
-                    </ul>
-                </nav>
-            </header>
+            <Navbar title="Contatanos"/>
 
             <div className="container-contacto">
                 <div className="row justify-content-center">
@@ -44,7 +28,7 @@ const Contacto = () => {
                         <p>Domingos: Cerrado</p>
                         <p>También puedes usar este formulario para hacer preguntas directamente desde la Web.</p>
                     </div>
-                    
+
                     <div className="col-6 col-sm-6">
                         <div className="formulario-contacto">
                             <h1 className="title">Contáctanos</h1>

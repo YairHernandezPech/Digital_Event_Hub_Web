@@ -1,8 +1,6 @@
 import React from 'react';
-import { FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 import './Css/styles.css'; // Asegúrate de que este archivo esté en la ruta correcta
 // Asegúrate de que este archivo esté en la ruta correcta
-import logo from './imagenes/logo-2.png';
 import twitterLogo from './imagenes/Twitter-X-White-Logo-PNG-1.png';
 import footerLogo from './imagenes/logo.jpg';
 import eventos1 from './imagenes/eventos/7.jpg';
@@ -13,29 +11,12 @@ import eventos5 from './imagenes/eventos/2.webp';
 import eventos6 from './imagenes/eventos/3.webp';
 import eventos7 from './imagenes/eventos/5.jpeg';
 import eventos8 from './imagenes/eventos/8.jpeg';
+import Navbar from './Navbar';
 
 const Servicios = () => {
     return (
         <div>
-            <header>
-                <div className="logo-container">
-                    <img src={logo} alt="Logo" width="145" height="145" />
-                    <h1>Servicios</h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a className="link" href="/">Inicio</a></li>
-                        
-                        <li><a className="link" href="/quienes-somos">Quienes Somos</a></li>
-                        <li><a className="link" href="/servicios">Servicios</a></li>
-                        <li><a className="link" href="/contacto">Contacto</a></li>
-                        <li><a className="link" href="/cliente">Eventos</a></li>
-                        <li><a href="login" className="login-button">Iniciar sesión</a></li>
-                        <li><a href="registro" className="login-button">Registrarse</a></li>
-                    </ul>
-                </nav>
-            </header>
-
+            <Navbar title="Servicios"/>
             <div className="main-content">
                 <div className="content-wrapper">
                     <h1 className="typewriter-text" id="typewriter">Conoce Los Proximos<br />Eventos</h1>
@@ -80,13 +61,13 @@ const Servicios = () => {
                         <div className="container-redes col-6 col-sm-3">
                             <h4>Nuestras Redes Sociales</h4>
                             <div className="social-icons">
-                                <a className="Facebook" href="#" target="_blank" rel="noopener noreferrer"><FaFacebookF /></a>
-                                <a className="Instagram" href="#" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-                                <a className="Twitter-X" href="#" target="_blank" rel="noopener noreferrer">
+                                <a className="Facebook" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
+                                <a className="Instagram" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
+                                <a className="Twitter-X" href="https://x.com" target="_blank" rel="noopener noreferrer">
                                     <img src={twitterLogo} alt="X Logo" />
                                 </a>
-                                <a className="WhatsApp" href="#" target="_blank" rel="noopener noreferrer"><FaWhatsapp /></a>
-                                <a className="Youtube" href="#" target="_blank" rel="noopener noreferrer"><FaYoutube /></a>
+                                <a className="WhatsApp" href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer"><i className="fab fa-whatsapp"></i></a>
+                                <a className="Youtube" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i></a>
                             </div>
                             <p>¡Síguenos en nuestras redes sociales para estar informado!</p>
                         </div>
