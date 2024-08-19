@@ -1,7 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { FaSearch, FaFilter } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import ClientNavbarHome from './navbar_home';
+import './Css/newStyles.css';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
+
 
 const HomeEventClient = () => {
     const [events, setEvents] = useState([]);
@@ -85,18 +88,49 @@ const HomeEventClient = () => {
         <div>
             <ClientNavbarHome />
               {user ? (
-               <div>
-                <h2>Bienvenido, {user.nombre}!</h2>
-                <p>Email: {user.email}</p>
-                <p>Teléfono: {user.telefono}</p>
-                <p>Apellido: {user.last_name}</p>
-                <p>tu rol: {user.rol_id}</p>
-                <button onClick={handleLogout}>Cerrar Sesión</button>
-            </div>
+        <CardContent>
+            <Typography variant="h5" component="div" gutterBottom>
+                Bienvenido, {user.nombre}!
+            </Typography>
+            <Box 
+                sx={{ 
+                    display: 'flex', 
+                    flexDirection: 'row', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center',
+                    marginTop: '10px',
+                    marginBottom: '0px'
+                }}
+            >
+                <Typography variant="body1" color="textSecondary">
+                    <strong>Email:</strong> {user.email}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                    <strong>Teléfono:</strong> {user.telefono}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                    <strong>Apellido:</strong> {user.last_name}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                    <strong>Tu rol:</strong> {user.rol_id}
+                </Typography>
+                <Typography variant="body1" color="textSecondary">
+                <Button 
+                variant="contained" 
+                color="secondary" 
+                onClick={handleLogout} 
+
+            >
+                Cerrar Sesión
+            </Button>
+                </Typography>
+            </Box>
+
+        </CardContent>
             ) : (
             <p>Cargando...</p>
             )}
-            <div style={{ padding: '30px',marginTop: '30px', maxWidth: '80%', margin: 'auto', backgroundColor: '#f7f8fa', borderRadius: '8px', boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)' }}>
+            <div style={{ padding: '30px'}}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
@@ -182,31 +216,38 @@ const HomeEventClient = () => {
                     </div>
                 )}
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
                     {filteredEvents.map(event => (
                         <div
                             key={event.evento_id}
-                            style={{
-                                padding: '20px',
-                                borderRadius: '8px',
-                                boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)',
-                                backgroundColor: 'white',
-                                cursor: 'pointer',
-                                textAlign: 'center',
-                                transition: 'transform 0.3s, box-shadow 0.3s',
-                            }}
+                            className="card"
                             onClick={() => handleEventClick(event.evento_id)}
                         >
-                            <img
-                                src={event.imagen_url || 'default-image-url.jpg'} // Cambia esto a una imagen por defecto si es necesario
-                                alt={event.evento_nombre}
+                            <div className="card-image-container">
+                                <img
+                                    src={event.imagen_url || 'default-image-url.jpg'}
+                                    alt={event.evento_nombre}
+                                    className="card-image"
+                                />
+                                <div className="card-overlay"></div>
+                            </div>
+                            <div className="card-content">
+                                <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px' }}>{event.evento_nombre}</h2>
+                                <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    
+                                    <p style={{ margin: '10px', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
 
-                                style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}
-                            />
-                            <h2 style={{ margin: '10px 0', fontSize: '1.2em' }}>{event.evento_nombre}</h2>
-                            <p style={{ color: '#666' }}>{event.descripcion}</p>
-                            <p style={{ color: '#666' }}>{event.ubicacion}</p>
-                            <p style={{ color: '#999' }}>{new Date(event.fecha_inicio).toLocaleDateString()}</p>
+                                        <FaMapMarkerAlt style={{ marginRight: '5px', fontSize: '1em' }} />
+                                        {event.ubicacion}
+                                    </p>
+                                    <p style={{ margin: '0', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
+                                        <FaCalendarAlt style={{ marginRight: '5px', fontSize: '1em' }} />
+                                        {new Date(event.fecha_inicio).toLocaleDateString()}
+                                    </p>
+                                </div>
+                            </div>
+
                         </div>
                     ))}
                 </div>
