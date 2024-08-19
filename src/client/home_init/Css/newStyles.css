@@ -39,7 +39,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro para el contenido */
+    background-color: #7e2181b5; /* Fondo oscuro para el contenido */
     color: white;
     padding: 20px;
     transform: translateY(100%);
