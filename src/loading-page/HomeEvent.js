@@ -65,7 +65,7 @@ const HomeEvent = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar title="Eventos"/>
             <div style={{ padding: '25px' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
                     <div style={{ flex: '1 1 auto', maxWidth: '600px', position: 'relative' }}>

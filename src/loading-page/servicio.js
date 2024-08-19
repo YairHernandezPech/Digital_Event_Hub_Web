@@ -16,7 +16,7 @@ import Navbar from './Navbar';
 const Servicios = () => {
     return (
         <div>
-            <Navbar />
+            <Navbar title="Servicios"/>
             <div className="main-content">
                 <div className="content-wrapper">
                     <h1 className="typewriter-text" id="typewriter">Conoce Los Proximos<br />Eventos</h1>

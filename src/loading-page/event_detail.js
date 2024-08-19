@@ -38,7 +38,7 @@ const EventDetail = () => {
 
     return (
         <div>
-            <Navbar />
+            <Navbar title="Detalles del evento"/>
             <EventNavbar
                 title={event.evento_nombre}
                 description={event.descripcion}

@@ -59,7 +59,7 @@ const Inicio = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar title="Bienvenidos"/>
 
       <div className="main-content">
         <div className="content-wrapper">

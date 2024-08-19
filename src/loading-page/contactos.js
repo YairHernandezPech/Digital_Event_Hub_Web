@@ -10,7 +10,7 @@ import Navbar from './Navbar';
 const Contacto = () => {
     return (
         <div>
-            <Navbar />
+            <Navbar title="Contatanos"/>
 
             <div className="container-contacto">
                 <div className="row justify-content-center">

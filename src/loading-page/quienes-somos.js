@@ -50,7 +50,7 @@ const QuienesSomos = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar title="Nosotros"/>
       <br />
       <div className="container-quienes-somos">
         <div className="row justify-content-center">

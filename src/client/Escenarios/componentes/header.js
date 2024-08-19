@@ -11,14 +11,25 @@ const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
     padding: theme.spacing(2),
     boxShadow: 'none',
     position: 'relative',
-    zIndex:1,
+    zIndex: 1,
+    '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Superposición oscura
+        zIndex: 1,
+    },
     '& > div': {
+        position: 'relative',
+        zIndex: 2,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'flex-start', // Align items to the left
+        alignItems: 'flex-start',
     },
 }));
-
 const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
     textAlign: 'left', // Align title to the left
@@ -45,22 +56,26 @@ const floatingDivStyle = {
 const Header = ({ eventData }) => {
     console.log(eventData)
     return (
-        <CustomNavbarContainer position="static" backgroundImage={eventData?.imagen_url ?? ""}>
+
+
+            <CustomNavbarContainer position="static" backgroundImage={eventData?.imagen_url ?? ""}>
             <div style={{width:'90%'}}>
                 
-                <Stack direction="row" spacing={1}>
-                    <Title variant="h1">{eventData.evento_nombre} </Title>
-                    <Chip label={eventData.tipo_evento} color={eventData.tipo_evento == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }}/>
-                </Stack>
-                <p>Description: {eventData.descripcion}</p>
-                
-                { eventData.ubicacion && <Info variant="body1">Te esperamos en el {eventData.ubicacion}</Info> }
-                <br/>
-            </div>
-            <div style={floatingDivStyle}>
+
+                    <Stack direction="row" spacing={1}>
+                        <Title variant="h1">{eventData.evento_nombre}</Title>
+                        <Chip label={eventData.tipo_evento} color={eventData.tipo_evento == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }} />
+                    </Stack>
+                    <p>Description: {eventData.descripcion}</p>
+
+                    { eventData.ubicacion && <Info variant="body1">Te esperamos en el {eventData.ubicacion}</Info> }
+                    <br />
+                    </div>
+                <div style={floatingDivStyle}>
                 <Typography variant="h4" fontWeight={800}>Categoría: {eventData.categoria}</Typography>
-            </div>
-        </CustomNavbarContainer>
+                </div>
+            </CustomNavbarContainer>
+        
     );
 }
 
