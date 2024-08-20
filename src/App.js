@@ -61,6 +61,7 @@ const App = () => {
   }
   return (
     <BrowserRouter>
+      <div className="App">
         <Routes>
           {/* Rutas del lading_Page*/}
           <Route path="/" element={<RedirectToCustomHTML />} />
@@ -96,6 +97,7 @@ const App = () => {
           />
 
         </Routes>
+      </div>
     </BrowserRouter>
   );
 };
