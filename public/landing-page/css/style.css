@@ -1665,3 +1665,83 @@ body.mobile-nav-active #mobile-nav-toggle {
     margin-top: 10px;
   }
 }
+
+
+/* card-events */
+.card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 30px;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.card-image-container {
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparente para el overlay */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #7e2181b5; /* Fondo oscuro para el contenido */
+  color: white;
+  padding: 20px;
+  transform: translateY(60%);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.card .card-content {
+  height: 80%;
+}
+
+.card:hover .card-overlay {
+  opacity: 1;
+}
+
+.card .card-content p{
+  visibility: hidden;
+  display: -webkit-box; /* Define un contenedor flexible */
+  -webkit-box-orient: vertical; /* Establece la orientación del contenedor flexible en vertical */
+  overflow: hidden; /* Oculta el desbordamiento */
+  text-overflow: ellipsis; /* Añade los puntos suspensivos */
+  -webkit-line-clamp: 3; /* Limita el texto a 4 líneas */
+  line-height: 1.5; /* Ajusta la altura de línea (opcional, dependiendo del diseño) */
+  max-height: calc(1.5em * 3); /* Altura máxima basada en el número de líneas y la altura de línea */
+}
+
+.card:hover .card-content p{
+  visibility: visible;
+}
+
+.card:hover .card-content {
+  transform: translateY(0);
+  opacity: 1;
+  background-color: #6d3089d8;
+}
