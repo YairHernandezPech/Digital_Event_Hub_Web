@@ -3,6 +3,8 @@ import { registerUser } from  "../services/api-auth";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
 import "./css/register.css";
+import logo from './img/logo.png';
+
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,12 +13,12 @@ const Register = () => {
     contrasena: "",
     telefono: "",
     last_name: "",
-    rol_id: "2", // Default to 'User'
     curp: "",
     empresa: "",
     rfc: "",
   });
 
+  const [isOrganizer, setIsOrganizer] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,31 +31,33 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { nombre, email, contrasena, telefono, last_name, rol_id, curp, empresa, rfc } = formData;
-    if (!nombre || !email || !contrasena || !telefono || !last_name || (rol_id === "3" && (!curp || !empresa || !rfc))) {
+    const { nombre, email, contrasena, telefono, last_name, curp, empresa, rfc } = formData;
+    const rol_id = isOrganizer ? 3 : 2;
+
+     // Validación de campos según el rol
+     if (!nombre || !email || !contrasena || !telefono || !last_name || (isOrganizer && (!curp || !empresa || !rfc))) {
       alert("Por favor rellena todos los campos");
       return;
     }
 
+    console.log("Datos a enviar:", { nombre, email, contrasena, telefono, last_name, rol_id, curp, empresa, rfc });
+
     try {
       await registerUser({ nombre, email, contrasena, telefono, last_name, rol_id });
-
+      
       //autologin
       const { token, user } = await loginUser(email, contrasena);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       
       // Guardar los datos adicionales en localStorage si es organizador
-      if (rol_id === "3") {
+      if (rol_id === 3) {
         localStorage.setItem("curp", curp);
         localStorage.setItem("empresa", empresa);
         localStorage.setItem("rfc", rfc);
       }
 
       switch (user.rol_id) {
-        case 1:
-          navigate("/admin");
-          break;
         case 2:
           navigate("/cliente/home");
           break;
@@ -75,104 +79,102 @@ const Register = () => {
   
 
   return (
-    <div className="modal">
-      <div className="header">
-        <h1>Digital Event Hub</h1>
-      </div>
-      <div className="container">
-        <h2>Crea una cuenta</h2>
-        <div className="subtext">Es rápido y fácil</div>
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="form-row horizontal">
-            <div className="form-group">
-              <input
-                name="nombre"
-                value={formData.nombre}
-                onChange={handleChange}
-                placeholder="Nombre"
-              />
-            </div>
-            <div className="form-group">
-              <input
-                name="last_name"
-                value={formData.last_name}
-                onChange={handleChange}
-                placeholder="Apellido"
-              />
-            </div>
+    <div className="registro-container">
+      <div className="registro-content">
+        <div className="registro-logo-container">
+          <img src={logo} alt="Logo" className="registro-logo" />
+        </div>
+        <div className="registro-form-container">
+        <div className="button-container">
+          <button onClick={() => setIsOrganizer(false)} className={`switch-button ${!isOrganizer ? 'active' : ''}`}>
+            Cliente
+          </button>
+          <button onClick={() => setIsOrganizer(true)} className={`switch-button ${isOrganizer ? 'active' : ''}`}>
+            Organizador
+          </button>
           </div>
-          <div className="form-group wide-input">
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Correo Electrónico"
-            />
-          </div>
-          <div className="form-group wide-input">
-            <input
-              name="contrasena"
-              type="password"
-              value={formData.contrasena}
-              onChange={handleChange}
-              placeholder="Contraseña"
-            />
-          </div>
-          <div className="form-row horizontal">
-            <div className="form-group">
-              <input
-                name="telefono"
-                value={formData.telefono}
-                onChange={handleChange}
-                placeholder="Teléfono"
-              />
-            </div>
-            <div className="form-group">
-              <select
-                name="rol_id"
-                value={formData.rol_id}
-                onChange={handleChange}
-              >
-                <option value="2">Usuario</option>
-                <option value="3">Organizador</option>
-              </select>
-            </div>
-          </div>
-          {formData.rol_id === "3" && (
-            <>
-              <div className="form-group wide-input">
+          <form onSubmit={handleSubmit} noValidate>
+            <div className="form-row horizontal">
+              <div className="form-group">
                 <input
-                  name="curp"
-                  value={formData.curp}
+                  name="nombre"
+                  value={formData.nombre}
                   onChange={handleChange}
-                  placeholder="CURP"
+                  placeholder="Nombre"
                 />
               </div>
-              <div className="form-group wide-input">
+              <div className="form-group">
                 <input
-                  name="empresa"
-                  value={formData.empresa}
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleChange}
-                  placeholder="Empresa"
+                  placeholder="Apellido"
                 />
               </div>
-              <div className="form-group wide-input">
+            </div>
+            <div className="form-row horizontal">
+              <div className="form-group">
                 <input
-                  name="rfc"
-                  value={formData.rfc}
+                  name="email"
+                  type="email"
+                  value={formData.email}
                   onChange={handleChange}
-                  placeholder="RFC"
+                  placeholder="email"
                 />
               </div>
-            </>
-          )}
-          <div className="form-group">
-            <button type="submit">Registrar</button>
-          </div>
-        </form>
-        <div className="link">
-          ¿Ya te has registrado? <a href="/login">Inicia sesión</a>
+              <div className="form-group">
+                <input
+                  name="contrasena"
+                  type="password"
+                  value={formData.contrasena}
+                  onChange={handleChange}
+                  placeholder="contraseña"
+                />
+              </div>
+            </div>
+            <div className="form-row horizontal">
+              <div className="form-group">
+                <input
+                  name="telefono"
+                  value={formData.telefono}
+                  onChange={handleChange}
+                  placeholder="Teléfono"
+                />
+              </div>
+            </div>
+            {isOrganizer && (
+              <>
+                <div className="form-group ">
+                  <input
+                    name="curp"
+                    value={formData.curp}
+                    onChange={handleChange}
+                    placeholder="CURP"
+                  />
+                </div>
+                <div className="form-group ">
+                  <input
+                    name="empresa"
+                    value={formData.empresa}
+                    onChange={handleChange}
+                    placeholder="Empresa"
+                  />
+                </div>
+                <div className="form-group ">
+                  <input
+                    name="rfc"
+                    value={formData.rfc}
+                    onChange={handleChange}
+                    placeholder="RFC"
+                  />
+                </div>
+              </>
+            )}
+            <div className="form-group">
+              <button type="submit">Registrar</button>
+            </div>
+            <p className="login-register">¿Ya tienes cuenta? <a href="/login">Inicia sesion</a></p>
+          </form>
         </div>
       </div>
     </div>

@@ -1,79 +1,143 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 .login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('../img/fondo.jpg') no-repeat center center; /* Ruta a la imagen de fondo */
+  background-size: cover; /* Para que la imagen cubra todo el fondo */
+  font-family: 'Arial', sans-serif;
+}
+
+.login-content {
+  display: flex;
+  width: 80%;
+  max-width: 1200px; 
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.login-form-container {
+  flex: 1;
+  background: linear-gradient(to top, #D900FF, #3A124A);  padding: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  color: #b370b0;
+  border-radius: 10px 0 0 10px; 
 }
 
-.login-container h3 {
-  font-family: 'Lobster', cursive; /* Tipografía del título */
+.login-title {
+  color: white;
   font-size: 40px;
-  margin-bottom: 30px;
-}
-
-.login-form {
-  background: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #4e3b57;
-}
-
-.login-form div {
   margin-bottom: 20px;
 }
 
-.login-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+.login-input-group {
+  margin-bottom: 15px;
+  width: 100%;
 }
 
-.login-form input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: 600; /* Ajuste de grosor de las letras */
-}
-
-.login-form button {
-  width: 100%;
-  padding: 15px;
+.login-input {
+  width: 300px;
+  padding: 12px;
+  border-radius: 20px;
   border: none;
-  border-radius: 5px;
-  background-color: #b370b0;
-  color: white;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background-color: #4d0f57;
+  border: 2px solid #e773f4;
+  color: rgb(255, 255, 255);
   font-size: 16px;
   cursor: pointer;
+  margin-top: 10px;
 }
 
-.login-form button:hover {
-  background-color: #9b5e93;
+.login-social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
 }
 
-.login-form p {
-  margin-top: 20px;
-  text-align: center;
-  color: #b370b0;
+.login-social-button {
+  background-color: #ffffff;
+  color: #541b6a;
+  border: 2px solid #dcdcdc;
+  border-radius: 18px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s ease;
 }
 
-.login-form p a {
-  color: #b370b0;
+.login-social-button i {
+  font-size: 18px;
+}
+
+.login-social-button:hover {
+  background-color: #eb52dc;
+}
+
+.login-logo-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff; 
+}
+
+.login-logo {
+  max-width: 200px; 
+  height: auto;
+}
+
+.login-register {
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.login-register a {
+  color: #ffffff;
   text-decoration: none;
 }
 
-.login-form p a:hover {
-  text-decoration: underline;
+/* Estilos para el selector de rol */
+.login-role-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.error-message {
-  color: red;
-  text-align: center;
-  margin-top: 10px;
+.role-button {
+  background-color: #ffffff;
+  color: #541b6a;
+  border: 2px solid #dcdcdc;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.role-button.active {
+  background-color: #541b6a;
+  color: #ffffff;
+}
+
+.role-button:hover {
+  background-color: #eb52dc;
+  color: #ffffff;
 }
