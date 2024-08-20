@@ -1,0 +1,28 @@
+/* src/pages/Success.css */
+.contain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .content {
+    text-align: center;
+    background-color: white;
+    padding: 60px;
+    border-radius: 20%;
+    border: 12px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  }
+  
+ 
+  .whatsapp-button {
+    display: inline-block;
+    background-color: #25D366;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+  }
+  

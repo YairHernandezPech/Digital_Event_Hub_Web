@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
-import "../../../style.css";
+import "../../../styles/style.css";
 import Symbology from './symbology'
 import Header from './header'
 import Escenario1 from '../Scenary1/Index'

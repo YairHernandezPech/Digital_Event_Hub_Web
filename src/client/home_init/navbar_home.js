@@ -1,7 +1,7 @@
 // ClientNavbarHome.jsx
 import React from 'react';
 import logo from '../../img/LOGO HUB BLANCO 3.png';
-import './Css/navbar.css';
+import '../../styles/navbars.css';
 const ClientNavbarHome = ({ user, onLogout }) => {
   return (
     <header id="header">

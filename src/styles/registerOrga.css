@@ -1,0 +1,96 @@
+.registro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url('../img/13.png') no-repeat center center; 
+  background-size: cover; 
+  font-family: 'Arial', sans-serif;
+}
+
+/* Contenedor de contenido */
+.registro-content {
+  display: flex;
+  width: 100%;
+  max-width: 1000px; 
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.registro-logo-container {
+  flex: 1.5;
+  background-color: #ffffff; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registro-logo {
+  max-width: 200px; 
+  height: auto;
+}
+
+.registro-form-container {
+  flex: 2;
+  background: linear-gradient(to top, #D900FF, #3A124A);  padding: 40px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.registro-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.registro-form h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 35px;
+
+}
+
+.registro-form label {
+  display: block;
+  margin-top: 0.5rem;
+  color: #efefef;
+  font-size: 20px;
+}
+
+.registro-form input {
+  display: block;
+  width: calc(100% - 1rem);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #ffffff;
+  border: 2px solid rgb(224, 104, 208);
+  border-radius: 15px;
+}
+
+.registro-form button {
+  background-color: #870585;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem 1rem;
+  border: none;
+  margin-top: 1rem;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.registro-form button:hover {
+  background-color: #6a2774;
+}
+
+.login-link {
+  color: #0f1113;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.login-link:hover {
+  color: #357ab8;
+}

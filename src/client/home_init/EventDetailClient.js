@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import './Css/newStyles.css';
+import '../../styles/newStyles.css'
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import ClientNavbarHome from './navbar_home';
 
@@ -220,18 +220,18 @@ const HomeEventClient = () => {
                     {filteredEvents.map(event => (
                         <div
                             key={event.evento_id}
-                            className="card"
+                            className="card3"
                             onClick={() => handleEventClick(event.evento_id)}
                         >
-                            <div className="card-image-container">
+                            <div className="card-image-container3">
                                 <img
                                     src={event.imagen_url || 'default-image-url.jpg'}
                                     alt={event.evento_nombre}
-                                    className="card-image"
+                                    className="card-image3"
                                 />
                                 <div className="card-overlay"></div>
                             </div>
-                            <div className="card-content">
+                            <div className="card-content3">
                                 <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px', color: 'white' }}>{event.evento_nombre}</h2>
                                 <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

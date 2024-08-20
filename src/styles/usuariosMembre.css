@@ -1,0 +1,45 @@
+.contenedor-tablas {
+  background-color: #f8f9fa; 
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart .cart-header {
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #8E44AD;
+  color: white;
+}
+
+.table {
+  width: 100%;
+}
+
+.table th, .table td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px;
+}
+
+.membresia-card {
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.membresia-basico {
+  background-color: #3498db; /* Azul */
+}
+
+.membresia-plus {
+  background-color: #e67e22; /* Naranja */
+}
+
+.membresia-profesional {
+  background-color: #2ecc71; /* Verde */
+}

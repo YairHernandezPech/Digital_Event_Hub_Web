@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
-import "./css/login.css";
-import logo from './img/logo.png'
+import "../styles/login.css";
+import logo from '../img/LOGO HUB 1.png'
 import Swal from 'sweetalert2';
 
 const Login = () => {
@@ -70,7 +70,7 @@ const Login = () => {
             </button>
             <button
               className="role-button"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/login-orga")}
             >
               Organizador
             </button>

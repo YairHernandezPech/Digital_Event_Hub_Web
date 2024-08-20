@@ -1,0 +1,69 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cardss-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.membership-cards {
+  border: 2px solid;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  flex: 1;
+  min-width: 200px;
+  background-color: #fff;
+}
+
+.membership-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.membership-description {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.membership-price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 400px;
+}
+
+.modal-header, .modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header .close {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin: 1rem 0;
+}

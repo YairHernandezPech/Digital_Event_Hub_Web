@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../../style.css";
+import "../../../styles/style.css";
 import { AppBar, Typography, styled, Chip, Stack, Box } from '@mui/material';
 
 // Estilos para el primer Navbar

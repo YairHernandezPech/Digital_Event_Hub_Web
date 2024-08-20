@@ -3,8 +3,8 @@ import { registerUser } from  "../services/api-auth";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
 import Swal from 'sweetalert2';
-import "./css/register.css";
-import logo from './img/logo.png';
+import "../styles/register.css"
+import logo from '../img/LOGO HUB 1.png'
 
 
 const Register = () => {
@@ -78,11 +78,11 @@ const Register = () => {
           <img src={logo} alt="Logo" className="registro-logo" />
         </div>
         <div className="registro-form-container">
-        <div className="button-container">
-          <button onClick={() => setIsOrganizer(false)} className={`switch-button ${!isOrganizer ? 'active' : ''}`}>
+        <div className="button-container1">
+          <button onClick={() => setIsOrganizer(false)} className={`switch-button1 ${!isOrganizer ? 'active' : ''}`}>
             Cliente
           </button>
-          <button className="switch-button" onClick={() => navigate("/")}>
+          <button className="switch-button1" onClick={() => navigate("/register-orga")}>
             Organizador
           </button>
           </div>
