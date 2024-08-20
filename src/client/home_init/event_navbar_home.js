@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Container, Grid, Fab, styled, Card, CardContent, Chip, Stack, Box } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import EventIcon from '@mui/icons-material/Event';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import React, { useEffect, useState } from 'react'; // Asegúrate de importar useState
+import { AppBar, Toolbar, Typography, Grid, Fab, styled, Card, CardContent, Chip, Stack, Box } from '@mui/material';
 import SeatIcon from '@mui/icons-material/EventSeat';
+import ClientNavbarHome from './navbar_home';
+import { useNavigate } from 'react-router-dom';
 
 // Estilos para el primer Navbar
 const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
@@ -36,7 +33,6 @@ const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
     },
 }));
 
-
 const floatingDivStyle = {
     position: 'absolute',
     bottom: '0',
@@ -61,6 +57,7 @@ const CustomInfo = styled(Typography)(({ theme }) => ({
     alignItems: 'center',
     gap: theme.spacing(1),
 }));
+
 const Info = styled(Typography)(({ theme }) => ({
     textAlign: 'left', // Align info text to the left
     fontSize: '1rem',
@@ -79,8 +76,6 @@ const CustomInfoCard = styled(Card)(({ theme }) => ({
     marginLeft: theme.spacing(2),
 }));
 
-
-
 const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
     textAlign: 'left', // Align title to the left
@@ -89,6 +84,9 @@ const Title = styled(Typography)(({ theme }) => ({
 }));
 
 const EventInformationNavbar = ({ title, imageUrl, date, time, location, category, eventType, authorizedBy, idScenary, description }) => {
+    const [user, setUser] = useState(null); // Asegúrate de definir el estado aquí
+    const navigate = useNavigate(); // Hook para navegación
+
     const handleSeatSelection = () => {
         console.log('Redirecting to:', `/cliente/event/${idScenary}`); // Agrega este log para depuración
         window.location.href = `/cliente/event/${idScenary}`;
@@ -128,8 +126,23 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
         }
     }, [location]);
 
+    useEffect(() => {
+        const userData = localStorage.getItem("user");
+        if (userData) {
+            setUser(JSON.parse(userData));
+        } else {
+            navigate("/login"); // Redirige al login si no hay datos del usuario
+        }
+    }, [navigate]);
+
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        navigate("/login"); // Redirige al login después de cerrar sesión
+    };
+
     return (
         <>
+            <ClientNavbarHome user={user} onLogout={handleLogout} /><hr/><br/><br/>
             <CustomNavbarContainer position="static" backgroundImage={imageUrl}>
                 <Toolbar style={{ width: '90%' }}>
                     {authorizedBy && <Info variant="body1">Organizado por {authorizedBy}</Info>}
@@ -196,7 +209,6 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                     </Grid>
                 </Grid>
             </Box>
-
 
             {/* Boton para navegar al evento */}
             <Fab color="secondary" aria-label="add" variant="extended" onClick={handleSeatSelection} sx={{

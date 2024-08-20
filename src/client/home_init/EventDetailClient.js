@@ -1,9 +1,10 @@
+// HomeEventClient.jsx
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Css/newStyles.css';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
-
+import ClientNavbarHome from './navbar_home';
 
 const HomeEventClient = () => {
     const [events, setEvents] = useState([]);
@@ -71,17 +72,17 @@ const HomeEventClient = () => {
     useEffect(() => {
         const userData = localStorage.getItem("user");
         if (userData) {
-          setUser(JSON.parse(userData));
+            setUser(JSON.parse(userData));
         } else {
-          navigate("/login"); // Redirige al login si no hay datos del usuario
+            navigate("/login"); // Redirige al login si no hay datos del usuario
         }
-      }, [navigate]);
-    
-      const handleLogout = () => {
+    }, [navigate]);
+
+    const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         navigate("/login");
-      };
+    };
 
     return (
         <div>
@@ -234,9 +235,7 @@ const HomeEventClient = () => {
                                 <h2 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px', color: 'white' }}>{event.evento_nombre}</h2>
                                 <p style={{ fontSize: '1em', margin: '10px' }}>{event.descripcion}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    
                                     <p style={{ margin: '10px', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
-
                                         <FaMapMarkerAlt style={{ marginRight: '5px', fontSize: '1em' }} />
                                         {event.ubicacion}
                                     </p>
@@ -246,7 +245,6 @@ const HomeEventClient = () => {
                                     </p>
                                 </div>
                             </div>
-
                         </div>
                     ))}
                 </div>
@@ -256,5 +254,3 @@ const HomeEventClient = () => {
 };
 
 export default HomeEventClient;
-
-// 
