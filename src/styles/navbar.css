@@ -1,0 +1,87 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #F8F9F9;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 50px;
+  margin-right: 20px;
+}
+
+.navbar-search-container {
+  display: flex;
+  align-items: center;
+  margin-right: 550px;
+}
+
+.navbar-search {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+}
+
+.navbar-search input {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding-right: 30px;
+  padding-left: 35px;
+  width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir sombra */
+}
+
+.navbar-search i {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.navbar-list-icon {
+  cursor: pointer;
+  color: rgb(110, 110, 110); /* Asegurar que el color coincida */
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  color: rgb(110, 110, 110);
+  justify-content: space-between;
+}
+
+.navbar-icons i {
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.navbar-user-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.navbar-user-name {
+  font-size: 16px;
+  color: #333;
+}

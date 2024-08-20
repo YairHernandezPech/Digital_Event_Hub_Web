@@ -1,0 +1,94 @@
+.home-admin {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  position: relative;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 30px;
+  color: #fff;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.users-icon {
+  background-color: #007bff; /* Azul */
+}
+
+.groups-icon {
+  background-color: #28a745; /* Verde */
+}
+
+.apps-icon {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.card-count {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.card-options {
+  list-style: none;
+  padding: 0;
+}
+
+.card-options li {
+  margin: 10px 0;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.applications-section, .recent-users-section {
+  margin-top: 20px;
+}
+
+.applications-section h2,
+.recent-users-section h2 {
+  margin-bottom: 10px;
+}
+
+.application-card {
+  background: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.application-icon {
+  background-color: #007bff;
+  width: 5px;
+  height: 25px;
+  margin-right: 10px;
+}
+
+.recent-users-section p {
+  color: #999;
+}

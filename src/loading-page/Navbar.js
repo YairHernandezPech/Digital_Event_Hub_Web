@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../img/LOGO HUB BLANCO 3.png';
-import './navbar.css'
+import '../styles/navbars.css';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
