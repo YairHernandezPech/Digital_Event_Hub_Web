@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { registerUser } from  "../services/api-auth";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
+import Swal from 'sweetalert2';
 import "./css/register.css";
 import logo from './img/logo.png';
 
@@ -13,9 +14,6 @@ const Register = () => {
     contrasena: "",
     telefono: "",
     last_name: "",
-    curp: "",
-    empresa: "",
-    rfc: "",
   });
 
   const [isOrganizer, setIsOrganizer] = useState(false);
@@ -31,16 +29,17 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { nombre, email, contrasena, telefono, last_name, curp, empresa, rfc } = formData;
-    const rol_id = isOrganizer ? 3 : 2;
+    const { nombre, email, contrasena, telefono, last_name } = formData;
+    const rol_id = 2;
 
      // Validación de campos según el rol
-     if (!nombre || !email || !contrasena || !telefono || !last_name || (isOrganizer && (!curp || !empresa || !rfc))) {
-      alert("Por favor rellena todos los campos");
+     if (!nombre || !email || !contrasena || !telefono || !last_name ) {
+      // alert("Por favor rellena todos los campos");
+      Swal.fire('Hay un problema', 'Por favor rellena todos los campos.', 'warning');
       return;
     }
 
-    console.log("Datos a enviar:", { nombre, email, contrasena, telefono, last_name, rol_id, curp, empresa, rfc });
+    console.log("Datos a enviar:", { nombre, email, contrasena, telefono, last_name, rol_id});
 
     try {
       await registerUser({ nombre, email, contrasena, telefono, last_name, rol_id });
@@ -50,29 +49,23 @@ const Register = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       
-      // Guardar los datos adicionales en localStorage si es organizador
-      if (rol_id === 3) {
-        localStorage.setItem("curp", curp);
-        localStorage.setItem("empresa", empresa);
-        localStorage.setItem("rfc", rfc);
-      }
+
 
       switch (user.rol_id) {
         case 2:
           navigate("/cliente/home");
-          break;
-        case 3:
-          navigate("/cliente/home");
+        
           break;
         default:
           navigate("/");
           break;
       }
 
-      alert("Registro exitoso , iniciando sesion");
+      Swal.fire('Éxito', 'Registro exitoso , iniciando sesion.', 'success');
     } catch (error) {
       console.error("Error al registrarse", error);
-      alert("Hubo un error");
+
+      Swal.fire('Error', 'Hubo un error.', 'error');
     }
   };
 
@@ -89,7 +82,7 @@ const Register = () => {
           <button onClick={() => setIsOrganizer(false)} className={`switch-button ${!isOrganizer ? 'active' : ''}`}>
             Cliente
           </button>
-          <button onClick={() => setIsOrganizer(true)} className={`switch-button ${isOrganizer ? 'active' : ''}`}>
+          <button className="switch-button" onClick={() => navigate("/")}>
             Organizador
           </button>
           </div>
@@ -142,34 +135,6 @@ const Register = () => {
                 />
               </div>
             </div>
-            {isOrganizer && (
-              <>
-                <div className="form-group ">
-                  <input
-                    name="curp"
-                    value={formData.curp}
-                    onChange={handleChange}
-                    placeholder="CURP"
-                  />
-                </div>
-                <div className="form-group ">
-                  <input
-                    name="empresa"
-                    value={formData.empresa}
-                    onChange={handleChange}
-                    placeholder="Empresa"
-                  />
-                </div>
-                <div className="form-group ">
-                  <input
-                    name="rfc"
-                    value={formData.rfc}
-                    onChange={handleChange}
-                    placeholder="RFC"
-                  />
-                </div>
-              </>
-            )}
             <div className="form-group">
               <button type="submit">Registrar</button>
             </div>
