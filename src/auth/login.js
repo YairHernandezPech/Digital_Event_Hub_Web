@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
 import "./css/login.css";
+import logo from './img/logo.png'
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const [role, setRole] = useState("user"); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -17,13 +19,20 @@ const Login = () => {
     }
     try {
       const { token, user } = await loginUser(email, contrasena);
+
+      if (
+        (role === "user" && user.rol_id !== 2) ||
+        (role === "organizer" && user.rol_id !== 3)
+      ) {
+        alert("Tu rol no coincide con el rol seleccionado.");
+        navigate("/login");
+        return; // Detiene la ejecución del código si el rol no coincide
+      }
+
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
       switch (user.rol_id) {
-        case 1:
-          navigate("/admin");
-          break;
         case 2:
           navigate("/cliente/home");
           break;
@@ -40,41 +49,75 @@ const Login = () => {
     }
   };
 
+  const resetForm = () => {
+    setEmail("");
+    setContrasena("");
+  };
+
+  const handleRoleChange = (newRole) => {
+    setRole(newRole);
+    resetForm(); // Limpiar el formulario cuando se cambia el rol
+  };
+
   return (
     <div className="login-container">
-      <h3>Digital Event Hub</h3>
-      <div className="login-form">
-        <h2>Iniciar Sesión</h2>
+    <div className="login-content">
+      <div className="login-form-container">
+        <h2 className="login-title">¡Bienvenido!</h2>
+        <div className="login-role-selector">
+          <button 
+            className={`role-button ${role === "user" ? "active" : ""}`}
+            onClick={() => handleRoleChange("user")}
+          >
+            Usuario
+          </button>
+          <button 
+            className={`role-button ${role === "organizer" ? "active" : ""}`}
+            onClick={() => handleRoleChange("organizer")}
+          >
+            Organizador
+          </button>
+        </div>
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>Correo Electrónico:</label>
+          <div className="login-input-group">
             <input
               type="email"
+              placeholder="Correo electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Correo Electrónico"
+              required
+              className="login-input"
             />
           </div>
-          <div>
-            <label>Contraseña:</label>
+          <div className="login-input-group">
             <input
               type="password"
+              placeholder="Contraseña"
               value={contrasena}
               onChange={(e) => setContrasena(e.target.value)}
-              placeholder="Contraseña"
+              required
+              className="login-input"
             />
           </div>
-          <button type="submit">Iniciar Sesión</button>
+          <button type="submit" className="login-button">Iniciar sesión</button>
         </form>
-        <p>
-          ¿No tienes cuenta? <a href="/registro">Regístrate</a>
-        </p>
-        <p>
+        <div className="login-divider"></div>
+        <div className="login-social-buttons">
+          <button className="login-social-button"><i className="fab fa-facebook-f"></i></button>
+          <button className="login-social-button"><i className="fab fa-google"></i></button>
+          <button className="login-social-button"><i className="fab fa-twitter"></i></button>
+        </div>
+        <p className="login-register">¿No tienes cuenta? <a href="/registro">¡Regístrate!</a></p>
+        <p className="login-register"> 
           ¿Olvidaste tu contraseña?{" "}
           <a href="/reset">Recupérala aquí</a>
         </p>
       </div>
+      <div className="login-logo-container">
+        <img src={logo} alt="Logo" className="login-logo" />
+      </div>
     </div>
+  </div>
   );
 };
 

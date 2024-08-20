@@ -39,7 +39,7 @@ const ResetPassword = () => {
         <h2>Recuperar contraseña</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Correo Electrónico:</label>
+    
             <input
               type="email"
               value={email}
