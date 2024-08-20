@@ -1,9 +1,10 @@
+// HomeEventClient.jsx
 import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import './Css/newStyles.css';
 import { Card, CardContent, Typography, Button, Box } from '@mui/material';
-
+import ClientNavbarHome from './navbar_home';
 
 const HomeEventClient = () => {
     const [events, setEvents] = useState([]);
@@ -71,65 +72,22 @@ const HomeEventClient = () => {
     useEffect(() => {
         const userData = localStorage.getItem("user");
         if (userData) {
-          setUser(JSON.parse(userData));
+            setUser(JSON.parse(userData));
         } else {
-          navigate("/login"); // Redirige al login si no hay datos del usuario
+            navigate("/login"); // Redirige al login si no hay datos del usuario
         }
-      }, [navigate]);
-    
-      const handleLogout = () => {
+    }, [navigate]);
+
+    const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         navigate("/login");
-      };
+    };
 
     return (
         <div>
-            {/* <ClientNavbarHome /> */}
-              {user ? (
-        <CardContent>
-            <Typography variant="h5" component="div" gutterBottom>
-                Bienvenido, {user.nombre}!
-            </Typography>
-            <Box 
-                sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'row', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    marginTop: '10px',
-                    marginBottom: '0px'
-                }}
-            >
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Email:</strong> {user.email}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Teléfono:</strong> {user.telefono}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Apellido:</strong> {user.last_name}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Tu rol:</strong> {user.rol_id}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                <Button 
-                variant="contained" 
-                color="secondary" 
-                onClick={handleLogout} 
-
-            >
-                Cerrar Sesión
-            </Button>
-                </Typography>
-            </Box>
-
-        </CardContent>
-            ) : (
-            <p>Cargando...</p>
-            )}
-            <div style={{ padding: '30px'}}>
+            <ClientNavbarHome user={user} onLogout={handleLogout} /><br/><br/><br/><br/>
+            <div style={{ padding: '30px' }}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
 
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '20px', position: 'relative' }}>
@@ -215,7 +173,7 @@ const HomeEventClient = () => {
                     </div>
                 )}
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '20px' }}>
                     {filteredEvents.map(event => (
                         <div
                             key={event.evento_id}
@@ -234,9 +192,7 @@ const HomeEventClient = () => {
                                 <h4 style={{ fontSize: '1.5em', fontWeight: 'bold', margin: '10px', color: 'white' }}>{event.evento_nombre}</h4>
                                 <p style={{ fontSize: '12px', margin: '10px' }}>{event.descripcion}</p>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    
                                     <p style={{ margin: '10px', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
-
                                         <FaMapMarkerAlt style={{ marginRight: '5px', fontSize: '1em' }} />
                                         {event.ubicacion}
                                     </p>
@@ -246,7 +202,6 @@ const HomeEventClient = () => {
                                     </p>
                                 </div>
                             </div>
-
                         </div>
                     ))}
                 </div>
@@ -256,5 +211,3 @@ const HomeEventClient = () => {
 };
 
 export default HomeEventClient;
-
-// 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { AppBar, Toolbar, Typography, Container, Button, styled, Card, CardContent, Grid } from '@mui/material';
 import { Chip, Stack, Box } from '@mui/material';
+import Header from './Navbar';
 
 // Estilos para el primer Navbar
 const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
@@ -101,6 +102,7 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
 
     return (
         <>
+        <Header/><br /><br /><hr />
             {/* Primer Navbar con fondo de imagen */}
             <NavbarContainer position="static" backgroundImage={imageUrl}>
                 <Toolbar style={{ width: '90%' }}>
