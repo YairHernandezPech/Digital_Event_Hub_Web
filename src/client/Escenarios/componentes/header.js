@@ -1,6 +1,6 @@
 import React from 'react';
 import "../../../styles/style.css";
-import { AppBar, Typography, styled, Chip, Stack, Box } from '@mui/material';
+import { AppBar, Typography, styled, Chip, Stack } from '@mui/material';
 
 // Estilos para el primer Navbar
 const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
@@ -64,7 +64,7 @@ const Header = ({ eventData }) => {
 
                     <Stack direction="row" spacing={1}>
                         <Title variant="h1" style={{color:"white"}}>{eventData.evento_nombre}</Title>
-                        <Chip label={eventData.tipo_evento} color={eventData.tipo_evento == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }} />
+                        <Chip label={eventData.tipo_evento} color={eventData.tipo_evento === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }} />
                     </Stack>
                     <p>Description: {eventData.descripcion}</p>
 

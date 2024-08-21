@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/newStyles.css'
-import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import ClientNavbarHome from './navbar_home';
 
 const HomeEventClient = () => {

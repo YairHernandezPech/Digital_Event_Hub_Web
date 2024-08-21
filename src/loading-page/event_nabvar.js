@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Container, Button, styled, Card, CardContent, Grid } from '@mui/material';
+import { AppBar, Toolbar, Typography, styled, Card, CardContent, Grid } from '@mui/material';
 import { Chip, Stack, Box } from '@mui/material';
 import Header from './Navbar';
 
@@ -110,7 +110,7 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
 
                     <Stack direction="row" spacing={1}>
                         <Title variant="h1" style={{color:"white"}}>{title}</Title>
-                        <Chip label={eventType} color={eventType == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
+                        <Chip label={eventType} color={eventType === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
                     <p>Description: {description}</p>
 

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import logo from '../img/LOGO HUB 1.png';
 import '../styles/login.css';
 

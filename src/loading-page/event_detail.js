@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import EventNavbar from './event_nabvar'; // Asegúrate de que la ruta sea correcta
-import { CircularProgress, Box } from '@mui/material';
 import Header from './Navbar';
 
 const EventDetail = () => {

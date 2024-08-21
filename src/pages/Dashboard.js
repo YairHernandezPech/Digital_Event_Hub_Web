@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate, useMatch, useParams } from 'react-router-dom';
+import { Routes, Route, Navigate, useMatch } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import Navbar from '../components/Navbar';

@@ -1,9 +1,6 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 import "../../../styles/style.css";
 import Asientos from '../componentes/Asientos'
-import Symbology from '../componentes/symbology'
-import Header from '../componentes/header'
-import axios from 'axios';
 
 function dividirArray(arr, numPartes) {
   const n = arr.length;
