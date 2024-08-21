@@ -1,12 +1,13 @@
 import React from 'react';
 import '../styles/navbar.css';
+import logo from '../img/logo3.png'
 
 const Navbar = ({ user }) => {
   return (
     <div className="navbar">
       {/* Logo del negocio */}
       <div className="navbar-logo">
-        <img src="https://ingenieros2023.utpproyectos.com.mx/PinkSoftware2/img/logo3.png" alt="Logo" />
+        <img src={logo} alt="Logo" />
       </div>
       <div className="navbar-search-container">
         <i className="fas fa-list navbar-list-icon"></i> {/* Icono añadido aquí */}
