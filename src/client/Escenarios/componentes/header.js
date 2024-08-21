@@ -63,7 +63,7 @@ const Header = ({ eventData }) => {
                 
 
                     <Stack direction="row" spacing={1}>
-                        <Title variant="h1">{eventData.evento_nombre}</Title>
+                        <Title variant="h1" style={{color:"white"}}>{eventData.evento_nombre}</Title>
                         <Chip label={eventData.tipo_evento} color={eventData.tipo_evento == 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight:'800', fontSize:'1rem' }} />
                     </Stack>
                     <p>Description: {eventData.descripcion}</p>

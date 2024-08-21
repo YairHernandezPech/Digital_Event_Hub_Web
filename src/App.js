@@ -10,6 +10,7 @@ import Login from './auth/login';
 import Registro from './auth/register';
 import ResetPassword from './auth/reset_password';
 import LoginOrga from './pages/LoginOrga';
+import LoginAdmin from './pages/LoginAdmin';
 import RegisterOrga from './pages/RegisterOrga';
 import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
@@ -79,22 +80,11 @@ const App = () => {
           <Route path="/cliente/event/:id" element={<Escenarios />} />
 
           {/* Rutas para navegar dentro del home admin y organizador*/}
-          <Route 
-            path="/login-orga" 
-            element={role ? <Navigate to="/dashboard" /> : <LoginOrga onLogin={handleLogin} />} 
-          />
-          <Route 
-            path="/register-orga" 
-            element={role ? <Navigate to="/dashboard" /> : <RegisterOrga />} 
-          />
-          <Route 
-            path="/dashboard/*" 
-            element={role ? <Dashboard role={role} onLogout={handleLogout} /> : <Navigate to="/login" />} 
-          />
-          <Route 
-            path="/success" 
-            element={<Success />} 
-          />
+          <Route path="/login-admin" element={role ? <Navigate to="/dashboard" /> : <LoginAdmin onLogin={handleLogin} />} />
+          <Route path="/login-orga" element={role ? <Navigate to="/dashboard" /> : <LoginOrga onLogin={handleLogin} />}/>
+          <Route path="/register-orga" element={role ? <Navigate to="/dashboard" /> : <RegisterOrga />} />
+          <Route path="/dashboard/*" element={role ? <Dashboard role={role} onLogout={handleLogout} /> : <Navigate to="/" />} />
+          <Route path="/success" element={<Success />} />
 
         </Routes>
       </div>
