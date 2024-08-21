@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/Digital_Event_Hub_Web/static/css/main.d95126c8.css",
+    "main.js": "/Digital_Event_Hub_Web/static/js/main.f8e6d742.js",
+    "static/js/453.004668b9.chunk.js": "/Digital_Event_Hub_Web/static/js/453.004668b9.chunk.js",
+    "static/media/13.png": "/Digital_Event_Hub_Web/static/media/13.f9f321eeec64dd251b39.png",
+    "static/media/LOGO HUB 1.png": "/Digital_Event_Hub_Web/static/media/LOGO HUB 1.0a549a8c4083532ecdd0.png",
+    "static/media/logo3.png": "/Digital_Event_Hub_Web/static/media/logo3.63c3b7478eb2d49be4ee.png",
+    "static/media/LOGO HUB BLANCO 3.png": "/Digital_Event_Hub_Web/static/media/LOGO HUB BLANCO 3.92eca66be99a1dde4032.png",
+    "index.html": "/Digital_Event_Hub_Web/index.html",
+    "main.d95126c8.css.map": "/Digital_Event_Hub_Web/static/css/main.d95126c8.css.map",
+    "main.f8e6d742.js.map": "/Digital_Event_Hub_Web/static/js/main.f8e6d742.js.map",
+    "453.004668b9.chunk.js.map": "/Digital_Event_Hub_Web/static/js/453.004668b9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d95126c8.css",
+    "static/js/main.f8e6d742.js"
+  ]
+}

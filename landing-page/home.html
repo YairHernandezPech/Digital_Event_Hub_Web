@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Digital Event Hub</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Font Awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/venobox/venobox.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: TheEvent
+    Theme URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!--==========================
+    Header
+  ============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <!-- Uncomment below if you prefer to use a text logo -->
+        <!-- <h1><a href="#main">C<span>o</span>nf</a></h1>-->
+        <a href="#intro" class="scrollto"><img src="img/LOGO HUB BLANCO 3.png" alt="" title=""></a>
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#intro">Inicio</a></li>
+          <li><a href="#about">Acerca de</a></li>
+          <li><a href="#speakers">Eventos</a></li>
+          <li><a href="#venue">Galeria</a></li>
+          <li><a href="#contact">Contacto</a></li>
+          <li class="buy-tickets"><a href="#Membresias"><i class="fa-solid fa-ticket fa-shake"></i> Membresias</a></li>
+          <li class="buy-tickets"><a href="/registro">Registarte  <i class="fa-solid fa-right-to-bracket fa-bounce"></i></a></li>
+          <li class="buy-tickets"><a href="/login">Iniciar  <i class="fa-solid fa-right-to-bracket fa-bounce"></i></a></li>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+  <!--==========================
+    Intro Section
+  ============================-->
+  <section id="intro">
+    <div class="intro-container wow fadeIn">
+      <h1 class="mb-4 pb-0"> Con nosotros tus eventos se hacen<br><span>realidad</span>, eventos con tu propio estilo y toque distintivo</h1>
+      <p class="mb-4 pb-0">buscamos que tus eventos sean inolvidables, unicos y que si tu lo sueñas y imaginas nosotros lo volvemos una realidad, ¡Sueñas, Decides. Logras!.</p>
+      <img class="Logo-container" src="img/LOGO HUB BLANCO 3.png" alt="">
+      <a href="#about" class="about-btn scrollto">Acerca de</a>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!--==========================
+      About Section
+    ============================-->
+    <section id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Acerca de Nosotros</h2>
+            <p>Somos una empresa de eventos publicos y privados donde mezclamos la tecnología para poder llegar a más personas mediantes estas herramientas que esta a nuestro alcanze, donde tenemos muy en cuenta la calidad, creatividad y soluciones unicas.</p>
+          </div>
+          <div class="col-lg-3">
+            <h3>Misión</h3>
+            <p>En <b>DigitalEventHub</b>, nuestra misión es crear experiencias inolvidables a través de la organización de eventos únicos que superen las expectativas de nuestros clientes. Nos dedicamos a planificar y ejecutar eventos con excelencia, prestando atención a cada detalle para garantizar que cada celebración sea un reflejo perfecto de la visión de nuestros clientes</p>
+          </div>
+          <div class="col-lg-3">
+            <h3>Visión</h3>
+            <p>Nuestra visión es ser la empresa líder en la industria de eventos, reconocida por nuestra innovación, creatividad y compromiso con la calidad. Aspiramos a transformar ideas en realidad, creando momentos memorables que perduren en el tiempo.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--==========================
+      Speakers Section
+    ============================-->
+    <section id="speakers" class="wow fadeInUp">
+      <div class="container">
+        <div class="section-header">
+          <h2>Nuestros Eventos</h2>
+          <p>Aquí podrá ver los eventos que nosotros tenemos</p>
+        </div>
+
+        <div id="eventos-container" class="row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));gap: 20px;max-width: 1140px;margin: 0 auto;">
+          <!-- Aquí se mostrarán los eventos consumido desde la api -->
+        </div>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Venue Section
+    ============================-->
+    <section id="venue" class="wow fadeInUp">
+
+      <div class="container-fluid">
+
+        <div class="section-header">
+          <h2>galeria</h2>
+          <p>galeria de nuestros eventos</p>
+        </div>
+
+        <div class="row no-gutters">
+          <div class="col-lg-6 venue-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-90.0120038!3d20.5850761!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85f89d88519ad123%3A0xb38f40a634d71963!2sMaxcan%C3%BA%2C+Yucat%C3%A1n%2C+M%C3%A9xico!5e0!3m2!1ses!2smx!4v1692458948242" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
+
+          <div class="col-lg-6 venue-info">
+            <div class="row justify-content-center">
+              <div class="col-11 col-lg-8">
+                <h3>Fotos de los eventos</h3>
+                <p>le presentamos los eventos que hemos creado y organizado enconjunto con varias empresas de caracter publico y privado ya que depositaron su confianza con nosotros, asi que, que esperas registrate con nosotros como organizador o cliente y disfruta de algún evento o crea el tuyo y divierte.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-fluid venue-gallery-container">
+        <div class="row no-gutters">
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/1.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/1.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/2.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/2.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/3.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/3.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/4.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/4.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/5.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/5.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/6.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/6.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/7.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/7.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4">
+            <div class="venue-gallery">
+              <a href="img/venue-gallery/8.jpg" class="venobox" data-gall="venue-gallery">
+                <img src="img/venue-gallery/8.jpg" alt="" class="img-fluid">
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!--==========================
+      Membresia Section
+    ============================-->
+    <section id="Membresias" class="section-with-bg wow fadeInUp">
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Nuestras Membresias</h2>
+          <p>Membresias para Organizadores, acceda a los privilegios que se otorgan de acuerdo al tipo de membresia que Usted tenga.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card mb-5 mb-lg-0">
+              <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase text-center">Standard Access</h5>
+                <h6 class="card-price text-center">$150</h6>
+                <hr>
+                <ul class="fa-ul">
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
+                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Community Access</li>
+                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Workshop Access</li>
+                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>After Party</li>
+                </ul>
+                <hr>
+                <div class="text-center">
+                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="standard-access">Buy Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card mb-5 mb-lg-0">
+              <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase text-center">Pro Access</h5>
+                <h6 class="card-price text-center">$250</h6>
+                <hr>
+                <ul class="fa-ul">
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Community Access</li>
+                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>Workshop Access</li>
+                  <li class="text-muted"><span class="fa-li"><i class="fa fa-times"></i></span>After Party</li>
+                </ul>
+                <hr>
+                <div class="text-center">
+                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="pro-access">Buy Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Pro Tier -->
+          <div class="col-lg-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-muted text-uppercase text-center">Premium Access</h5>
+                <h6 class="card-price text-center">$350</h6>
+                <hr>
+                <ul class="fa-ul">
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Regular Seating</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Coffee Break</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Custom Badge</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Community Access</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>Workshop Access</li>
+                  <li><span class="fa-li"><i class="fa fa-check"></i></span>After Party</li>
+                </ul>
+                <hr>
+                <div class="text-center">
+                  <button type="button" class="btn" data-toggle="modal" data-target="#buy-ticket-modal" data-ticket-type="premium-access">Buy Now</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Order Form -->
+      <div id="buy-ticket-modal" class="modal fade">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Buy Tickets</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="#">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="your-name" placeholder="Your Name">
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="your-email" placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                  <select id="ticket-type" name="ticket-type" class="form-control" >
+                    <option value="">-- Select Your Ticket Type --</option>
+                    <option value="standard-access">Standard Access</option>
+                    <option value="pro-access">Pro Access</option>
+                    <option value="premium-access">Premium Access</option>
+                  </select>
+                </div>
+                <div class="text-center">
+                  <button type="submit" class="btn">Buy Now</button>
+                </div>
+              </form>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+
+    </section>
+
+    <!--==========================
+      Contact Section
+    ============================-->
+    <section id="contact" class="section-bg wow fadeInUp">
+
+      <div class="container">
+
+        <div class="section-header">
+          <h2>Contactanos</h2>
+          <p>Contactanos mediante cualquiera de las opciones que tenemos dejado.</p>
+        </div>
+
+        <div class="row contact-info">
+
+          <div class="col-md-4">
+            <div class="contact-address">
+              <i class="ion-ios-location-outline"></i>
+              <i class="fa-solid fa-location-dot fa-bounce" style="color: #5c0a5c; --fa-bounce-start-scale-x: 1;--fa-bounce-start-scale-y: 1;--fa-bounce-jump-scale-x: 1;--fa-bounce-jump-scale-y: 1;--fa-bounce-land-scale-x: 1;--fa-bounce-land-scale-y: 1;--fa-bounce-rebound: 0;"></i>
+              <h3>Dirección</h3>
+              <address>A108 Adam Street, NY 535022, USA</address>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-phone">
+              <i class="ion-ios-telephone-outline"></i>
+              <i class="fa-solid fa-mobile fa-flip" style="--fa-animation-duration: 3s; color: #5c0a5c"></i>
+              <h3>Numero de Telefono</h3>
+              <p><a href="tel:+529972345567">+52 997 234 5567</a></p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="contact-email">
+              <i class="ion-ios-email-outline"></i>
+              <i class="fa-solid fa-envelope fa-flip" style="color: #5c0a5c; --fa-animation-duration: 3s;"></i>
+              <h3>Email</h3>
+              <p><a href="mailto:info@example.com">info@example.com</a></p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form">
+          <div id="sendmessage">Your message has been sent. Thank you!</div>
+          <div id="errormessage"></div>
+          <form action="" method="post" role="form" class="contactForm">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <input type="text" name="name" class="form-control" id="name" placeholder="Tú Nombre" data-rule="minlen:4" data-msg="Por favor ingrese su nombre" />
+                <div class="validation"></div>
+              </div>
+              <div class="form-group col-md-6">
+                <input type="email" class="form-control" name="email" id="email" placeholder="Tú Correo" data-rule="email" data-msg="Por favor ingrese un email valido" />
+                <div class="validation"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Motivo" data-rule="minlen:4" data-msg="por favor llene el espacio" />
+              <div class="validation"></div>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="mensaje" rows="5" data-rule="required" data-msg="Por Favor escriba su menjase" placeholder="Message"></textarea>
+              <div class="validation"></div>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+        </div>
+
+      </div>
+    </section><!-- #contact -->
+
+  </main>
+
+
+  <!--==========================
+    Footer
+  ============================-->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <img src="img/LOGO HUB BLANCO 3.png" alt="TheEvenet">
+            <p>Vuelve realidad tus eventos, tu los imaginas y planeas y nosotros los volvemos realidad.</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Quienes Somos</h4>
+            <ul>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Inicio</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Acerca de</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Eventos</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Terminos y Servicios</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Politica de Privacidad</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Usa DigitalEventHub en</h4>
+            <ul>
+              <li><i class="fa fa-angle-right"></i> <a href="#">Andriod</a></li>
+              <li><i class="fa fa-angle-right"></i> <a href="#">DigitalEventHub Web</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+              <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+              <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong>DigitalEventHub</strong> 2024. Todos los Derechos Reservados
+      </div>
+      <div class="credits">
+        <!--
+          All the links in the footer should remain intact.
+          You can delete the links only if you purchased the pro version.
+          Licensing information: https://bootstrapmade.com/license/
+          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=TheEvent
+        -->
+        Diseñado por <a href="https://bootstrapmade.com/">DigitalEventHub</a>
+      </div>
+    </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+  <!--Consumo de la api para traer los eventos-->
+  <script>
+    // URL de la API
+    const apiUrl = 'https://api-digitalevent.onrender.com/api/events/get/approved';
+
+    // Función para consumir la API y mostrar solo los eventos públicos
+    async function mostrarEventosPublicos() {
+        try {
+            const response = await fetch(apiUrl);
+            const eventos = await response.json();
+
+            // Filtrar eventos de tipo "Publico"
+            const eventosPublicos = eventos.filter(evento => evento.tipo_evento === "Publico");
+
+            // Contenedor donde se agregarán los eventos
+            const eventosContainer = document.getElementById('eventos-container');
+
+            // Recorrer los eventos y crear el HTML
+            eventosPublicos.forEach(evento => {
+                
+                const eventHtml = `
+                <div class="card" onclick="window.location.href='/evento/${evento.evento_id}';">
+                    <div class="card-image-container">
+                        <img src="${evento.imagen_url || 'img/default-image.jpg'}" alt="${evento.evento_nombre}" class="card-image">
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <h2><a href="/evento/${evento.evento_id}" style="font-size: 1.3rem;
+                          font-weight: bold;
+                          margin: 10px;
+                          color: white; font-family: arial">${evento.evento_nombre}</a>
+                        </h2>
+                        <p style="font-size: 1em; margin: 10px;">${evento.descripcion || 'Descripción no disponible.'}</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <p style="margin: 10px; font-size: 0.9em; color: rgb(221, 221, 221); display: flex; align-items: center;">
+                              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 384 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px; font-size: 1em;">
+                                <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
+                              </svg>
+                              ${evento.ubicacion}
+                          </p>
+                          
+                        </div>
+                    </div>
+                  </div>
+                    `;
+                // Insertar el HTML en el contenedor
+                eventosContainer.innerHTML += eventHtml;
+            });
+        } catch (error) {
+            console.error('Error al consumir la API:', error);
+        }
+    }
+
+    // Llamar a la función para mostrar los eventos públicos
+    mostrarEventosPublicos();
+</script>
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js"></script>
+  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/venobox/venobox.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+  <!-- Contact Form JavaScript File -->
+  <script src="contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+</body>
+
+</html>
