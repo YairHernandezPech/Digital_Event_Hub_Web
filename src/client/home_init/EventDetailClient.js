@@ -130,6 +130,7 @@ const HomeEventClient = () => {
             ) : (
             <p>Cargando...</p>
             )} */}
+            <ClientNavbarHome user={user} onLogout={handleLogout} /><hr/><br/><br/>
             <div style={{ padding: '30px'}}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
 

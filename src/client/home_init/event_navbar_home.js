@@ -148,7 +148,7 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                     {authorizedBy && <Info variant="body1">Organizado por {authorizedBy}</Info>}
 
                     <Stack direction="row" spacing={1}>
-                        <Title variant="h1">{title}</Title>
+                        <Title variant="h1" style={{color:"white"}}>{title}</Title>
                         <Chip label={eventType} color={eventType === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
                     <p>Description: {description}</p>
@@ -191,7 +191,9 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                                 <Typography variant="body2">
                                     <strong>Hora:</strong> {time}
                                 </Typography>
-                                <Info variant="h1">{description}</Info>
+                                <Typography variant="body2">
+                                    <strong>{description}</strong>
+                                </Typography>
                                 <Typography variant="body2">
                                     <strong>Ubicación:</strong> {location}
                                 </Typography>
