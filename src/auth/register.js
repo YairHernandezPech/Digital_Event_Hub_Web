@@ -79,12 +79,13 @@ const Register = () => {
         </div>
         <div className="registro-form-container">
         <div className="button-container1">
-          <button onClick={() => setIsOrganizer(false)} className={`switch-button1 ${!isOrganizer ? 'active' : ''}`}>
+          <button onClick={() => setIsOrganizer(false)} className={`switch-button2 ${!isOrganizer ? 'active' : ''}`}>
             Cliente
           </button>
           <button className="switch-button1" onClick={() => navigate("/register-orga")}>
             Organizador
           </button>
+          <br />
           </div>
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-row horizontal">

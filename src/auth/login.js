@@ -69,7 +69,7 @@ const Login = () => {
               Usuario
             </button>
             <button
-              className="role-button"
+              className="role-button-dos"
               onClick={() => navigate("/login-orga")}
             >
               Organizador

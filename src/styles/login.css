@@ -17,6 +17,19 @@
   overflow: hidden;
 }
 
+/* <button
+className={`role-button ${role === "user" ? "active" : ""}`}
+onClick={() => handleRoleChange("user")}
+>
+Usuario
+</button>
+<button
+className="role-button"
+onClick={() => navigate("/login-orga")}
+>
+Organizador
+</button> */
+
 .login-form-container {
   flex: 1;
   background: linear-gradient(to top, #D900FF, #3A124A);  padding: 40px;
@@ -126,6 +139,19 @@
   border: 2px solid #dcdcdc;
   border-radius: 20px;
   padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 10px;
+  transition: background-color 0.3s ease;
+}
+
+.role-button-dos {
+  background-color: #4f115d;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 20px ;
+  width: 120px;
+  height: 47px;
   cursor: pointer;
   font-size: 16px;
   margin: 0 10px;

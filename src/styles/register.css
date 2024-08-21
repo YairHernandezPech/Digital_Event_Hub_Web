@@ -267,6 +267,20 @@ h2 {
     border: 2px solid #870585;
     padding: 10px;
     margin: 5px;
+    
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    width: 120px;
+}
+
+.switch-button2 {
+    background-color: #80107e;
+    color: #f9f9f9;
+    border: 2px solid #ffffff;
+    padding: 10px;
+    margin-bottom: 0px !important;
+    margin: 0px;
     cursor: pointer;
     border-radius: 20px;
     font-size: 16px;
