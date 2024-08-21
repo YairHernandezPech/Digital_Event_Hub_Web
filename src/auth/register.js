@@ -80,7 +80,7 @@ const Register = () => {
         <div className="registro-form-container">
         <div className="button-container1">
           <button onClick={() => setIsOrganizer(false)} className={`switch-button2 ${!isOrganizer ? 'active' : ''}`}>
-            Cliente
+            Usuario
           </button>
           <button className="switch-button1" onClick={() => navigate("/register-orga")}>
             Organizador
