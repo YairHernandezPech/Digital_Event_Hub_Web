@@ -90,34 +90,24 @@ const Membresias = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Membresías</h2>
-        <div>
+    <div className="page-background">
+      <h1 className="page-title">Membresías</h1>
+      <div>
           <button className="btn btn-primary mr-2" onClick={() => handleShowModal(null)}>
             Crear Nueva Membresía
           </button>
         </div>
-      </div>
-      <div className="cards">
-        <div className="cards-body">
-          <div className="cardss-container">
-            {memberships.map((membership) => (
-              <div
-                key={membership.membresia_id}
-                className="membership-cards"
-                style={{ borderColor: '#3498db' }} // Puedes ajustar el color aquí si es necesario
-              >
-                <h3 className="membership-title" style={{ color: '#3498db' }}>
-                  {membership.tipo}
-                </h3>
-                <p className="membership-description">{membership.descripcion}</p>
-                <p className="membership-price">${parseFloat(membership.costo).toFixed(2)}</p>
-                <button className="btn btn-primary mr-2" onClick={() => handleShowModal(membership)}>Editar</button>
-                <button className="btn btn-danger" onClick={() => handleDeleteMembership(membership.membresia_id)}>Eliminar</button>
-              </div>
-            ))}
-          </div>
+      <div className="container">
+        <div className="cardss-container">
+          {memberships.map((membership) => (
+            <div className="membership-cards" key={membership.membresia_id}>
+              <h3 className="membership-title">{membership.tipo}</h3>
+              <p className="membership-description">{membership.descripcion}</p>
+              <p className="membership-price">${parseFloat(membership.costo).toFixed(2)}</p>
+              <button className="btn btn-primary mr-2" onClick={() => handleShowModal(membership)}>Editar</button>
+              <button className="btn btn-danger" onClick={() => handleDeleteMembership(membership.membresia_id)}>Eliminar</button>
+            </div>
+          ))}
         </div>
       </div>
 
