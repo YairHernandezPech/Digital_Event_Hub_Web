@@ -85,50 +85,6 @@ const HomeEventClient = () => {
 
     return (
         <div>
-            {/* <ClientNavbarHome /> */}
-              {/* {user ? (
-        <CardContent>
-            <Typography variant="h5" component="div" gutterBottom>
-                Bienvenido, {user.nombre}!
-            </Typography>
-            <Box 
-                sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'row', 
-                    justifyContent: 'space-between', 
-                    alignItems: 'center',
-                    marginTop: '10px',
-                    marginBottom: '0px'
-                }}
-            >
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Email:</strong> {user.email}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Teléfono:</strong> {user.telefono}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Apellido:</strong> {user.last_name}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                    <strong>Tu rol:</strong> {user.rol_id}
-                </Typography>
-                <Typography variant="body1" color="textSecondary">
-                <Button 
-                variant="contained" 
-                color="secondary" 
-                onClick={handleLogout} 
-
-            >
-                Cerrar Sesión
-            </Button>
-                </Typography>
-            </Box>
-
-        </CardContent>
-            ) : (
-            <p>Cargando...</p>
-            )} */}
             <ClientNavbarHome user={user} onLogout={handleLogout} /><hr/><br/><br/>
             <div style={{ padding: '30px'}}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
