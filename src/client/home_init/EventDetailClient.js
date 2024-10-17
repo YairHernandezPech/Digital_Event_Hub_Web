@@ -206,7 +206,7 @@ const HomeEventClient = () => {
                 </div>
             </div>
         </div>
-    );
+    ); 
 };
 
 export default HomeEventClient;
