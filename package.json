@@ -19,6 +19,7 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
+    "event_hub_web": "file:",
     "framer-motion": "^11.3.21",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",
