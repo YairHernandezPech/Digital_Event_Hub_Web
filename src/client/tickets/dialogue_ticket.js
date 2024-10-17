@@ -8,40 +8,45 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Modal,
+  TextField,
+  InputAdornment,
 } from '@mui/material';
-import { AccessTime, LocalMall, CheckCircle } from '@mui/icons-material';
+import { CreditCard, Person, CalendarToday, Lock, LocalMall } from '@mui/icons-material';
 
 const CinemaPage = () => {
-  const days = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
   const times = ['4:30 p.m.', '6:40 p.m.', '9:00 p.m.'];
-  const todayIndex = new Date().getDay() - 1; // Obtener el índice del día actual (0 = Domingo)
-  const [selectedTimes, setSelectedTimes] = useState(Array(days.length).fill(''));
+  const todayIndex = new Date().getDay() - 1;
+  const [selectedTimes, setSelectedTimes] = useState(Array(7).fill(''));
+  const [openModal, setOpenModal] = useState(false);
 
   const handleTimeClick = (time) => {
     const newSelectedTimes = [...selectedTimes];
-    newSelectedTimes[todayIndex] = time; // Establecer el horario en la posición del día actual
+    newSelectedTimes[todayIndex] = time;
     setSelectedTimes(newSelectedTimes);
   };
 
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <>
-      {/* Header with Background Image occupying full page */}
+      {/* Encabezado con imagen de fondo */}
       <Box
         sx={{
           position: 'relative',
           width: '100vw',
           height: '60vh',
+          backgroundImage: `url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgE7tmYPTMCfXtwS-CaLfGULcgfcS2UGp0BmlQl91BcMn9Nhv7S6LjQyWSrpp7bXHhq3xPeZeUlo7fDcpNtjBfxd9_McnWIIAWviZSCRDSl1W3reM7wnPLkeOI1Qj_32Ute4FjMCjJMMRY/s1773/portadas_gratis_para_dia_de_muertos+%25283%2529.jpg)`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           color: '#fff',
-          backgroundImage: `url(https://eventbrite-s3.s3.amazonaws.com/marketing/landingpages/assets/2023/organizer/a_organizer_event--creator-eventbrite-.jpeg)`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
         }}
       >
-        {/* Overlay to Darken Background */}
         <Box
           sx={{
             position: 'absolute',
@@ -49,168 +54,208 @@ const CinemaPage = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
             zIndex: 1,
           }}
         />
-        {/* Title */}
         <Typography
-          variant="h4"
+          variant="h3"
           fontWeight="bold"
           sx={{
-            position: 'relative',
             zIndex: 2,
+            padding: '0 1rem',
+            backgroundColor: 'rgba(0, 0, 0, 0.6)',
+            borderRadius: '8px',
           }}
         >
-          Selecciona tu cine y el horario de tu función
+          Selecciona tu horario y haz tu pago de boleto
         </Typography>
       </Box>
 
-      {/* Cart Section positioned outside the header */}
-      <Card
-        sx={{
-          position: 'fixed',
-          top: '50%',
-          right: '2rem',
-          transform: 'translateY(-50%)',
-          zIndex: 4,
-          padding: '0.5rem',
-          width: '250px',
-          backgroundColor: '#fff',
-        }}
-      >
-        <Typography
-          variant="h6"
-          fontWeight="bold"
+      {/* Modal de pago */}
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <Box
           sx={{
-            marginBottom: '0.5rem',
-            backgroundColor: '#6a1b9a',
-            color: '#fff',
-            padding: '0.3rem',
-            borderRadius: '4px 4px 0 0',
-            fontSize: '1rem',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 420,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: '12px',
+            border: '2px solid #6a1b9a',
           }}
         >
-          Tu carrito - $75.00
-        </Typography>
-        <CardMedia
-          component="img"
-          height="120"
-          image="https://eventbrite-s3.s3.amazonaws.com/marketing/landingpages/assets/2023/organizer/a_organizer_event--creator-eventbrite-.jpeg"
-          alt="La Leyenda Del Dragón"
-        />
-        <CardContent sx={{ padding: '0.5rem' }}>
-          <Typography variant="body1" fontWeight="bold" fontSize="0.9rem">
-            La Leyenda Del Dragón
+          <Typography variant="h5" sx={{ mb: 3, textAlign: 'center', fontWeight: 'bold' }}>
+            Información de Pago
           </Typography>
-          <Typography variant="body2" color="textSecondary" fontSize="0.8rem">
-            Clasificación: A | Duración: 91 min
-          </Typography>
-          <Typography variant="body2" color="textSecondary" fontSize="0.8rem">
-            Apta para todo público.
-          </Typography>
-          <Typography variant="body2" sx={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
-            Cine: La Isla Mérida
-          </Typography>
-          <Typography variant="body2" fontSize="0.8rem">
-            Hoy, 16 de octubre, {selectedTimes[todayIndex] || 'Seleccione un horario'}
-          </Typography>
-        </CardContent>
-        <Button variant="contained" color="primary" fullWidth startIcon={<LocalMall />}>
-          Proceder al pago
-        </Button>
-      </Card>
 
-      {/* Main Section */}
-      <Grid container spacing={2} sx={{ padding: '1rem' }}>
-        {/* Cine Selection */}
-        <Grid item xs={12} md={9}>
-          <Paper elevation={3} sx={{ padding: '1rem' }}>
-            {/* Cine and Date Selection */}
-            <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-              <Button variant="outlined" startIcon={<AccessTime />} sx={{ marginRight: '0.5rem', fontSize: '0.8rem' }}>
-                La Isla Mérida
-              </Button>
-              <Button variant="outlined" startIcon={<AccessTime />} sx={{ fontSize: '0.8rem' }}>
-                16 OCT
-              </Button>
-            </Box>
+          <TextField
+            fullWidth
+            label="Número de Tarjeta"
+            variant="outlined"
+            sx={{ mb: 2 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <CreditCard />
+                </InputAdornment>
+              ),
+            }}
+          />
 
-            {/* Movie Times */}
-                {/* Render Days of the Week */}
-                <Grid container item justifyContent="space-between">
-                  {days.map((day) => (
-                    <Grid item xs={1.5} key={day}>
-                      <Typography
-                        variant="h6"
-                        align="center"
-                        sx={{
-                          fontWeight: 'bold',
-                          backgroundColor: '#6a1b9a',
-                          color: '#fff',
-                          padding: '0.2rem',
-                          borderRadius: '5px',
-                          fontSize: '0.8rem',
-                        }}
-                      >
-                        {day}
-                      </Typography>
-                    </Grid>
-                  ))}
+          <TextField
+            fullWidth
+            label="Nombre del Titular"
+            variant="outlined"
+            sx={{ mb: 2 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Person />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <TextField
+            fullWidth
+            label="Fecha de Expiración"
+            variant="outlined"
+            sx={{ mb: 2 }}
+            placeholder="MM/AA"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <CalendarToday />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <TextField
+            fullWidth
+            label="CVV"
+            variant="outlined"
+            sx={{ mb: 3 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Lock />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          <Typography variant="subtitle1" sx={{ mb: 1 }}>
+            ¿Tienes un código promocional?
+          </Typography>
+          <TextField
+            fullWidth
+            label="Código de Cupón"
+            variant="outlined"
+            sx={{ mb: 3 }}
+          />
+
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mb: 2 }}
+            startIcon={<LocalMall />}
+            onClick={handleCloseModal}
+          >
+            Aplicar Cupón y Pagar
+          </Button>
+
+          <Typography variant="body2" color="textSecondary" sx={{ mt: 2, textAlign: 'center' }}>
+            Los boletos son válidos solo para el día y horario seleccionados. No se permiten reembolsos ni cambios.
+          </Typography>
+        </Box>
+      </Modal>
+
+      {/* Sección de horarios y carrito */}
+      <Grid container spacing={2} sx={{ padding: '2rem' }}>
+        <Grid item xs={12} md={8}>
+          {/* Selección de Horarios */}
+          <Paper elevation={3} sx={{ padding: '1.5rem', borderRadius: '12px' }}>
+            <Typography
+              variant="h6"
+              fontWeight="bold"
+              sx={{ textAlign: 'center', mb: 2, color: '#6a1b9a' }}
+            >
+              Selección de Horario
+            </Typography>
+            <Grid container spacing={2}>
+              {times.map((time) => (
+                <Grid item xs={4} key={time}>
+                  <Button
+                    variant={selectedTimes[todayIndex] === time ? 'contained' : 'outlined'}
+                    fullWidth
+                    onClick={() => handleTimeClick(time)}
+                    sx={{
+                      borderRadius: '8px',
+                      color: selectedTimes[todayIndex] === time ? '#fff' : '#6a1b9a',
+                      backgroundColor: selectedTimes[todayIndex] === time ? '#6a1b9a' : 'transparent',
+                      borderColor: '#6a1b9a',
+                      fontWeight: selectedTimes[todayIndex] === time ? 'bold' : 'normal',
+                      '&:hover': {
+                        backgroundColor: selectedTimes[todayIndex] === time ? '#4a148c' : '#f3e5f5',
+                      },
+                    }}
+                  >
+                    {time}
+                  </Button>
                 </Grid>
+              ))}
+            </Grid>
           </Paper>
         </Grid>
 
-        {/* Calendar Section */}
-        <Grid item xs={12} md={9}>
-          <Box
-            sx={{
-              padding: '0.5rem',
-              backgroundColor: '#f5f5f5',
-            }}
-          >
-            {/* Calendar Grid */}
-            <Paper
-              elevation={3}
+        {/* Carrito */}
+        <Grid item xs={12} md={4}>
+          <Card elevation={3} sx={{ borderRadius: '12px', padding: '1rem' }}>
+            <Typography
+              variant="h6"
               sx={{
-                padding: '0.3rem',
-                borderRadius: '8px',
-                backgroundColor: '#ffffff',
+                backgroundColor: '#6a1b9a',
+                color: '#fff',
+                padding: '0.6rem',
+                borderRadius: '8px 8px 0 0',
+                textAlign: 'center',
               }}
             >
-              <Grid container spacing={0.5}>
-
-
-                {/* Render Time Slots */}
-                {days.map((day, index) => (
-                  <Grid container item justifyContent="space-between" key={day}>
-                    {times.map((time, timeIndex) => (
-                      <Grid item xs={1.5} key={`${day}-${time}`}>
-                        <Button
-                          variant="outlined"
-                          fullWidth
-                          sx={{
-                            height: '40px',
-                            border: '1px solid #6a1b9a',
-                            '&:hover': {
-                              backgroundColor: '#6a1b9a',
-                              color: '#fff',
-                            },
-                            fontSize: '0.7rem',
-                            color: selectedTimes[index] === time ? 'white' : '#6a1b9a', // Change text color based on selection
-                            backgroundColor: selectedTimes[index] === time ? 'green' : 'transparent', // Change background color based on selection
-                          }}
-                          onClick={() => handleTimeClick(time)} // Set selected time on click
-                        >
-                          {selectedTimes[index] || time} {/* Show selected time */}
-                        </Button>
-                      </Grid>
-                    ))}
-                  </Grid>
-                ))}
-              </Grid>
-            </Paper>
-          </Box>
+              Compra de Boleto
+            </Typography>
+            <CardMedia
+              component="img"
+              height="140"
+              image="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgE7tmYPTMCfXtwS-CaLfGULcgfcS2UGp0BmlQl91BcMn9Nhv7S6LjQyWSrpp7bXHhq3xPeZeUlo7fDcpNtjBfxd9_McnWIIAWviZSCRDSl1W3reM7wnPLkeOI1Qj_32Ute4FjMCjJMMRY/s1773/portadas_gratis_para_dia_de_muertos+%25283%2529.jpg"
+              sx={{ borderRadius: '8px', mt: 1 }}
+            />
+            <CardContent>
+              <Typography variant="body1" fontWeight="bold">
+                La Leyenda Del Dragón
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Clasificación: A | Duración: 91 min
+              </Typography>
+              <Typography variant="body2">
+                Hoy: {selectedTimes[todayIndex] || 'Seleccione un horario'}
+              </Typography>
+            </CardContent>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{ mt: 1 }}
+              startIcon={<LocalMall />}
+              onClick={handleOpenModal}
+            >
+              Proceder al Pago
+            </Button>
+          </Card>
         </Grid>
       </Grid>
     </>

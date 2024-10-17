@@ -16,7 +16,6 @@ import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
 import DialogTicket from './client/tickets/dialogue_ticket';
 
-
 const RedirectToCustomHTML = () => {
   const navigate = useNavigate();
   useEffect(() => {
