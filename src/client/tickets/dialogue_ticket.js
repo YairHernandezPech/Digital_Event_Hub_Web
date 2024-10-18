@@ -47,29 +47,35 @@ const CinemaPage = () => {
           color: '#fff',
         }}
       >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            zIndex: 1,
-          }}
-        />
-        <Typography
-          variant="h3"
-          fontWeight="bold"
-          sx={{
-            zIndex: 2,
-            padding: '0 1rem',
-            backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            borderRadius: '8px',
-          }}
-        >
-          Selecciona tu horario y haz tu pago de boleto
-        </Typography>
+<Box
+  sx={{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    zIndex: 1,
+  }}
+/>
+<Typography
+  variant="h3"
+  fontWeight="bold"
+  sx={{
+    zIndex: 2,
+    padding: '0 1rem',
+    fontSize: {
+      xs: '1.5rem', // Tamaño para pantallas extra pequeñas
+      sm: '2rem',   // Tamaño para pantallas pequeñas
+      md: '2.5rem', // Tamaño para pantallas medianas
+      lg: '3rem',   // Tamaño para pantallas grandes
+    },
+    textAlign: 'center', // Alineación centrada
+  }}
+>
+  Selecciona tu horario y haz tu pago de boleto
+</Typography>
+
       </Box>
 
       {/* Modal de pago */}

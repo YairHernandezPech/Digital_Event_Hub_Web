@@ -20,7 +20,7 @@ const HomeEventClient = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:4000/api/events')
+        fetch('http://localhost:4000/api/events/approved')
             .then(response => response.json())
             .then(data => {
                 console.log('Datos de eventos:', data);
