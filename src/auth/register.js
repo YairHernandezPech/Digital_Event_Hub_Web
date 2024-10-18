@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { registerUser } from  "../services/api-auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from "../services/api-auth";
 import logotipo from '../img/logo3.png';
 import Swal from 'sweetalert2';
@@ -130,10 +130,11 @@ const Register = () => {
             <div className="form-group">
               <button type="submit">Registrar</button>
             </div>
-            <p className="login-register">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
           </form>
+          <div className="text-center mt-2">
+            <Link to="/login" className="login-link">¿Ya tienes cuenta? Inicia sesión</Link>
+          </div>
         </div>
-
         <div className="usuario-info-container">
           <h2>¿Eres Organizador?</h2>
           <p>¡Haz clic para registrarte como organizador <br/> y poder crear tus eventos!<br/></p>
