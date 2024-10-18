@@ -20,7 +20,7 @@ const HomeEventClient = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:4000/api/events')
+        fetch('https://api-digitalevent.onrender.com/api/events/get/approved')
             .then(response => response.json())
             .then(data => {
                 console.log('Datos de eventos:', data);
@@ -206,7 +206,7 @@ const HomeEventClient = () => {
                 </div>
             </div>
         </div>
-    ); 
+    );
 };
 
 export default HomeEventClient;
