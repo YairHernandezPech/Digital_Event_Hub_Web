@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
     font-family: Arial, sans-serif;
@@ -13,82 +14,47 @@ body {
     height: 100vh;
 }
 
-.app {
-    display: flex;
-    padding: 10px;
-}
-
-.header {
-    font-family: 'Lobster', cursive;
-    font-size: 24px;
-    text-align: center;
-    color: #b370b0;
-}
-
-.modal {
-    width: 100%;
-    height: 100%;
+.registroo-container {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background-color:#f0f0f0;
+    background-size: cover; 
+    font-family: 'Arial', sans-serif;
+}
+
+.registroo-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    max-width: none; 
+    overflow: hidden;
+}
+
+.registro-formu-container {
+    flex: 1; 
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; 
+    padding: 40px;
 }
 
-.container {
-    width: 30%;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid  #b370b0;
-    border-radius: 20px;
-    box-shadow: 0 0 10px  #b370b0;
-    box-sizing: border-box;
+.logotipo-container {
+    text-align: center; 
+    margin-bottom: 20px; 
 }
 
-h2 {
-    color: #b370b0;
-    text-align: center;
-    margin: 5px;
+.logotipo {
+    width: 200px; 
+    margin-bottom: 1rem;
 }
 
-.header h3 {
-    font-family: 'Pacifico', cursive;
-    font-size: 40px;
-    margin-bottom: 20px;
-}
-
-.subtext {
-    color: #000000;
-    text-align: center;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-top: 0.5rem;
-    color: #efefef;
-    font-size: 20px;
-}
-
-.form-group input,
-.form-group select {
-    display: block;
-    width: calc(100% - 1rem);
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    background-color: #ffffff;
-    border: 2px solid rgb(224, 104, 208);
-    border-radius: 15px;
-}
-
-.form-group input::placeholder,
-.form-group select::placeholder {
-    color: #9b59b6;
+.User {
+    color: #9e9d9e;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .form-row {
@@ -101,205 +67,82 @@ h2 {
     flex-direction: row;
 }
 
-.form-row .form-group {
-    flex: 1;
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    display: block;
+    width: calc(100% - 1rem);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #efefef;
+    border: 1px solid #bebebe;
+    border-radius: 10px;
+    box-shadow: 1px 2px 2px 0 rgba(20, 20, 20, 0.3);
 }
 
 .form-group button {
     background-color: #870585;
     color: rgb(255, 255, 255);
-    padding: 0.5rem 1rem;
+    padding: 8px;
     border: none;
-    margin-top: 1rem;
+    margin: 15px;
     cursor: pointer;
-    width: 100%;
-    border-radius: 20px;
+    font-size: 16px;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px 0 rgba(1, 1, 1, 0.3);
+
 }
 
 .form-group button:hover {
-    background-color: #6a2774;
+    background-color: #551d5e;
 }
 
-.link {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.link a {
-    color:  #b370b0;
-    text-decoration: none;
-}
-
-.link a:hover {
-    text-decoration: underline;
-}
-
-#custom-gender-container {
-    display: none;
-    transition: max-height 0.5s ease-out;
-    overflow: hidden;
-}
-
-#custom-gender-container.active {
-    display: block;
-    max-height: 200px;
-}
-
-.form-group.wide-input input {
-    width: calc(106% - 22px);
-}
-
-.form-group input[type="password"],
-.form-group input[type="email"] {
-    border: 1px solid #b370b0; /* Change border color to purple */
-}
-
-@media (min-width: 601px) {
-    .form-row.horizontal {
-        flex-direction: row;
-    }
-}
-
-
-.registro-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: url('../img/13.png') no-repeat center center; 
-    background-size: cover; 
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Contenedor de contenido */
-  .registro-content {
-    display: flex;
-    width: 100%;
-    max-width: 1000px; 
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  
-  .registro-logo-container {
-    flex: 1.5;
-    background-color: #ffffff; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  
-  .registro-logo {
-    max-width: 200px; 
-    height: auto;
-  }
-  
-  
-  .registro-form-container {
-    flex: 2;
-    background: linear-gradient(to top, #D900FF, #3A124A);  padding: 40px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  
-  .registro-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .registro-form h2 {
-    color: #ffffff;
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 35px;
-  
-  }
-  
-  .registro-form label {
-    display: block;
-    margin-top: 0.5rem;
-    color: #efefef;
-    font-size: 20px;
-  }
-  
-  .registro-form input {
-    display: block;
-    width: calc(100% - 1rem);
-    padding: 0.5rem;
-    margin-top: 0.5rem;
-    background-color: #ffffff;
-    border: 2px solid rgb(224, 104, 208);
-    border-radius: 15px;
-  }
-  
-  .registro-form button {
-    background-color: #870585;
-    color: rgb(255, 255, 255);
-    padding: 0.5rem 1rem;
-    border: none;
-    margin-top: 1rem;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 20px;
-  }
-  
-  .registro-form button:hover {
-    background-color: #6a2774;
-  }
-  
-  /* Añade estos estilos al CSS existente */
-.button-container1 {
-    display: flex; /* Aplica flexbox al contenedor */
-    justify-content: center; /* Opcional: centra los botones horizontalmente */
-    align-items: center; /* Opcional: centra los botones verticalmente */
-    
-    
-}
-
-.switch-button1 {
-    background-color: #ffffff;
-    color: #870585;
-    border: 2px solid #870585;
-    padding: 10px;
-    margin: 5px;
-    
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 16px;
-    width: 120px;
-}
-
-.switch-button2 {
-    background-color: #80107e;
-    color: #f9f9f9;
-    border: 2px solid #ffffff;
-    padding: 10px;
-    margin-bottom: 0px !important;
-    margin: 0px;
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 16px;
-    width: 120px;
-}
-
-.switch-button1.active {
-    background-color: #870585;
-    color: #ffffff;
-}
-
-.switch-button1:hover {
-    background-color: #6a2774;
-    color: #ffffff;
-}
-
-  
-  .login-register {
+.login-register {
     color: white;
     font-size: 16px;
     margin-top: 10px;
-  }
+}
+
+.usuario-info-container {
+    flex: 1;
+    background-color: #870585;
+    padding: 40px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    color: #ffffff; 
+    text-align: center; 
+}
+
+.usuario-info-container h2 {
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Arial black';
+}
+
+.usuario-info-container p {
+    font-size: 25px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.switch-button1 {
+    background-color: #870585;
+    color: #ffffff;
+    border: 2px solid #cfcfcf;
+    padding: 10px;
+    margin: 25px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 18px;
+    box-shadow: 2px 2px 2px 0 rgba(1, 1, 1, 0.3);
+}
+
+.switch-button1:hover {
+    background-color: #592161;
+    color: #ffffff;
+}
+
+
