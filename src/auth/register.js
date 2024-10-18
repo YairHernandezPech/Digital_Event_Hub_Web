@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { registerUser } from  "../services/api-auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUser } from "../services/api-auth";
+import logotipo from '../img/logo3.png';
 import Swal from 'sweetalert2';
 import "../styles/register.css"
-import logo from '../img/LOGO HUB 1.png'
 
 
 const Register = () => {
@@ -16,7 +16,6 @@ const Register = () => {
     last_name: "",
   });
 
-  const [isOrganizer, setIsOrganizer] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -70,24 +69,16 @@ const Register = () => {
   };
 
   
-
   return (
-    <div className="registro-container">
-      <div className="registro-content">
-        <div className="registro-logo-container">
-          <img src={logo} alt="Logo" className="registro-logo" />
-        </div>
-        <div className="registro-form-container">
-        <div className="button-container1">
-          <button onClick={() => setIsOrganizer(false)} className={`switch-button2 ${!isOrganizer ? 'active' : ''}`}>
-            Usuario
-          </button>
-          <button className="switch-button1" onClick={() => navigate("/register-orga")}>
-            Organizador
-          </button>
-          <br />
-          </div>
+    <div className="registroo-container">
+      <div className="registroo-content">
+        <div className="registro-formu-container">
           <form onSubmit={handleSubmit} noValidate>
+            <div className="logotipo-container">
+             <img src={logotipo} alt="Logo" className="logotipo" />
+             <h3 className="User">Usuario</h3>
+             <hr></hr>
+            </div>
             <div className="form-row horizontal">
               <div className="form-group">
                 <input
@@ -113,7 +104,7 @@ const Register = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="email"
+                  placeholder="Email"
                 />
               </div>
               <div className="form-group">
@@ -122,7 +113,7 @@ const Register = () => {
                   type="password"
                   value={formData.contrasena}
                   onChange={handleChange}
-                  placeholder="contraseña"
+                  placeholder="Contraseña"
                 />
               </div>
             </div>
@@ -139,8 +130,15 @@ const Register = () => {
             <div className="form-group">
               <button type="submit">Registrar</button>
             </div>
-            <p className="login-register">¿Ya tienes cuenta? <a href="/login">Inicia sesion</a></p>
           </form>
+          <div className="text-center mt-2">
+            <Link to="/login" className="login-link">¿Ya tienes cuenta? Inicia sesión</Link>
+          </div>
+        </div>
+        <div className="usuario-info-container">
+          <h2>¿Eres Organizador?</h2>
+          <p>¡Haz clic para registrarte como organizador <br/> y poder crear tus eventos!<br/></p>
+          <button onClick={() => navigate("/register-orga")} className="switch-button1">Regístrate como Organizador</button>
         </div>
       </div>
     </div>

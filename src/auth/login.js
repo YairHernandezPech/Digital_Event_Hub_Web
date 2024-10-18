@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
-import "../styles/login.css";
-import logo from '../img/LOGO HUB 1.png'
+import "../styles/login.css"; 
+import logo from '../img/logo3.png';
 import Swal from 'sweetalert2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +15,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if email and password are filled
     if (!email || !contrasena) {
       Swal.fire('Hay un problema', 'Ingrese sus credenciales.', 'warning');
       return;
@@ -21,12 +22,10 @@ const Login = () => {
     try {
       const { token, user } = await loginUser(email, contrasena);
 
-      if (
-        (role === "user" && user.rol_id !== 2)
-      ) {
+      if (role === "user" && user.rol_id !== 2) {
         Swal.fire('Hay un problema', 'Tu rol no coincide con el rol seleccionado.', 'warning');
         navigate("/login");
-        return; // Detiene la ejecución del código si el rol no coincide
+        return;
       }
 
       localStorage.setItem("token", token);
@@ -41,7 +40,7 @@ const Login = () => {
           break;
       }
     } catch (error) {
-      Swal.fire('Error', 'Error al intentar iniciar sesion.', 'error');
+      Swal.fire('Error', 'Error al iniciar sesion.', 'error');
       console.error("Error al iniciar sesión", error);
     }
   };
@@ -58,25 +57,11 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <div className="login-content">
-        <div className="login-form-container">
-          <h2 className="login-title">¡Bienvenido!</h2>
-          <div className="login-role-selector">
-            <button
-              className={`role-button ${role === "user" ? "active" : ""}`}
-              onClick={() => handleRoleChange("user")}
-            >
-              Usuario
-            </button>
-            <button
-              className="role-button-dos"
-              onClick={() => navigate("/login-orga")}
-            >
-              Organizador
-            </button>
-          </div>
-          <form onSubmit={handleSubmit}>
+      <div className="left-section">
+      <img src={logo} alt="Logo" className="Logo" />
+        <form onSubmit={handleSubmit}>
             <div className="login-input-group">
+
               <input
                 type="email"
                 placeholder="Correo electrónico"
@@ -99,23 +84,23 @@ const Login = () => {
             <button type="submit" className="login-button">Iniciar sesión</button>
           </form>
           <div className="login-divider"></div>
-          <div className="login-social-buttons">
-            <button className="login-social-button"><i className="fab fa-facebook-f"></i></button>
-            <button className="login-social-button"><i className="fab fa-google"></i></button>
-            <button className="login-social-button"><i className="fab fa-twitter"></i></button>
-          </div>
-          <p className="login-register">¿No tienes cuenta? <a href="/registro">¡Regístrate!</a></p>
-          <p className="login-register">
+          <p className="login-register1">
             ¿Olvidaste tu contraseña?{" "}
             <a href="/reset">Recupérala aquí</a>
           </p>
-        </div>
-        <div className="login-logo-container">
-          <img src={logo} alt="Logo" className="login-logo" />
+      </div>
+      <div className="right-section">
+        <div className="login-container-2">
+          <h2>¡Bienvenido!</h2>
+          <p>Por favor, ingresa tus datos para poder iniciar sesión en Digital Event Hub y ver nuestros eventos.</p>
+          <br />
+          <button onClick={() => navigate("/login-orga")}>Organizador</button>
+          <p className="login-register">¿No tienes cuenta? <a className="boton" href="/registro">¡Regístrate!</a></p>
         </div>
       </div>
     </div>
   );
+  
 };
 
 export default Login;

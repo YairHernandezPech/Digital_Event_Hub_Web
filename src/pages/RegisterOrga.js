@@ -1,28 +1,36 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../img/LOGO HUB 1.png';
 import '../styles/registerOrga.css';
+import logo from '../img/logo3.png';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://digital-event.onrender.com/api';
 
-const RegisterOrga = () => {
-  const [nombre, setName] = useState('');
-  const [last_name, setLastName] = useState(''); // Nuevo estado para el apellido
-  const [email, setEmail] = useState('');
-  const [contrasena, setPassword] = useState('');
-  const [telefono, setPhone] = useState('');
+const RegisterOrga= () => {
+  const [formData, setFormData] = useState({
+    nombre: "",
+    last_name: "",
+    email: "",
+    contrasena: "",
+    telefono: "",
+  });
+
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
   const [notification, setNotification] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newUser = {
-      nombre,
-      last_name, // Agregando apellido al objeto newUser
-      email,
-      contrasena,
-      telefono,
+      ...formData,
       rol_id: '3', // ID de organizador
       membresia_id: '1', // ID de básico
       activo: 1 // Asignar el estado 'Activo' por defecto
@@ -54,56 +62,75 @@ const RegisterOrga = () => {
         </div>
       )}
       <div className="registro-content">
-        <div className="registro-logo-container">
-          <img src={logo} alt="Logo" className="registro-logo" />
+      <div className="organizer-info-container">
+          <h2>¿Eres Usuario?</h2>
+          <p>¡Haz clic para registrarte como Usuario <br/> y poder Visualizar nuestros eventos!<br/></p>
+          <button onClick={() => navigate("/registro")} className="switch-button">Regístrate como Usuario</button>
         </div>
         <div className="registro-form-container">
           <form onSubmit={handleSubmit} className="registro-form">
-            <h2>Registro</h2>
-            <label htmlFor="name">Nombre:</label>
+          <div className="logo-container">
+             <img src={logo} alt="Logo" className="logo" />
+             <h3 className="Organizadorr">Organizador</h3>
+             <hr></hr>
+            </div>
+          <div className="form-row horizontal">
+            <div className="form-groupp">
             <input
               type="text"
               id="name"
-              value={nombre}
-              onChange={(e) => setName(e.target.value)}
+              value={formData.nombre}
+              onChange = {handleChange}
               required
+              placeholder="Nombre"
             />
-            
-            <label htmlFor="last_name">Apellido:</label> {/* Nuevo campo para apellido */}
+            </div>
+            <div className="form-groupp">
             <input
               type="text"
               id="last_name"
-              value={last_name}
-              onChange={(e) => setLastName(e.target.value)}
+              value={formData.last_name}
+              onChange={handleChange}
+              placeholder='Apellido'
               required
             />
-
-            <label htmlFor="email">Email:</label>
+            </div>
+          </div>
+          <div className="form-row horizontal">
+          <div className="form-groupp">
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
+              placeholder='Email'
               required
             />
-
-            <label htmlFor="password">Contraseña:</label>
+            </div>
+            <div className="form-groupp">
             <input
+              name="nombre"
               type="password"
               id="password"
-              value={contrasena}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.contrasena}
+              onChange={handleChange}
+              placeholder="Contraseña"
               required
             />
-
-            <label htmlFor="phone">Teléfono:</label>
+            </div>
+          </div>
+          <div className="form-row horizontal">
+          <div className="form-groupp">
             <input
               type="text"
               id="phone"
-              value={telefono}
-              onChange={(e) => setPhone(e.target.value)}
+              value={formData.telefono}
+              onChange={handleChange}
+              placeholder='Telefono'
               required
             />
+            </div>
+            </div>
             <button type="submit">Registrarse</button>
           </form>
           <div className="text-center mt-2">

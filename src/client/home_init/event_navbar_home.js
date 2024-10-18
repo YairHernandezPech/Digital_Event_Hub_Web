@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Grid, Fab, styled, Card, CardContent, Chip
 import SeatIcon from '@mui/icons-material/EventSeat';
 import ClientNavbarHome from './navbar_home';
 import { useNavigate } from 'react-router-dom';
+import DialogTicket from '../tickets/dialogue_ticket'
 
 // Estilos para el primer Navbar
 const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
@@ -91,6 +92,10 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
         console.log('Redirecting to:', `/cliente/event/${idScenary}`); // Agrega este log para depuración
         window.location.href = `/cliente/event/${idScenary}`;
     };
+
+    const DialogTicket = () => {
+        navigate('/cliente/ticked')
+    }
 
     useEffect(() => {
         const initMap = () => {
@@ -213,14 +218,14 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
             </Box>
 
             {/* Boton para navegar al evento */}
-            <Fab color="secondary" aria-label="add" variant="extended" onClick={handleSeatSelection} sx={{
+            <Fab color="secondary" aria-label="add" variant="extended" onClick={DialogTicket} sx={{
                 position: 'fixed',
                 bottom: 20,
                 right: 30,
                 zIndex: 1000,
                 borderRadius: '5px',
             }}>
-                <SeatIcon sx={{ mr: 1 }} /> Seleccionar Asientos
+                <SeatIcon sx={{ mr: 1 }} /> Comprar boletos
             </Fab>
         </>
     );

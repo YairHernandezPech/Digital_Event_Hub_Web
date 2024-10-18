@@ -1,169 +1,182 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* General Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+/* Container for the whole login page */
 .login-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: url('../img/13.png') no-repeat center center; /* Ruta a la imagen de fondo */
-  background-size: cover; /* Para que la imagen cubra todo el fondo */
-  font-family: 'Arial', sans-serif;
+  align-items: stretch;
+  min-height: 100vh;
+  width: 100%;
 }
 
-.login-content {
-  display: flex;
-  width: 80%;
-  max-width: 1200px; 
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-/* <button
-className={`role-button ${role === "user" ? "active" : ""}`}
-onClick={() => handleRoleChange("user")}
->
-Usuario
-</button>
-<button
-className="role-button"
-onClick={() => navigate("/login-orga")}
->
-Organizador
-</button> */
-
-.login-form-container {
+/* Left section styles */
+.left-section {
+  padding: 80px;
   flex: 1;
-  background: linear-gradient(to top, #D900FF, #3A124A);  padding: 40px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border-radius: 10px 0 0 10px; 
+  align-items: center;
+  background-color: white;
+  border-right: 1px solid #ccc; /* Divider between sections */
 }
 
-.login-title {
-  color: white;
-  font-size: 40px;
+/* Logo styles */
+.Logo {
+  width: 150px;
   margin-bottom: 20px;
 }
 
+/* Input fields and form styles */
 .login-input-group {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   width: 100%;
 }
 
 .login-input {
-  width: 300px;
-  padding: 12px;
-  border-radius: 20px;
-  border: none;
+  width: 340px;
+  padding: 10px; /* Espacio interno en los campos de entrada */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   outline: none;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s;
+  background-color: #c6c6c6c9; /* Color de fondo */
+}
+
+.login-input:focus {
+  border-color: #6a2680; /* Color de borde al enfocar */
 }
 
 .login-button {
   width: 100%;
-  padding: 12px;
-  border-radius: 25px;
+  padding: 10px;
+  background-color: #6a2680;
   border: none;
-  background-color: #4d0f57;
-  border: 2px solid #e773f4;
-  color: rgb(255, 255, 255);
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.login-social-buttons {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.login-social-button {
-  background-color: #ffffff;
-  color: #541b6a;
-  border: 2px solid #dcdcdc;
-  border-radius: 18px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.login-social-button i {
-  font-size: 18px;
-}
-
-.login-social-button:hover {
-  background-color: #eb52dc;
-}
-
-.login-logo-container {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffffff; 
-}
-
-.login-logo {
-  max-width: 200px; 
-  height: auto;
-}
-
-.login-register {
   color: white;
   font-size: 16px;
-  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+  font-weight: bold;
 }
 
-.login-register a {
-  color: #ffffff;
+.login-button:hover {
+  background-color: #5a1e70; /* Color más oscuro para hover */
+}
+
+/* Divider */
+.login-divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 20px 0;
+}
+
+/* Registration and password recovery links */
+.login-register1 {
+  font-size: 14px;
+  color: black;
+  margin-top: 20px;
+}
+
+.login-register1 a {
+  color: #6a2680;
   text-decoration: none;
+  font-weight: bold;
 }
 
-/* Estilos para el selector de rol */
-.login-role-selector {
-  display: flex;
+.login-register1 a:hover {
+  text-decoration: underline;
+}
+
+/* Right section styles */
+.right-section {
+  padding: 80px;
+  flex: 1;
+  background-color: #6a2680; 
+  color: white;
+  display: flex; 
+  flex-direction: column;
   justify-content: center;
+}
+
+.login-container-2 h2 {
   margin-bottom: 20px;
+  font-size: 28px;
 }
 
-.role-button {
-  background-color: #ffffff;
-  color: #541b6a;
-  border: 2px solid #dcdcdc;
-  border-radius: 20px;
-  padding: 10px 20px;
-  cursor: pointer;
+.login-container-2 p {
   font-size: 16px;
-  margin: 0 10px;
-  transition: background-color 0.3s ease;
 }
 
-.role-button-dos {
-  background-color: #4f115d;
-  color: #ffffff;
-  border: 2px solid #ffffff;
-  border-radius: 20px ;
-  width: 120px;
-  height: 47px;
-  cursor: pointer;
+.login-container-2 button {
+  background-color: transparent;
+  color: white;
+  border: white solid 2px; 
+  padding: 10px;
   font-size: 16px;
-  margin: 0 10px;
-  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: bold;
 }
 
-.role-button.active {
-  background-color: #541b6a;
-  color: #ffffff;
+.login-container-2 button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Efecto de hover */
 }
 
-.role-button:hover {
-  background-color: #eb52dc;
-  color: #ffffff;
+/* Registration link */
+.login-register {
+  font-size: 14px;
+  color: white;
+  margin-top: 20px;
+}
+
+.login-register a{
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.login-register a:hover {
+  background-color: transparent;
+  text-decoration: underline; /* Subrayado en hover */
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .left-section, .right-section {
+    padding: 40px 20px;
+  }
+
+  .login-container-2 h2 {
+    font-size: 24px;
+  }
+}
+
+/* Tablet styles */
+@media only screen and (max-width: 1024px) {
+  .login-container {
+    max-width: 700px;
+  }
+
+  .left-section, .right-section {
+    padding: 50px;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../img/LOGO HUB 1.png';
+import logo from '../img/logo3.png';
 import '../styles/loginOrga.css';
 
 const LoginOrga = ({ onLogin }) => {
@@ -37,17 +37,13 @@ const LoginOrga = ({ onLogin }) => {
 
   return (
     <div className="login-container">
-      <button className="back-button" onClick={handleBackClick}>
-        Volver
-      </button>
-      <div className="login-content">
-        <div className="login-form-container">
+      <div className="left-section">
           {notification && (
             <div className={`notification ${notification.type}`}>
               {notification.message}
             </div>
           )}
-          <h2 className="login-title">¡Bienvenido!</h2>
+          <img src={logo} alt="Logo" className="Logo" />
           <form onSubmit={handleSubmit}>
             <div className="login-input-group">
               <input
@@ -72,15 +68,18 @@ const LoginOrga = ({ onLogin }) => {
             <button type="submit" className="login-button">Iniciar sesión</button>
           </form>
           <div className="login-divider"></div>
-          <div className="login-social-buttons">
-            <button className="login-social-button"><i className="fab fa-facebook-f"></i></button>
-            <button className="login-social-button"><i className="fab fa-google"></i></button>
-            <button className="login-social-button"><i className="fab fa-twitter"></i></button>
-          </div>
-          <p className="login-register">¿No tienes cuenta? <Link to="/register-orga">¡Regístrate!</Link></p>
+          <p className="login-register1">
+            ¿Olvidaste tu contraseña?{" "}
+            <a href="/reset">Recupérala aquí</a>
+          </p>
         </div>
-        <div className="login-logo-container">
-          <img src={logo} alt="Logo" className="login-logo" />
+        <div className="right-section">
+        <div className="login-container-2">
+          <h2>¡Bienvenido!</h2>
+          <p>Por favor, ingresa tus datos para poder iniciar sesión en Digital Event Hub y ver nuestros eventos.</p>
+          <br />
+          <button onClick={() => navigate("/login")}>Cliente</button>
+          <p className="login-register">¿No tienes cuenta? <Link to="/register-orga">¡Regístrate!</Link></p>
         </div>
       </div>
     </div>
