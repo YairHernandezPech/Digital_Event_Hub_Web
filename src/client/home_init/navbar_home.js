@@ -20,7 +20,7 @@ const ClientNavbarHome = ({ user, onLogout }) => {
             {/* Mostrar los enlaces según si el usuario está autenticado o no */}
             {user ? (
               <>
-                <li>
+                <li> 
                   <a href="#profile">
                     <strong>Bienvenido, {user.nombre}</strong>
                   </a>
