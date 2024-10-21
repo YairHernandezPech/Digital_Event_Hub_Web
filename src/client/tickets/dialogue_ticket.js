@@ -51,7 +51,7 @@ const CinemaPage = () => {
         cvv,
         code
       };
-      const response = await axios.post('http://localhost:4000/api/ticket/check', data);
+      const response = await axios.post('https://api-digital.fly.dev/api/ticket/check', data);
       console.log('Pago realizado con éxito', response.data);
 
       // Establecer mensaje de éxito
@@ -62,7 +62,7 @@ const CinemaPage = () => {
       console.error('Error en el pago', error);
 
       // Establecer mensaje de error
-      setMessage('Error al aplicar el cupón o realizar el pago. Inténtalo de nuevo.');
+      setMessage('Error al encontrar el código, vuelva a intentarlo mas');
       setMessageType('error');
     }
   };
