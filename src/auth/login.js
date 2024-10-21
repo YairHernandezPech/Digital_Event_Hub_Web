@@ -61,7 +61,6 @@ const Login = () => {
       <img src={logo} alt="Logo" className="Logo" />
         <form onSubmit={handleSubmit}>
             <div className="login-input-group">
-
               <input
                 type="email"
                 placeholder="Correo electrónico"
