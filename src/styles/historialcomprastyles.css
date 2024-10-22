@@ -1,0 +1,41 @@
+.historial-container {
+    padding: 150px;
+}
+
+.historial-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* Verifica que este color sea visible sobre el fondo */
+    font-size: 2em;
+    font-weight: bold;
+}
+
+
+
+.compra-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between; /* Espacio entre el contenido y el QR */
+    align-items: center; /* Centra verticalmente los elementos */
+    background-color: #fff; /* Fondo blanco */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.compra-info {
+    flex: 1; /* Permite que la sección de información ocupe el espacio restante */
+}
+
+.qr-code {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el QR */
+    margin-left: 20px; /* Espacio entre la información y el QR */
+}
+
+.no-compras {
+    text-align: center;
+    color: #777;
+}
