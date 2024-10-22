@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate, BrowserRouter, Route, Routes } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
+
+
 // Importar los componentes de las páginas
 import Escenarios from './client/Escenarios/componentes/Escenarios';
 import EventDetail from './loading-page/event_detail';
@@ -14,11 +16,11 @@ import LoginAdmin from './pages/LoginAdmin';
 import RegisterOrga from './pages/RegisterOrga';
 import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
-<<<<<<< HEAD
 import HistorialCompra from './client/tickets/HistorialCompra';
-=======
 import DialogTicket from './client/tickets/dialogue_ticket';
->>>>>>> 49f47ef73d1663feb2919e57cc955980279f33df
+import CompraDetalles from './client/tickets/CompraDetalles';
+
+
 
 const RedirectToCustomHTML = () => {
   const navigate = useNavigate();
@@ -28,8 +30,6 @@ const RedirectToCustomHTML = () => {
   }, [navigate]);
 
   return null;
-
-
 };
 
 const App = () => {
@@ -64,16 +64,16 @@ const App = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {/* Rutas del lading_Page*/}
+          {/* Rutas del landing_page */}
           <Route path="/" element={<RedirectToCustomHTML />} />
           <Route path="/evento/:eventId" element={<EventDetail />} />
 
-
-          {/* Rutas del login, registro y reset password*/}
+          {/* Rutas del login, registro y reset password */}
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/reset" element={<ResetPassword />} />
@@ -82,21 +82,17 @@ const App = () => {
           <Route path="/cliente/home" element={<HomeEventClient />} />
           <Route path="/evento/home/:eventId" element={<EventDetailClient />} />
           <Route path="/cliente/event/:id" element={<Escenarios />} />
-<<<<<<< HEAD
           <Route path="/cliente/historypay" element={<HistorialCompra role={role} onLogout={handleLogout} />} />
-
-
-=======
           <Route path="/cliente/ticked" element={<DialogTicket />} />
->>>>>>> 49f47ef73d1663feb2919e57cc955980279f33df
+          <Route path="/cliente/historypay" element={<CompraDetalles role={role} onLogout={handleLogout} />} />
+          <Route path="/compra/:pago_id" element={<CompraDetalles />} />
 
-          {/* Rutas para navegar dentro del home admin y organizador*/}
+          {/* Rutas para navegar dentro del home admin y organizador */}
           <Route path="/login-admin" element={role ? <Navigate to="/dashboard" /> : <LoginAdmin onLogin={handleLogin} />} />
-          <Route path="/login-orga" element={role ? <Navigate to="/dashboard" /> : <LoginOrga onLogin={handleLogin} />}/>
+          <Route path="/login-orga" element={role ? <Navigate to="/dashboard" /> : <LoginOrga onLogin={handleLogin} />} />
           <Route path="/register-orga" element={role ? <Navigate to="/dashboard" /> : <RegisterOrga />} />
           <Route path="/dashboard/*" element={role ? <Dashboard role={role} onLogout={handleLogout} /> : <Navigate to="/" />} />
           <Route path="/success" element={<Success />} />
-
         </Routes>
       </div>
     </BrowserRouter>
