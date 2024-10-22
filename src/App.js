@@ -15,7 +15,6 @@ import RegisterOrga from './pages/RegisterOrga';
 import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
 import DialogTicket from './client/tickets/dialogue_ticket';
-import DetailTicket from './client/tickets/detail_ticket';
 
 const RedirectToCustomHTML = () => {
   const navigate = useNavigate();
@@ -81,7 +80,6 @@ const App = () => {
           <Route path="/cliente/event/:id" element={<Escenarios />} />
           {/* Obtebner ticketts */}
           <Route path="/cliente/ticked" element={<DialogTicket />} />
-          <Route path="/cliente/ticked/:evento_id" element={<DetailTicket />} />
 
           {/* Rutas para navegar dentro del home admin y organizador*/}
           <Route path="/login-admin" element={role ? <Navigate to="/dashboard" /> : <LoginAdmin onLogin={handleLogin} />} />

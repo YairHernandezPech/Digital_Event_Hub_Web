@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import {
   Typography,
   Box,
@@ -14,22 +14,25 @@ import {
 } from '@mui/material';
 import { CreditCard, Person, CalendarToday, Lock, LocalMall } from '@mui/icons-material';
 import axios from 'axios';
+import { QRCodeCanvas } from 'qrcode.react';
+
+
 
 const CinemaPage = () => {
   const times = ['4:30 p.m.', '6:40 p.m.', '9:00 p.m.'];
   const todayIndex = new Date().getDay() - 1;
   const [selectedTimes, setSelectedTimes] = useState(Array(7).fill(''));
   const [openModal, setOpenModal] = useState(false);
-
+  const [openQRCodeModal, setOpenQRCodeModal] = useState(false);
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolder, setCardHolder] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
   const [cvv, setCvv] = useState('');
   const [code, setPromoCode] = useState('');
-
-  // Estado para manejar mensajes
   const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // 'success' o 'error'
+  const [messageType, setMessageType] = useState('');
+  const [ticketCode, setTicketCode] = useState('');
+  const [couponCode, setCouponCode] = useState('');
 
   const handleTimeClick = (time) => {
     const newSelectedTimes = [...selectedTimes];
@@ -39,6 +42,9 @@ const CinemaPage = () => {
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+  
+  const handleOpenQRCodeModal = () => setOpenQRCodeModal(true);
+  const handleCloseQRCodeModal = () => setOpenQRCodeModal(false);
 
   const handlePayment = async () => {
     try {
@@ -49,27 +55,28 @@ const CinemaPage = () => {
         cardHolder,
         expiryDate,
         cvv,
-        code
+        code,
       };
-      const response = await axios.post('https://api-digital.fly.dev/api/ticket/check', data);
+      const response = await axios.post('http://localhost:4000/api/ticket/check', data);
       console.log('Pago realizado con éxito', response.data);
 
-      // Establecer mensaje de éxito
       setMessage('Cupón aplicado y pago realizado con éxito.');
       setMessageType('success');
+      setTicketCode(response.data.ticketCode);
+      setCouponCode(code);
+      handleOpenQRCodeModal(); // Abrir modal del QR aquí
       handleCloseModal();
     } catch (error) {
       console.error('Error en el pago', error);
-
-      // Establecer mensaje de error
-      setMessage('Error al encontrar el código, vuelva a intentarlo mas');
+      setMessage('Error al encontrar el código, vuelva a intentarlo');
       setMessageType('error');
     }
   };
 
+  const qrCodeValue = `${couponCode}`;
+
   return (
     <>
-      {/* Encabezado con imagen de fondo */}
       <Box
         sx={{
           position: 'relative',
@@ -115,7 +122,7 @@ const CinemaPage = () => {
         </Typography>
       </Box>
 
-      {/* Modal de pago */}
+      {/* Modal de Información de Pago */}
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box
           sx={{
@@ -212,12 +219,11 @@ const CinemaPage = () => {
             onChange={(e) => setPromoCode(e.target.value)}
           />
 
-          {/* Mostrar mensaje dentro del modal */}
           {message && (
             <Typography
               variant="body2"
               sx={{
-                mb: 2, // margen debajo del mensaje
+                mb: 2,
                 textAlign: 'center',
                 color: messageType === 'success' ? 'green' : 'red',
               }}
@@ -232,81 +238,123 @@ const CinemaPage = () => {
             fullWidth
             sx={{ mb: 2 }}
             startIcon={<LocalMall />}
-            onClick={handlePayment} // Aquí llamamos a la función de pago
+            onClick={handlePayment}
           >
             Aplicar Cupón y Pagar
           </Button>
 
           <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center' }}>
-            Los boletos son válidos solo para el día y horario seleccionados. No se permiten reembolsos ni cambios.
+            Los boletos son válidos solo para el día y horario seleccionados.
           </Typography>
         </Box>
       </Modal>
 
-      {/* Sección de horarios y carrito */}
+{/* Modal del Código QR */}
+{/* Modal del Código QR */}
+<Modal open={openQRCodeModal} onClose={handleCloseQRCodeModal}>
+  <Box
+    sx={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      bgcolor: 'background.paper',
+      boxShadow: 24,
+      p: 4,
+      borderRadius: '16px',
+      border: '2px solid #6a1b9a',
+      textAlign: 'center',
+      width: { xs: '90%', sm: '400px' }, // Responsive width
+    }}
+  >
+    <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', color: '#6a1b9a' }}>
+      ¡Aquí está tu Código QR!
+    </Typography>
+    <QRCodeCanvas id="qrCode" value={qrCodeValue} size={256} style={{ margin: '20px 0' }} />
+
+    {/* Botón para descargar el QR */}
+    <Button
+      variant="contained"
+      color="primary"
+      sx={{ mt: 2, px: 4 }}
+      onClick={() => {
+        const qrCanvas = document.getElementById('qrCode').querySelector('canvas');
+        const qrUrl = qrCanvas.toDataURL('image/png');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = qrUrl;
+        downloadLink.download = 'ticket_qr.png';
+        downloadLink.click();
+      }}
+    >
+      Descargar QR
+    </Button>
+
+    <Button
+      variant="outlined"
+      color="primary"
+      onClick={handleCloseQRCodeModal}
+      sx={{ mt: 3, px: 4 }}
+    >
+      Cerrar
+    </Button>
+  </Box>
+</Modal>
+
+
+
       <Grid container spacing={2} sx={{ padding: '2rem' }}>
         <Grid item xs={12} md={8}>
-          {/* Selección de Horarios */}
-          <Paper elevation={3} sx={{ padding: '1.5rem', borderRadius: '12px' }}>
-            <Typography
-              variant="h6"
-              fontWeight="bold"
-              sx={{ textAlign: 'center', mb: 2, color: '#6a1b9a' }}
-            >
-              Selección de Horario
+          <Paper sx={{ padding: '1rem' }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              La Leyenda Del Dragón
             </Typography>
-            <Grid container spacing={2}>
-              {times.map((time) => (
-                <Grid item xs={4} key={time}>
-                  <Button
-                    variant={selectedTimes[todayIndex] === time ? 'contained' : 'outlined'}
-                    fullWidth
-                    onClick={() => handleTimeClick(time)}
-                    sx={{
-                      borderRadius: '8px',
-                      color: selectedTimes[todayIndex] === time ? '#fff' : '#6a1b9a',
-                      backgroundColor: selectedTimes[todayIndex] === time ? '#6a1b9a' : 'transparent',
-                      borderColor: '#6a1b9a',
-                      fontWeight: selectedTimes[todayIndex] === time ? 'bold' : 'normal',
-                    }}
-                  >
-                    {time}
-                  </Button>
-                </Grid>
-              ))}
-            </Grid>
+            <Typography variant="body1" paragraph>
+              Sinopsis: Una emocionante historia de aventuras y amistad.
+            </Typography>
+
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Horarios:
+            </Typography>
+            {times.map((time, index) => (
+              <Button
+                key={index}
+                variant="outlined"
+                onClick={() => handleTimeClick(time)}
+                sx={{
+                  margin: '0.5rem',
+                  backgroundColor: selectedTimes[todayIndex] === time ? '#6a1b9a' : 'inherit',
+                  color: selectedTimes[todayIndex] === time ? '#fff' : 'inherit',
+                }}
+              >
+                {time}
+              </Button>
+            ))}
           </Paper>
         </Grid>
 
-        {/* Sección de Carrito */}
         <Grid item xs={12} md={4}>
-          <Card sx={{ maxWidth: 345, borderRadius: '12px' }}>
+          <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
             <CardMedia
               component="img"
               height="140"
-              image="https://es.web.img3.acsta.net/c_310_420/pictures/23/09/27/14/22/1427616.jpg"
-              alt="movie poster"
+              image="https://via.placeholder.com/140"
+              alt="La Leyenda Del Dragón"
             />
             <CardContent>
-              <Typography gutterBottom variant="h6" component="div">
+              <Typography gutterBottom variant="h5" component="div">
                 La Leyenda Del Dragón
               </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Fecha: {new Date().toLocaleDateString()}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Hora: {selectedTimes[todayIndex] || 'No seleccionada'}
-              </Typography>
-              <Typography variant="body2" color="textSecondary">
-                Precio: $10.00
+              <Typography variant="body2" color="text.secondary">
+                Sinopsis: Una emocionante historia de aventuras y amistad.
               </Typography>
               <Button
                 variant="contained"
+                color="primary"
                 fullWidth
-                sx={{ mt: 2, backgroundColor: '#6a1b9a' }}
+                sx={{ marginTop: '1rem' }}
                 onClick={handleOpenModal}
               >
-                Continuar al Pago
+                Proceder al Pago
               </Button>
             </CardContent>
           </Card>
