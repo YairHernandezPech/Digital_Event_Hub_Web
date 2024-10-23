@@ -45,21 +45,20 @@ const Register = () => {
       await registerUser({ nombre, email, contrasena, telefono, last_name, rol_id });
       
       //autologin
-      const { token, user } = await loginUser(email, contrasena);
+      const { token } = await loginUser(email, contrasena);
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      
+      navigate("/cliente/home");
 
 
-      switch (user.rol_id) {
-        case 2:
-          navigate("/cliente/home");
+      // switch (rol_id) {
+      //   case 2:
+      //     navigate("/cliente/home");
         
-          break;
-        default:
-          navigate("/");
-          break;
-      }
+      //     break;
+      //   default:
+      //     navigate("/");
+      //     break;
+      // }
 
       Swal.fire('Éxito', 'Registro exitoso , iniciando sesion.', 'success');
     } catch (error) {

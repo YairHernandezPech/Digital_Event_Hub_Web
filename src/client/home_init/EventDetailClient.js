@@ -4,6 +4,7 @@ import { FaSearch, FaFilter, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/f
 import { useNavigate } from 'react-router-dom';
 import '../../styles/newStyles.css'
 import ClientNavbarHome from './navbar_home';
+import {jwtDecode} from 'jwt-decode';
 
 const HomeEventClient = () => {
     const [events, setEvents] = useState([]);
@@ -20,7 +21,7 @@ const HomeEventClient = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:4000/api/events/approved')
+        fetch('https://api-digital.fly.dev/api/events/approved')
             .then(response => response.json())
             .then(data => {
                 console.log('Datos de eventos:', data);
@@ -69,11 +70,17 @@ const HomeEventClient = () => {
     };
 
     useEffect(() => {
-        const userData = localStorage.getItem("user");
-        if (userData) {
-            setUser(JSON.parse(userData));
+        const token = localStorage.getItem("token");
+        if (token) {
+            try {
+                const decodedToken = jwtDecode(token);
+                setUser({ id: decodedToken.id, rol: decodedToken.rol });
+            } catch (error) {
+                console.error("Error decoding token:", error);
+                navigate("/login");
+            }
         } else {
-            navigate("/login"); // Redirige al login si no hay datos del usuario
+            navigate("/login");
         }
     }, [navigate]);
 

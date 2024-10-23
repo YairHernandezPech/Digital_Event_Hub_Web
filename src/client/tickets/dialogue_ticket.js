@@ -24,6 +24,9 @@ const CinemaPage = () => {
   const [eventData, setEventData] = useState(null);
   const [schedules, setSchedules] = useState([]);
   const [selectedTimeId, setSelectedTimeId] = useState(null);
+  const [selectedTimes, setSelectedTimes] = useState([]);
+  
+
 
   const todayIndex = new Date().getDay() - 1;
 
