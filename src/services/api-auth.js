@@ -21,20 +21,6 @@ export const loginUser = async (email, contrasena) => {
   }
 };
 
-export const fetchUser = async (token) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/users/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener el usuario", error);
-    throw error;
-  }
-};
-
 export const createEvent = async (eventData) => {
   const token = localStorage.getItem("token");
   try {

@@ -2,7 +2,20 @@
 import React from 'react';
 import logo from '../../img/LOGO HUB BLANCO 3.png';
 import '../../styles/navbars.css';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://digital-event.onrender.com/api';
+
 const ClientNavbarHome = ({ user, onLogout }) => {
+  const [users, setUser] = useState()
+  const fetchUsersById = () => {
+    axios.get(`${API_URL}/users/${user.id}`)
+      .then(response => {
+        setUser(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching users:', error);
+      });
+  };
   return (
     <header id="header">
       <div className='container4'>
@@ -14,7 +27,7 @@ const ClientNavbarHome = ({ user, onLogout }) => {
           <ul className="nav-menu">
 
             {/* Mostrar los enlaces según si el usuario está autenticado o no */}
-            {user ? (
+            {users ? (
               <>
                 <li>
                   <a href="/cliente/home">
