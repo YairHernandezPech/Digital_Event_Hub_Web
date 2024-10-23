@@ -1,21 +1,25 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as XLSX from 'xlsx';
-import { saveAs } from 'file-saver';
+import axios from 'axios';
 import '../styles/cupones.css';
 
 const Cupones = () => {
-  const [cupones, setCupones] = useState([
-    { id: 1, nombre: 'Mittie Saunders', fechaCreacion: '03/01/2018', estado: 'Redimido', codigo: '89ediwjhed98rj923e23' },
-    { id: 2, nombre: 'Elnora Hines', fechaCreacion: '09/10/2018', estado: 'Redimido', codigo: 'dijhwehd98rj923e23769' },
-    { id: 3, nombre: 'Pauline Morris', fechaCreacion: '11/18/2018', estado: 'Redimido', codigo: '46189ediyhwehd' },
-    { id: 4, nombre: 'Ralph Houston', fechaCreacion: '01/22/2018', estado: 'Redimido', codigo: '9333sedijwehd' },
-    { id: 5, nombre: 'Theodore Cohen', fechaCreacion: '05/06/2018', estado: 'Redimido', codigo: 'kxj89r923rj923e23769' },
-    // Cupones creados manualmente
-  ]);
-
+  const [cupones, setCupones] = useState([]);
+  const [existingCupones, setExistingCupones] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
+  const [showExisting, setShowExisting] = useState(true);
 
-  // Boton para importar excel
+  useEffect(() => {
+    axios.get('http://localhost:4000/api/cupon/all-coupons')
+      .then(response => {
+        setExistingCupones(response.data);
+      })
+      .catch(error => {
+        console.error('Error al obtener cupones existentes:', error);
+      });
+  }, []);
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -26,20 +30,44 @@ const Cupones = () => {
       const worksheet = workbook.Sheets[workbook.SheetNames[0]];
       const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
-      setCupones(jsonData);
+      const nuevosCupones = jsonData.map((item, index) => ({
+        id: cupones.length + index + 1,
+        info: item.Nombre || item.nombre || 'Nombre no especificado',
+        fecha_creacion: item.FechaCreacion || item.fechaCreacion || 'Fecha no especificada',
+        status: item.Estado || item.estado !== undefined ? Number(item.Estado || item.estado) : 1,
+        code: item.Codigo || item.codigo || 'Código no especificado',
+        redeem: item.Redeem !== undefined ? Boolean(item.Redeem) : false, // Asignar valor de redeem
+      }));
+
+      setCupones(nuevosCupones);
+      setShowExisting(false); // Ocultar los cupones existentes al importar
     };
     reader.readAsArrayBuffer(file);
   };
 
-  // Boton para crear el excel
+  const handleExportAndSave = () => {
+    if (cupones.length > 0) {
+      axios.post('http://localhost:4000/api/cupon/upload-coupons', cupones)
+        .then(response => {
+          console.log('Cupones guardados en la base de datos:', response.data);
+          alert('Cupones guardados exitosamente');
+          setCupones([]); // Limpiar cupones importados después de guardar
+          setShowExisting(true); // Restaurar visibilidad de cupones existentes
+        })
+        .catch(error => {
+          console.error('Error al guardar cupones en la base de datos:', error);
+        });
+    } else {
+      alert('No hay datos para exportar');
+    }
+  };
+
   const handleExport = () => {
-    const ws = XLSX.utils.json_to_sheet(cupones);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Cupones');
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    
-    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'cupones.xlsx');
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -52,7 +80,7 @@ const Cupones = () => {
           className="import-button"
           onClick={() => fileInputRef.current.click()}
         >
-          Importar a Excel
+          Importar Excel
         </button>
         <input
           type="file"
@@ -62,7 +90,7 @@ const Cupones = () => {
           onChange={handleFileUpload}
         />
         <div className="coupons-counter">
-          <span>44/50 Cupones Restantes</span>
+          <span>{cupones.length}/50 Cupones</span>
         </div>
       </div>
 
@@ -81,24 +109,73 @@ const Cupones = () => {
         <table>
           <thead>
             <tr>
-              <th>Nombre</th>
+              <th>Ticket Id</th>
+              <th>Info</th>
               <th>Fecha de Creación</th>
               <th>Estado</th>
-              <th>Código del Cupón</th>
+              <th>Código</th>
+              <th>Redeem</th> {/* Nueva columna para redeem */}
             </tr>
           </thead>
           <tbody>
-            {cupones.map((cupon, index) => (
+            {showExisting ? existingCupones.map((cupon) => (
+              <tr key={cupon.ticket_id}>
+                <td>{cupon.ticket_id}</td>
+                <td>{cupon.info}</td>
+                <td>{cupon.fecha_creacion}</td>
+                <td>{cupon.status}</td>
+                <td>{cupon.code}</td>
+                <td>{cupon.redeem ? 'Sí' : 'No'}</td> {/* Mostrar estado de redeem */}
+              </tr>
+            )) : cupones.map((cupon, index) => (
               <tr key={index}>
-                <td>{cupon.nombre || cupon.Nombre}</td>
-                <td>{cupon.fechaCreacion || cupon.FechaCreacion}</td>
-                <td>{cupon.estado || cupon.Estado}</td>
-                <td>{cupon.codigo || cupon.Codigo}</td>
+                <td>{cupon.id}</td>
+                <td>{cupon.info}</td>
+                <td>{cupon.fecha_creacion}</td>
+                <td>{cupon.status}</td>
+                <td>{cupon.code}</td>
+                <td>{cupon.redeem ? 'Sí' : 'No'}</td> {/* Mostrar estado de redeem */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h4>Vista previa de la tabla</h4>
+            <table>
+              <thead>
+                <tr>
+                  <th>Ticket Id</th>
+                  <th>Nombre</th>
+                  <th>Fecha de Creación</th>
+                  <th>Estado</th>
+                  <th>Código del Cupón</th>
+                  <th>Redeem</th> {/* Nueva columna para redeem */}
+                </tr>
+              </thead>
+              <tbody>
+                {cupones.map((cupon, index) => (
+                  <tr key={index}>
+                    <td>{cupon.id}</td>
+                    <td>{cupon.info}</td>
+                    <td>{cupon.fecha_creacion}</td>
+                    <td>{cupon.status}</td>
+                    <td>{cupon.code}</td>
+                    <td>{cupon.redeem ? 'Sí' : 'No'}</td> {/* Mostrar estado de redeem */}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="modal-actions">
+              <button className="modal-button" onClick={handleExportAndSave}>Sí, guardar</button>
+              <button className="modal-button" onClick={handleCloseModal}>No, cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
