@@ -2,38 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import EventInformationNavbar from './event_navbar_home'; // Asegúrate de que la ruta sea correcta
 
-
 const EventDetailClient = () => {
     const { eventId } = useParams();
     const [event, setEvent] = useState(null);
-    const [scenary, setScenary] = useState(null);
-    const [authorizedBy, setAuthorizedBy] = useState('');
+    const [authorizedBy, setAuthorizedBy] = useState('Desconocido');
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchEventDetails = async () => {
             try {
-                // Fetch event details
-                const response = await fetch('https://api-digitalevent.onrender.com/api/events/get/img');
+                // Fetch event details from local API
+                const response = await fetch(`http://localhost:4000/api/events/find/${eventId}`);
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
                 }
-                const data = await response.json();
-                const selectedEvent = data.find(event => event.evento_id === parseInt(eventId));
+                const selectedEvent = await response.json();
                 setEvent(selectedEvent);
 
-                // Fetch scenary details
-                const responseEscenarios = await fetch('https://api-digitalevent.onrender.com/api/escenarios');
-                if (!responseEscenarios.ok) {
-                    return;
-                }
-                const responseEscenariosJSON = await responseEscenarios.json();
-                const selectedScenary = responseEscenariosJSON.find((item) => item.evento_id === selectedEvent.evento_id);
-                setScenary(selectedScenary);
-
-                // Fetch authorizedBy user details
-                if (selectedEvent && selectedEvent.autorizado_por) {
-                    const responseUser = await fetch(`https://api-digitalevent.onrender.com/api/users/${selectedEvent.autorizado_por}`);
+                // Fetch authorizedBy user details if exists
+                if (selectedEvent.autorizado_por) {
+                    const responseUser = await fetch(`http://localhost:4000/api/users/${selectedEvent.autorizado_por}`);
                     if (!responseUser.ok) {
                         throw new Error(`Error ${responseUser.status}: ${responseUser.statusText}`);
                     }
@@ -50,12 +38,14 @@ const EventDetailClient = () => {
         fetchEventDetails();
     }, [eventId]);
 
+    // Display error message if something went wrong
     if (error) {
         return <div>Error: {error}</div>;
     }
 
-    if (!event || !scenary) {
-        return 
+    // Show loading message while fetching event data
+    if (!event) {
+        return <div>Cargando...</div>;
     }
 
     return (
@@ -64,13 +54,18 @@ const EventDetailClient = () => {
                 title={event.evento_nombre}
                 imageUrl={event.imagen_url}
                 date={`${new Date(event.fecha_inicio).toLocaleDateString()} - ${new Date(event.fecha_termino).toLocaleDateString()}`}
-                time={event.hora}
+                time={`${event.horario_inicio_1} - ${event.horario_fin_1}, ${event.horario_inicio_2} - ${event.horario_fin_2}`}
                 description={event.descripcion}
                 location={event.ubicacion}
-                category={event.categoria}
-                eventType={event.tipo_evento}
                 authorizedBy={authorizedBy}
-                idScenary={scenary.escenario_id}
+                idScenary={event._id} 
+                precio={event.precio} 
+                max_per={event.max_per} 
+                horario_inicio_1={event.horario_inicio_1} 
+                horario_fin_1={event.horario_fin_1} 
+                horario_inicio_2={event.horario_inicio_2} 
+                horario_fin_2={event.horario_fin_2} 
+                
             />
         </div>
     );

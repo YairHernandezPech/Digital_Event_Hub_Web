@@ -3,7 +3,6 @@ import { AppBar, Toolbar, Typography, Grid, Fab, styled, Card, CardContent, Chip
 import SeatIcon from '@mui/icons-material/EventSeat';
 import ClientNavbarHome from './navbar_home';
 import { useNavigate } from 'react-router-dom';
-import DialogTicket from '../tickets/dialogue_ticket'
 
 // Estilos para el primer Navbar
 const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
@@ -84,7 +83,24 @@ const Title = styled(Typography)(({ theme }) => ({
     fontSize: '4.5rem'
 }));
 
-const EventInformationNavbar = ({ title, imageUrl, date, time, location, category, eventType, authorizedBy, idScenary, description }) => {
+const EventInformationNavbar = ({ 
+    title, 
+    imageUrl, 
+    date, 
+    time, 
+    location, 
+    category, 
+    eventType, 
+    authorizedBy, 
+    idScenary, 
+    description, 
+    precio, 
+    max_per, 
+    horario_inicio_1, 
+    horario_fin_1, 
+    horario_inicio_2, 
+    horario_fin_2 
+}) => {
     const [user, setUser] = useState(null); // Asegúrate de definir el estado aquí
     const navigate = useNavigate(); // Hook para navegación
 
@@ -154,13 +170,13 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
 
                     <Stack direction="row" spacing={1}>
                         <Title variant="h1" style={{color:"white"}}>{title}</Title>
-                        <Chip label={eventType} color={eventType === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
                     <p>Description: {description}</p>
 
                     <Info variant="body1">Fecha: {date} a las {time}</Info>
                     {location && <Info variant="body1">Te esperamos en el {location}</Info>}
                     <br />
+                    
                 </Toolbar>
                 <div style={floatingDivStyle}>
                     <Typography variant="h4" fontWeight={800}>Categoría: {category}</Typography>
@@ -203,14 +219,21 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                                     <strong>Ubicación:</strong> {location}
                                 </Typography>
                                 <Typography variant="body2">
-                                    <strong>Categoría:</strong> {category}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Tipo de Evento:</strong> {eventType}
-                                </Typography>
-                                <Typography variant="body2">
                                     <strong>Autorizado por:</strong> {authorizedBy}
                                 </Typography>
+                                <Typography variant="body2">
+                                    <strong>Precio: $</strong> {precio}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Máximo por persona:</strong> {max_per}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Horario 1:</strong> {horario_inicio_1} - {horario_fin_1}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <strong>Horario 2:</strong> {horario_inicio_2} - {horario_fin_2}
+                                </Typography>
+                    
                             </CardContent>
                         </CustomInfoCard>
                     </Grid>
@@ -225,7 +248,8 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                 zIndex: 1000,
                 borderRadius: '5px',
             }}>
-                <SeatIcon sx={{ mr: 1 }} /> Comprar boletos
+                <SeatIcon sx={{ mr: 1 }} />
+                Comprar Boleto
             </Fab>
         </>
     );
