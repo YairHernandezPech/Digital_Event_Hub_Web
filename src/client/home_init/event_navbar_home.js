@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'; // Asegúrate de importar useState
+import React, { useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Grid, Fab, styled, Card, CardContent, Chip, Stack, Box } from '@mui/material';
 import SeatIcon from '@mui/icons-material/EventSeat';
 import ClientNavbarHome from './navbar_home';
 import { useNavigate } from 'react-router-dom';
-import DialogTicket from '../tickets/dialogue_ticket'
 
-// Estilos para el primer Navbar
 const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
@@ -38,7 +36,7 @@ const floatingDivStyle = {
     position: 'absolute',
     bottom: '0',
     right: '0',
-    backgroundColor: '#88158d', // Color para visualizar el div flotante
+    backgroundColor: '#88158d',
     padding: '10px 20px',
     borderRadius: '20px 0px 0px 0px',
 };
@@ -59,55 +57,48 @@ const CustomInfo = styled(Typography)(({ theme }) => ({
     gap: theme.spacing(1),
 }));
 
-const Info = styled(Typography)(({ theme }) => ({
-    textAlign: 'left', // Align info text to the left
-    fontSize: '1rem',
-    fontWeight: 'medium',
-    marginBottom: theme.spacing(1), // Add margin below each info item
-}));
-
 const CustomMapCard = styled(Card)(({ theme }) => ({
-    height: '400px',
+    height: '100%',
     width: '100%',
+    padding: theme.spacing(2), // Añade un poco de espacio interno
 }));
 
 const CustomInfoCard = styled(Card)(({ theme }) => ({
-    height: '400px',
+    height: '100%',
     width: '100%',
-    marginLeft: theme.spacing(2),
+    padding: theme.spacing(2), // Añade un poco de espacio interno
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
-    textAlign: 'left', // Align title to the left
-    marginBottom: theme.spacing(1), // Add margin below the title
-    fontSize: '4.5rem'
+    textAlign: 'left',
+    marginBottom: theme.spacing(1),
+    fontSize: '2rem',
 }));
 
 const EventInformationNavbar = ({ title, imageUrl, date, time, location, category, eventType, authorizedBy, idScenary, description }) => {
-    const [user, setUser] = useState(null); // Asegúrate de definir el estado aquí
-    const navigate = useNavigate(); // Hook para navegación
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
     const handleSeatSelection = () => {
-        console.log('Redirecting to:', `/cliente/event/${idScenary}`); // Agrega este log para depuración
+        console.log('Redirecting to:', `/cliente/event/${idScenary}`);
         window.location.href = `/cliente/event/${idScenary}`;
     };
 
     const DialogTicket = () => {
-        navigate('/cliente/ticked')
-    }
+        navigate('/cliente/ticked');
+    };
 
     useEffect(() => {
         const initMap = () => {
             const map = new window.google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 }, // Latitud y Longitud por defecto
+                center: { lat: -34.397, lng: 150.644 },
                 zoom: 15
             });
 
             const geocoder = new window.google.maps.Geocoder();
             geocoder.geocode({ address: location }, (results, status) => {
                 if (status === 'OK') {
-                    console.log('Geocode results:', results); // Agrega este log para depuración
                     map.setCenter(results[0].geometry.location);
                     new window.google.maps.Marker({
                         map,
@@ -136,31 +127,27 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
         if (userData) {
             setUser(JSON.parse(userData));
         } else {
-            navigate("/login"); // Redirige al login si no hay datos del usuario
+            navigate("/login");
         }
     }, [navigate]);
 
     const handleLogout = () => {
         localStorage.removeItem("user");
-        navigate("/login"); // Redirige al login después de cerrar sesión
+        navigate("/login");
     };
 
     return (
         <>
             <ClientNavbarHome user={user} onLogout={handleLogout} /><hr/><br/><br/>
             <CustomNavbarContainer position="static" backgroundImage={imageUrl}>
-                <Toolbar style={{ width: '90%' }}>
-                    {authorizedBy && <Info variant="body1">Organizado por {authorizedBy}</Info>}
-
-                    <Stack direction="row" spacing={1}>
-                        <Title variant="h1" style={{color:"white"}}>{title}</Title>
+                <Toolbar style={{ width: '100%' }}>
+                    {authorizedBy && <CustomInfo variant="body1">Organizado por {authorizedBy}</CustomInfo>}
+                    <Stack direction="row" spacing={1} alignItems="center" style={{ width: '100%' }}>
+                        <Title variant="h1" style={{ color: "white", flex: 1 }}>{title}</Title>
                         <Chip label={eventType} color={eventType === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
-                    <p>Description: {description}</p>
-
-                    <Info variant="body1">Fecha: {date} a las {time}</Info>
-                    {location && <Info variant="body1">Te esperamos en el {location}</Info>}
-                    <br />
+                    <CustomInfo variant="body1">Fecha: {date} a las {time}</CustomInfo>
+                    {location && <CustomInfo variant="body1">Te esperamos en el {location}</CustomInfo>}
                 </Toolbar>
                 <div style={floatingDivStyle}>
                     <Typography variant="h4" fontWeight={800}>Categoría: {category}</Typography>
@@ -169,22 +156,18 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
 
             <Box sx={{
                 width: '100%',
-                '@media (min-width:600px)': {
-                    width: '90%'
-                },
-                margin: '0 auto'
-            }}
-            >
-                <Grid container spacing={2} style={{ width: '90%' }}>
-                    <Grid item xs={12} sm={6}>
-                        <CustomMapCard>
+                margin: '0 auto',
+            }}>
+                <Grid container spacing={3} sx={{ width: '100%', margin: '0 auto', display: 'flex', alignItems: 'stretch' }}>
+                    <Grid item xs={12} sm={6} style={{ display: 'flex' }}>
+                        <CustomMapCard style={{ flex: 1 }}>
                             <CardContent>
                                 <div id="map" style={{ width: '100%', height: '400px' }}></div>
                             </CardContent>
                         </CustomMapCard>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <CustomInfoCard>
+                    <Grid item xs={12} sm={6} style={{ display: 'flex' }}>
+                        <CustomInfoCard style={{ flex: 1 }}>
                             <CardContent>
                                 <Typography variant="h6">Información Adicional</Typography>
                                 <Typography variant="body2">
@@ -217,7 +200,6 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                 </Grid>
             </Box>
 
-            {/* Boton para navegar al evento */}
             <Fab color="secondary" aria-label="add" variant="extended" onClick={DialogTicket} sx={{
                 position: 'fixed',
                 bottom: 20,
@@ -228,7 +210,7 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                 <SeatIcon sx={{ mr: 1 }} /> Comprar boletos
             </Fab>
         </>
-    );
+    );           
 };
 
 export default EventInformationNavbar;
