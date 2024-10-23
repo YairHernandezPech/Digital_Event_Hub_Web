@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api-auth";
+import { loginUser } from "../services/api-auth"; // Asegúrate de que loginUser esté importada
 import "../styles/login.css"; 
 import logo from '../img/logo3.png';
 import Swal from 'sweetalert2';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+import { jwtDecode } from "jwt-decode"; // Corrección aquí
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [contrasena, setContrasena] = useState("");
-  const [role, setRole] = useState("user");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -19,19 +17,23 @@ const Login = () => {
       Swal.fire('Hay un problema', 'Ingrese sus credenciales.', 'warning');
       return;
     }
+  
     try {
-      const { token, user } = await loginUser(email, contrasena);
-
-      if (role === "user" && user.rol_id !== 2) {
-        Swal.fire('Hay un problema', 'Tu rol no coincide con el rol seleccionado.', 'warning');
+      const { token } = await loginUser(email, contrasena);
+      localStorage.setItem("token", token);
+      
+      // Cambia aquí
+      const decodedToken = jwtDecode(token); // Usa jwtDecode
+      const rol_id = decodedToken.rol; // Asegúrate de que 'rol_id' es correcto
+      console.log("Tu rol es", rol_id)
+      
+      if (rol_id !== 2) {
+        Swal.fire('Hay un problema', 'Tu rol no coincide con el rol permitido.', 'warning');
         navigate("/login");
         return;
       }
-
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      switch (user.rol_id) {
+  
+      switch (rol_id) {
         case 2:
           navigate("/cliente/home");
           break;
@@ -40,53 +42,49 @@ const Login = () => {
           break;
       }
     } catch (error) {
-      Swal.fire('Error', 'Error al iniciar sesion.', 'error');
+      Swal.fire('Error', 'Error al iniciar sesión.', 'error');
       console.error("Error al iniciar sesión", error);
     }
   };
+  
 
   const resetForm = () => {
     setEmail("");
     setContrasena("");
   };
 
-  const handleRoleChange = (newRole) => {
-    setRole(newRole);
-    resetForm(); // Limpiar el formulario cuando se cambia el rol
-  };
-
   return (
     <div className="login-container">
       <div className="left-section">
-      <img src={logo} alt="Logo" className="Logo" />
+        <img src={logo} alt="Logo" className="Logo" />
         <form onSubmit={handleSubmit}>
-            <div className="login-input-group">
-              <input
-                type="email"
-                placeholder="Correo electrónico"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="login-input"
-              />
-            </div>
-            <div className="login-input-group">
-              <input
-                type="password"
-                placeholder="Contraseña"
-                value={contrasena}
-                onChange={(e) => setContrasena(e.target.value)}
-                required
-                className="login-input"
-              />
-            </div>
-            <button type="submit" className="login-button">Iniciar sesión</button>
-          </form>
-          <div className="login-divider"></div>
-          <p className="login-register1">
-            ¿Olvidaste tu contraseña?{" "}
-            <a href="/reset">Recupérala aquí</a>
-          </p>
+          <div className="login-input-group">
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="login-input"
+            />
+          </div>
+          <div className="login-input-group">
+            <input
+              type="password"
+              placeholder="Contraseña"
+              value={contrasena}
+              onChange={(e) => setContrasena(e.target.value)}
+              required
+              className="login-input"
+            />
+          </div>
+          <button type="submit" className="login-button">Iniciar sesión</button>
+        </form>
+        <div className="login-divider"></div>
+        <p className="login-register1">
+          ¿Olvidaste tu contraseña?{" "}
+          <a href="/reset">Recupérala aquí</a>
+        </p>
       </div>
       <div className="right-section">
         <div className="login-container-2">
@@ -99,7 +97,6 @@ const Login = () => {
       </div>
     </div>
   );
-  
 };
 
 export default Login;

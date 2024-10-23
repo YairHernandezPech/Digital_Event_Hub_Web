@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { registerUser } from  "../services/api-auth";
+import { registerUser } from "../services/api-auth";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api-auth";
 import Swal from 'sweetalert2';
-import "../styles/register.css"
-import logo from '../img/LOGO HUB 1.png'
-
+import "../styles/register.css";
+import logo from '../img/LOGO HUB 1.png';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +15,6 @@ const Register = () => {
     last_name: "",
   });
 
-  const [isOrganizer, setIsOrganizer] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,46 +28,41 @@ const Register = () => {
     e.preventDefault();
 
     const { nombre, email, contrasena, telefono, last_name } = formData;
-    const rol_id = 2;
+    const rol_id = 2; // Asignar rol_id para cliente
 
-     // Validación de campos según el rol
-     if (!nombre || !email || !contrasena || !telefono || !last_name ) {
-      // alert("Por favor rellena todos los campos");
+    // Validación de campos
+    if (!nombre || !email || !contrasena || !telefono || !last_name) {
       Swal.fire('Hay un problema', 'Por favor rellena todos los campos.', 'warning');
       return;
     }
 
-    console.log("Datos a enviar:", { nombre, email, contrasena, telefono, last_name, rol_id});
+    console.log("Datos a enviar:", { nombre, email, contrasena, telefono, last_name, rol_id });
 
     try {
-      await registerUser({ nombre, email, contrasena, telefono, last_name, rol_id });
-      
-      //autologin
-      const { token, user } = await loginUser(email, contrasena);
+      // Enviar los datos al endpoint de registro
+      await registerUser({ 
+        nombre, 
+        email, 
+        last_name, 
+        contrasena, 
+        telefono, 
+        rol_id 
+      });
+
+      // Autologin
+      const { token } = await loginUser(email, contrasena);
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      
+      // localStorage.setItem("user", JSON.stringify(user));
 
+      // Navegar al home del cliente
+      navigate("/cliente/home");
 
-      switch (user.rol_id) {
-        case 2:
-          navigate("/cliente/home");
-        
-          break;
-        default:
-          navigate("/");
-          break;
-      }
-
-      Swal.fire('Éxito', 'Registro exitoso , iniciando sesion.', 'success');
+      Swal.fire('Éxito', 'Registro exitoso, iniciando sesión.', 'success');
     } catch (error) {
       console.error("Error al registrarse", error);
-
       Swal.fire('Error', 'Hubo un error.', 'error');
     }
   };
-
-  
 
   return (
     <div className="registro-container">
@@ -78,15 +71,6 @@ const Register = () => {
           <img src={logo} alt="Logo" className="registro-logo" />
         </div>
         <div className="registro-form-container">
-        <div className="button-container1">
-          <button onClick={() => setIsOrganizer(false)} className={`switch-button2 ${!isOrganizer ? 'active' : ''}`}>
-            Usuario
-          </button>
-          <button className="switch-button1" onClick={() => navigate("/register-orga")}>
-            Organizador
-          </button>
-          <br />
-          </div>
           <form onSubmit={handleSubmit} noValidate>
             <div className="form-row horizontal">
               <div className="form-group">
@@ -113,7 +97,7 @@ const Register = () => {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="email"
+                  placeholder="Email"
                 />
               </div>
               <div className="form-group">
@@ -122,7 +106,7 @@ const Register = () => {
                   type="password"
                   value={formData.contrasena}
                   onChange={handleChange}
-                  placeholder="contraseña"
+                  placeholder="Contraseña"
                 />
               </div>
             </div>
@@ -139,7 +123,7 @@ const Register = () => {
             <div className="form-group">
               <button type="submit">Registrar</button>
             </div>
-            <p className="login-register">¿Ya tienes cuenta? <a href="/login">Inicia sesion</a></p>
+            <p className="login-register">¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></p>
           </form>
         </div>
       </div>
