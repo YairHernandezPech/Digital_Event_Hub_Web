@@ -83,7 +83,7 @@ const App = () => {
           <Route path="/cliente/historypay" element={<HistorialCompra role={role} onLogout={handleLogout}/>} />
           <Route path="/compra/:pago_id" element={<CompraDetalles />} />
           {/* Obtebner ticketts */}
-          <Route path="/cliente/ticked" element={<DialogTicket />} />
+          <Route path="/cliente/ticked/:eventId" element={<DialogTicket />} />
 
 
 

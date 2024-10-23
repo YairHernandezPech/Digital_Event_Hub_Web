@@ -51,6 +51,7 @@ const EventDetailClient = () => {
     return (
         <div>
             <EventInformationNavbar
+                evento_id={event.evento_id}
                 title={event.evento_nombre}
                 imageUrl={event.imagen_url}
                 date={`${new Date(event.fecha_inicio).toLocaleDateString()} - ${new Date(event.fecha_termino).toLocaleDateString()}`}

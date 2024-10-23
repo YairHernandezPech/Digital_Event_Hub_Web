@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Typography,
   Box,
@@ -19,11 +20,20 @@ import { QRCodeCanvas } from 'qrcode.react';
 
 
 const CinemaPage = () => {
-  const times = ['4:30 p.m.', '6:40 p.m.', '9:00 p.m.'];
+  const { eventId } = useParams();
+  const [eventData, setEventData] = useState(null);
+  const [schedules, setSchedules] = useState([]);
+  const [selectedTimeId, setSelectedTimeId] = useState(null);
+
   const todayIndex = new Date().getDay() - 1;
-  const [selectedTimes, setSelectedTimes] = useState(Array(7).fill(''));
+
+  // const times = ['4:30 p.m.', '6:40 p.m.', '9:00 p.m.'];
+  // const [selectedTimes, setSelectedTimes] = useState(Array(7).fill(''));
+
+  
   const [openModal, setOpenModal] = useState(false);
   const [openQRCodeModal, setOpenQRCodeModal] = useState(false);
+  
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolder, setCardHolder] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
@@ -34,11 +44,14 @@ const CinemaPage = () => {
   const [ticketCode, setTicketCode] = useState('');
   const [couponCode, setCouponCode] = useState('');
 
-  const handleTimeClick = (time) => {
+  const handleTimeClick = (schedule) => {
+    setSelectedTimeId(schedule.horario_id); // Almacena el horario_id correctamente
     const newSelectedTimes = [...selectedTimes];
-    newSelectedTimes[todayIndex] = time;
+    newSelectedTimes[todayIndex] = schedule.hora_inicio; // Almacena el tiempo seleccionado
     setSelectedTimes(newSelectedTimes);
   };
+
+  console.log(selectedTimeId);
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -73,6 +86,28 @@ const CinemaPage = () => {
     }
   };
 
+
+   // Función para obtener los datos del evento
+   useEffect(() => {
+    const fetchEventDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/api/events/find/${eventId}`);
+        const data = await response.json();
+        setEventData(data);
+  
+        // Ahora que tenemos el evento, vamos a obtener los horarios
+        const schedulesResponse = await fetch(`http://localhost:4000/api/schedule/by-event/${data.evento_id}`);
+        const schedulesData = await schedulesResponse.json();
+        setSchedules(schedulesData); // Almacena los horarios en el estado
+      } catch (error) {
+        console.error('Error fetching event details or schedules:', error);
+      }
+    };
+  
+    fetchEventDetails();
+  }, [eventId]);
+  
+
   const qrCodeValue = `${couponCode}`;
 
   return (
@@ -82,7 +117,7 @@ const CinemaPage = () => {
           position: 'relative',
           width: '100vw',
           height: '60vh',
-          backgroundImage: `url(https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgE7tmYPTMCfXtwS-CaLfGULcgfcS2UGp0BmlQl91BcMn9Nhv7S6LjQyWSrpp7bXHhq3xPeZeUlo7fDcpNtjBfxd9_McnWIIAWviZSCRDSl1W3reM7wnPLkeOI1Qj_32Ute4FjMCjJMMRY/s1773/portadas_gratis_para_dia_de_muertos+%25283%2529.jpg)`,
+          backgroundImage: eventData ? `url(${eventData.imagen_url})` : 'none',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -303,41 +338,55 @@ const CinemaPage = () => {
 
 
       <Grid container spacing={2} sx={{ padding: '2rem' }}>
-        <Grid item xs={12} md={8}>
-          <Paper sx={{ padding: '1rem' }}>
-            <Typography variant="h4" fontWeight="bold" gutterBottom>
-              La Leyenda Del Dragón
-            </Typography>
-            <Typography variant="body1" paragraph>
-              Sinopsis: Una emocionante historia de aventuras y amistad.
-            </Typography>
+{/* HORARIO */}
+ <Grid item xs={12} md={8}>
+    <Paper sx={{ padding: '1rem' }}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        {eventData && <h1>{eventData.evento_nombre}</h1>}
+      </Typography>
+      <Typography variant="body1" paragraph>
+      {eventData && <p>{eventData.descripcion}</p>}
+      </Typography>
 
-            <Typography variant="h6" fontWeight="bold" gutterBottom>
-              Horarios:
-            </Typography>
-            {times.map((time, index) => (
-              <Button
-                key={index}
-                variant="outlined"
-                onClick={() => handleTimeClick(time)}
-                sx={{
-                  margin: '0.5rem',
-                  backgroundColor: selectedTimes[todayIndex] === time ? '#6a1b9a' : 'inherit',
-                  color: selectedTimes[todayIndex] === time ? '#fff' : 'inherit',
-                }}
-              >
-                {time}
-              </Button>
-            ))}
-          </Paper>
-        </Grid>
+      <Typography variant="h6" fontWeight="bold" gutterBottom>
+        Horarios:
+      </Typography>
+
+      <Grid container spacing={1}>
+        {schedules.map((schedule, index) => (
+          <Grid item key={index}>
+            <Button
+              onClick={() => {
+                console.log("hola")
+              }}
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: '0.5rem',
+                backgroundColor: selectedTimes[todayIndex] === schedule.hora_inicio ? '#6a1b9a' : 'inherit',
+                color: selectedTimes[todayIndex] === schedule.hora_inicio ? '#fff' : 'inherit',
+                textAlign: 'left',
+                width: '100%', // Para que ocupe todo el espacio
+                borderRadius: '8px', // Opcional: para bordes redondeados
+              }}
+            >
+              <Typography variant="body1" sx={{ marginRight: '1rem' }}>
+                {schedule.hora_inicio} - {schedule.hora_fin} {/* Mostrar hora de inicio y fin */}
+              </Typography>
+            </Button>
+          </Grid>
+        ))}
+      </Grid>
+    </Paper>
+  </Grid>
 
         <Grid item xs={12} md={4}>
           <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
             <CardMedia
               component="img"
               height="140"
-              image="https://via.placeholder.com/140"
+              image={eventData ? eventData.imagen_url : 'https://via.placeholder.com/140'}
               alt="La Leyenda Del Dragón"
             />
             <CardContent>
