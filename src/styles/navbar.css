@@ -1,3 +1,4 @@
+/* Mantener los estilos existentes de la navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -19,41 +20,6 @@
 .navbar-logo img {
   height: 50px;
   margin-right: 20px;
-}
-
-.navbar-search-container {
-  display: flex;
-  align-items: center;
-  margin-right: 550px;
-}
-
-.navbar-search {
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-}
-
-.navbar-search input {
-  padding: 5px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding-right: 30px;
-  padding-left: 35px;
-  width: 300px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Añadir sombra */
-}
-
-.navbar-search i {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
-
-.navbar-list-icon {
-  cursor: pointer;
-  color: rgb(110, 110, 110); /* Asegurar que el color coincida */
 }
 
 .navbar-icons {
@@ -84,4 +50,92 @@
 .navbar-user-name {
   font-size: 16px;
   color: #333;
+}
+
+/* Estilos para el botón hamburguesa */
+.navbar-toggle {
+  display: none; /* Oculto en pantallas grandes */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-toggle i {
+  font-size: 24px;
+  color: #fdf9f9;
+}
+
+/* Estilos para el botón de cierre "X" */
+.close-button {
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #f40808;
+  cursor: pointer;
+}
+
+.close-button i {
+  font-size: 24px;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 768px) {
+  /* Ocultar los elementos de la barra de navegación en pantallas pequeñas */
+  .navbar-icons, .navbar-user {
+    display: none;
+  }
+
+  /* Mostrar el botón hamburguesa */
+  .navbar-toggle {
+    display: flex;
+  }
+
+  /* Mostrar el botón de cierre "X" cuando el menú esté abierto */
+  .close-button {
+    display: block; /* Mostrar solo cuando el menú esté abierto */
+  }
+
+  /* Ocultar el menú por defecto */
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px; /* Ajustar el ancho del menú lateral */
+    height: 100%;
+    background-color: rgba(61, 4, 61, 0.8); 
+    padding-top: 60px; /* Espacio para el logo y el botón */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 20px;
+  }
+
+  /* Mostrar el menú cuando el estado está en "open" */
+  .nav-menu.open {
+    display: flex;
+  }
+
+  /* Estilos de los elementos del menú en móvil */
+  .nav-menu li {
+    margin: 10px 20px;
+    list-style: none;
+  }
+
+  .nav-menu li a {
+    display: block;
+    padding: 10px;
+    color: #f6f4f4;
+    text-decoration: none;
+    font-size: 18px;
+  }
 }
