@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import EventInformationNavbar from './event_navbar_home'; // Asegúrate de que la ruta sea correcta
 
+const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
+
 const EventDetailClient = () => {
     const { eventId } = useParams();
     const [event, setEvent] = useState(null);
@@ -12,12 +14,13 @@ const EventDetailClient = () => {
         const fetchEventDetails = async () => {
             try {
                 // Fetch event details from local API
-                const response = await fetch(`${process.env.REACT_APP_BASE_API}/events/find/${eventId}`);
+                const response = await fetch(`${API_URL}/events/find/${eventId}`);
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
                 }
                 const selectedEvent = await response.json();
                 setEvent(selectedEvent);
+                console.log("evento:", selectedEvent)
 
                 // Fetch authorizedBy user details if exists
                 if (selectedEvent.autorizado_por) {

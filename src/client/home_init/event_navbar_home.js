@@ -4,6 +4,10 @@ import SeatIcon from '@mui/icons-material/EventSeat';
 import ClientNavbarHome from './navbar_home';
 import { useNavigate } from 'react-router-dom';
 import DialogTicket from '../tickets/dialogue_ticket';
+import {jwtDecode} from 'jwt-decode';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
 
 // Estilos para el primer Navbar
 const CustomNavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
@@ -65,6 +69,7 @@ const Title = styled(Typography)(({ theme }) => ({
 const EventInformationNavbar = ({ title, imageUrl, date, time, location, category, eventType, authorizedBy, idScenary, description, evento_id }) => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
 
     // Nueva función para redirigir a la compra de boletos con evento_id
     const handleTicketPurchase = () => {
@@ -73,9 +78,10 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
     };
 
     useEffect(() => {
-        const userData = localStorage.getItem("user");
+        const userData = localStorage.getItem("token");
         if (userData) {
-            setUser(JSON.parse(userData));
+            const decodedToken = jwtDecode(userData);
+            setUser({ id: decodedToken.id, rol: decodedToken.rol });
         } else {
             navigate("/login"); // Redirige al login si no hay datos del usuario
         }
@@ -85,10 +91,21 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
         localStorage.removeItem("user");
         navigate("/login");
     };
+    useEffect(() => {
+        if (user && user.id) {
+            axios.get(`${API_URL}/users/${user.id}`)
+                .then(response => {
+                    setUserId(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                });
+        }
+    }, [user]);
 
     return (
         <>
-            <ClientNavbarHome user={user} onLogout={handleLogout} />
+            <ClientNavbarHome user={userId} onLogout={handleLogout} />
             <hr />
             <br />
             <br />

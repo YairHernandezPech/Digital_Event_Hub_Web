@@ -40,9 +40,7 @@ const App = () => {
       try {
         const decodedToken = jwtDecode(token);
         setRole(decodedToken.rol);
-        console.log("tu token jiji:", token)
       } catch (error) {
-        console.error('Error decoding token:', error);
         setRole(null);
       }
     }
@@ -51,7 +49,6 @@ const App = () => {
 
   useEffect(() => {
     if (role !== null) {
-      console.log("tu rol jeje:", role);
     }
   }, [role]);
 
