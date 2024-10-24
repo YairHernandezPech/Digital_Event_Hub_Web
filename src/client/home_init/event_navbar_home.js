@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import DialogTicket from '../tickets/dialogue_ticket';
 import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
+import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
 
@@ -161,15 +162,22 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
             </Box>
 
             {/* Botón para redirigir a la compra de boletos */}
-            <Fab color="secondary" aria-label="add" variant="extended" onClick={handleTicketPurchase} sx={{
-                position: 'fixed',
-                bottom: 20,
-                right: 30,
-                zIndex: 1000,
-                borderRadius: '5px',
-            }}>
-                <SeatIcon sx={{ mr: 1 }} /> Comprar boletos
-            </Fab>
+                <Fab 
+                    color="secondary" 
+                    aria-label="add" 
+                    variant="extended" 
+                    onClick={handleTicketPurchase} 
+                    sx={{
+                        position: 'fixed',
+                        bottom: 20,
+                        right: 30,
+                        zIndex: 1000,
+                        borderRadius: '5px',
+                    }}
+                >
+                    <ConfirmationNumberIcon sx={{ mr: 1 }} /> 
+                    Canjear boleto
+                </Fab>
         </>
     );
 };
