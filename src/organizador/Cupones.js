@@ -9,6 +9,9 @@ const Cupones = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const fileInputRef = useRef(null);
   const [showExisting, setShowExisting] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const cuponesPerPage = 30;
 
   useEffect(() => {
     axios.get('http://localhost:4000/api/cupon/all-coupons')
@@ -36,11 +39,11 @@ const Cupones = () => {
         fecha_creacion: item.FechaCreacion || item.fechaCreacion || 'Fecha no especificada',
         status: item.Estado || item.estado !== undefined ? Number(item.Estado || item.estado) : 1,
         code: item.Codigo || item.codigo || 'Código no especificado',
-        redeem: item.Redeem !== undefined ? Boolean(item.Redeem) : false, // Asignar valor de redeem
+        redeem: item.Redeem !== undefined ? Boolean(item.Redeem) : false,
       }));
 
       setCupones(nuevosCupones);
-      setShowExisting(false); // Ocultar los cupones existentes al importar
+      setShowExisting(false);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -51,8 +54,8 @@ const Cupones = () => {
         .then(response => {
           console.log('Cupones guardados en la base de datos:', response.data);
           alert('Cupones guardados exitosamente');
-          setCupones([]); // Limpiar cupones importados después de guardar
-          setShowExisting(true); // Restaurar visibilidad de cupones existentes
+          setCupones([]);
+          setShowExisting(true);
         })
         .catch(error => {
           console.error('Error al guardar cupones en la base de datos:', error);
@@ -69,6 +72,31 @@ const Cupones = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const filteredCupones = (showExisting ? existingCupones : cupones).filter(cupon =>
+    cupon.info.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    cupon.code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastCupon = currentPage * cuponesPerPage;
+  const indexOfFirstCupon = indexOfLastCupon - cuponesPerPage;
+  const currentCupones = filteredCupones.slice(indexOfFirstCupon, indexOfLastCupon);
+
+  const totalPages = Math.ceil(filteredCupones.length / cuponesPerPage);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const redeemedCuponesCount = (showExisting ? existingCupones : cupones).filter(cupon => cupon.redeem).length;
 
   return (
     <div className="cupones-container">
@@ -90,19 +118,14 @@ const Cupones = () => {
           onChange={handleFileUpload}
         />
         <div className="coupons-counter">
-          <span>{cupones.length}/50 Cupones</span>
+          <span>{redeemedCuponesCount}/ 350 Cupones canjeados</span>
         </div>
-      </div>
-
-      <div className="cupones-create">
-        <h3>Crear Cupones</h3>
-        <div className="filters">
-          <label htmlFor="start">Fecha de Inicio:</label>
-          <input type="date" id="start" name="start" />
-          <label htmlFor="end">Fecha de Fin:</label>
-          <input type="date" id="end" name="end" />
-          <button className="create-coupon-button">Crear Cupon</button>
-        </div>
+        <input
+          type="text"
+          placeholder="Buscar por info o código"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
 
       <div className="cupones-list">
@@ -111,34 +134,34 @@ const Cupones = () => {
             <tr>
               <th>Ticket Id</th>
               <th>Info</th>
-              <th>Fecha de Creación</th>
               <th>Estado</th>
-              <th>Código</th>
-              <th>Redeem</th> {/* Nueva columna para redeem */}
+              <th>Código del cupon</th>
+              <th>Canjeado</th>
             </tr>
           </thead>
           <tbody>
-            {showExisting ? existingCupones.map((cupon) => (
-              <tr key={cupon.ticket_id}>
-                <td>{cupon.ticket_id}</td>
+            {currentCupones.map((cupon, index) => (
+              <tr key={cupon.ticket_id || index}>
+                <td>{cupon.ticket_id || cupon.id}</td>
                 <td>{cupon.info}</td>
-                <td>{cupon.fecha_creacion}</td>
-                <td>{cupon.status}</td>
+                <td>{cupon.status === 1 ? 'Ya entró al evento' : 'No ha entrado'}</td>
                 <td>{cupon.code}</td>
-                <td>{cupon.redeem ? 'Sí' : 'No'}</td> {/* Mostrar estado de redeem */}
-              </tr>
-            )) : cupones.map((cupon, index) => (
-              <tr key={index}>
-                <td>{cupon.id}</td>
-                <td>{cupon.info}</td>
-                <td>{cupon.fecha_creacion}</td>
-                <td>{cupon.status}</td>
-                <td>{cupon.code}</td>
-                <td>{cupon.redeem ? 'Sí' : 'No'}</td> {/* Mostrar estado de redeem */}
+                <td>{cupon.redeem ? 'Sí' : 'No'}</td>
               </tr>
             ))}
           </tbody>
+
         </table>
+      </div>
+
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Anterior
+        </button>
+        <span>Página {currentPage} de {totalPages}</span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Siguiente
+        </button>
       </div>
 
       {isModalOpen && (
@@ -152,8 +175,7 @@ const Cupones = () => {
                   <th>Nombre</th>
                   <th>Fecha de Creación</th>
                   <th>Estado</th>
-                  <th>Código del Cupón</th>
-                  <th>Redeem</th> {/* Nueva columna para redeem */}
+                  <th>Canjeado</th>
                 </tr>
               </thead>
               <tbody>
@@ -161,10 +183,9 @@ const Cupones = () => {
                   <tr key={index}>
                     <td>{cupon.id}</td>
                     <td>{cupon.info}</td>
-                    <td>{cupon.fecha_creacion}</td>
                     <td>{cupon.status}</td>
                     <td>{cupon.code}</td>
-                    <td>{cupon.redeem ? 'Sí' : 'No'}</td> {/* Mostrar estado de redeem */}
+                    <td>{cupon.redeem ? 'Sí' : 'No'}</td>
                   </tr>
                 ))}
               </tbody>
