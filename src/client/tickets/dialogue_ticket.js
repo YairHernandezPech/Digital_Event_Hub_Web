@@ -21,6 +21,7 @@ import { QRCodeCanvas } from 'qrcode.react';
 const CinemaPage = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
+  const [user, setUser] = useState(null); // Simular datos del usuario
 
   const [schedules, setSchedules] = useState([]);
   const [selectedTimeId, setSelectedTimeId] = useState(null);
@@ -98,6 +99,17 @@ const CinemaPage = () => {
   };
 
 
+      // Función para descargar el div como imagen
+      const downloadQRCodeAsImage = () => {
+        const canvas = document.querySelector('.qr-code canvas');
+        const image = canvas.toDataURL("image/png");
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = 'ticket_qr.png';
+        link.click();
+    };
+
+
   console.log("Dato que recibe redeem",selectedTimeId);
    // Función para obtener los datos del evento
    useEffect(() => {
@@ -150,6 +162,30 @@ const CinemaPage = () => {
             zIndex: 1,
           }}
         />
+          
+        {/* Botón en la esquina superior izquierda */}
+        <Button
+          variant="contained"
+          href="/cliente/home"
+          sx={{
+            position: 'absolute',
+            top: '20px', // Margen desde la parte superior
+            left: '20px', // Margen desde la parte izquierda
+            zIndex: 2, // Asegura que esté visible sobre la imagen
+            padding: '10px 20px',
+            borderRadius: '8px',
+            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Sombra del botón
+            backgroundColor: '#5c0a5c', // Color de fondo personalizado
+            color: '#fff', // Color de texto blanco
+            '&:hover': {
+              backgroundColor: '#4b084b', // Color de fondo al hacer hover
+            }
+          }}
+        >
+          Volver a Inicio
+        </Button>
+
+  
         <Typography
           variant="h3"
           fontWeight="bold"
@@ -169,6 +205,9 @@ const CinemaPage = () => {
         </Typography>
       </Box>
 
+  
+
+
       {/* Modal de Información de Pago */}
       <Modal open={openModal} onClose={handleCloseModal}>
         <Box
@@ -186,10 +225,10 @@ const CinemaPage = () => {
           }}
         >
           <Typography variant="h5" sx={{ mb: 3, textAlign: 'center', fontWeight: 'bold' }}>
-            Información de Pago
+            Información de Canjeo
           </Typography>
 
-          <TextField
+          {/* <TextField
             fullWidth
             label="Número de Tarjeta"
             variant="outlined"
@@ -203,9 +242,9 @@ const CinemaPage = () => {
                 </InputAdornment>
               ),
             }}
-          />
+          /> */}
 
-          <TextField
+          {/* <TextField
             fullWidth
             label="Nombre del Titular"
             variant="outlined"
@@ -219,8 +258,8 @@ const CinemaPage = () => {
                 </InputAdornment>
               ),
             }}
-          />
-
+          /> */}
+{/* 
           <TextField
             fullWidth
             label="Fecha de Expiración"
@@ -236,9 +275,9 @@ const CinemaPage = () => {
                 </InputAdornment>
               ),
             }}
-          />
+          /> */}
 
-          <TextField
+          {/* <TextField
             fullWidth
             label="CVV"
             variant="outlined"
@@ -252,7 +291,7 @@ const CinemaPage = () => {
                 </InputAdornment>
               ),
             }}
-          />
+          /> */}
 
           <Typography variant="subtitle1" sx={{ mb: 1 }}>
             ¿Tienes un código promocional?
@@ -287,7 +326,7 @@ const CinemaPage = () => {
             startIcon={<LocalMall />}
             onClick={handlePayment}
           >
-            Aplicar Cupón y Pagar
+            Aplicar Cupón 
           </Button>
 
           <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center' }}>
@@ -320,21 +359,16 @@ const CinemaPage = () => {
     <QRCodeCanvas id="qrCode" value={qrCodeValue} size={256} style={{ margin: '20px 0' }} />
 
     {/* Botón para descargar el QR */}
-    <Button
+    {/* <Button
       variant="contained"
       color="primary"
       sx={{ mt: 2, px: 4 }}
       onClick={() => {
-        const qrCanvas = document.getElementById('qrCode').querySelector('canvas');
-        const qrUrl = qrCanvas.toDataURL('image/png');
-        const downloadLink = document.createElement('a');
-        downloadLink.href = qrUrl;
-        downloadLink.download = 'ticket_qr.png';
-        downloadLink.click();
+        downloadQRCodeAsImage();
       }}
     >
       Descargar QR
-    </Button>
+    </Button> */}
 
     <Button
       variant="outlined"
@@ -354,7 +388,7 @@ const CinemaPage = () => {
  <Grid item xs={12} md={8}>
     <Paper sx={{ padding: '1rem' }}>
       <Typography variant="h4" fontWeight="bold" gutterBottom>
-        {eventData && <h1>{eventData.evento_nombre}</h1>}
+        {eventData && <h3>{eventData.evento_nombre}</h3>}
       </Typography>
       <Typography variant="body1" paragraph>
       {eventData && <p>{eventData.descripcion}</p>}
@@ -395,22 +429,19 @@ const CinemaPage = () => {
       </Grid>
     </Paper>
   </Grid>
-
-        <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={4}>
+          {eventData && (
+            <h4 style={{ textAlign: 'center', marginBottom: '1rem' }}>
+              {eventData.evento_nombre}
+            </h4>
+          )}
           <Card sx={{ maxWidth: 345, margin: '0 auto' }}>
             <CardMedia
               component="img"
               height="140"
               image={eventData ? eventData.imagen_url : 'https://via.placeholder.com/140'}
-              alt="La Leyenda Del Dragón"
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                La Leyenda Del Dragón
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Sinopsis: Una emocionante historia de aventuras y amistad.
-              </Typography>
               <Button
                 variant="contained"
                 color="primary"
@@ -418,11 +449,12 @@ const CinemaPage = () => {
                 sx={{ marginTop: '1rem' }}
                 onClick={handleOpenModal}
               >
-                Proceder al Pago
+                Proceder al canjeo
               </Button>
             </CardContent>
           </Card>
         </Grid>
+
       </Grid>
     </>
   );
