@@ -2,13 +2,14 @@
 import React from 'react';
 import logo from '../../img/LOGO HUB BLANCO 3.png';
 import '../../styles/navbars.css';
+
 const ClientNavbarHome = ({ user, onLogout }) => {
   return (
     <header id="header">
       <div className='container4'>
         <div id="logo4" class="pull-left">
 
-          <a href="#" class="scrollto4"><img src={logo} alt="" title="" /></a>
+          <a href="/cliente/home" className="scrollto4"><img src={logo} alt="" title="" /></a>
         </div>
         <nav id="nav-menu-container">
           <ul className="nav-menu">
@@ -17,9 +18,12 @@ const ClientNavbarHome = ({ user, onLogout }) => {
             {user ? (
               <>
                 <li>
-                  <a href="#profile">
+                  <a href="/cliente/home">
                     <strong>Bienvenido, {user.nombre}</strong>
                   </a>
+                </li>
+                <li className="buy-tickets">
+                  <a href="/cliente/historypay">Historial de Compra</a>
                 </li>
                 <li className="buy-tickets">
                   <a href="#" onClick={onLogout}>Cerrar Sesión</a>

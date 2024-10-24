@@ -1,7 +1,7 @@
 // src/api.js
 import axios from "axios";
 
-const API_BASE_URL = "https://api-digitalevent.onrender.com/api";
+const API_BASE_URL = "https://api-digital.fly.dev/api";
 
 export const registerUser = async (userData) => {
   const response = await axios.post(`${API_BASE_URL}/users/register`, userData);
@@ -10,27 +10,13 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (email, contrasena) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+    const response = await axios.post(`${API_BASE_URL}/users/login`, {
       email,
       contrasena,
     });
     return response.data;
   } catch (error) {
     console.error("Error al iniciar sesión", error);
-    throw error;
-  }
-};
-
-export const fetchUser = async (token) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/users/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error al obtener el usuario", error);
     throw error;
   }
 };
