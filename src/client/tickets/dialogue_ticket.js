@@ -21,9 +21,11 @@ import { QRCodeCanvas } from 'qrcode.react';
 const CinemaPage = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
+
   const [schedules, setSchedules] = useState([]);
   const [selectedTimeId, setSelectedTimeId] = useState(null);
   const [selectedTimes, setSelectedTimes] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   
 
 
@@ -46,14 +48,7 @@ const CinemaPage = () => {
   const [ticketCode, setTicketCode] = useState('');
   const [couponCode, setCouponCode] = useState('');
 
-  const handleTimeClick = (schedule) => {
-    setSelectedTimeId(schedule.horario_id); // Almacena el horario_id correctamente
-    const newSelectedTimes = [...selectedTimes];
-    newSelectedTimes[todayIndex] = schedule.hora_inicio; // Almacena el tiempo seleccionado
-    setSelectedTimes(newSelectedTimes);
-  };
 
-  console.log(selectedTimeId);
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -103,6 +98,7 @@ const CinemaPage = () => {
   };
 
 
+  console.log("Dato que recibe redeem",selectedTimeId);
    // Función para obtener los datos del evento
    useEffect(() => {
     const fetchEventDetails = async () => {
@@ -122,7 +118,7 @@ const CinemaPage = () => {
   
     fetchEventDetails();
   }, [eventId]);
-  
+
 
   const qrCodeValue = `${couponCode}`;
 
@@ -373,18 +369,21 @@ const CinemaPage = () => {
           <Grid item key={index}>
             <Button
               onClick={() => {
-                console.log("hola")
+                setSelectedIndex(index);
+                setSelectedTimeId(schedule.horario_id);
+                console.log("parametro que se pasa a SelectedTimeID:",schedule.horario_id);
               }}
               sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 padding: '0.5rem',
-                backgroundColor: selectedTimes[todayIndex] === schedule.hora_inicio ? '#6a1b9a' : 'inherit',
-                color: selectedTimes[todayIndex] === schedule.hora_inicio ? '#fff' : 'inherit',
+                backgroundColor: selectedIndex === index ? '#6a1b9a' : 'white', // Cambia a morado si está seleccionado
+                color: selectedIndex === index ? '#fff' : 'black', // Cambia a blanco si está seleccionado
                 textAlign: 'left',
                 width: '100%', // Para que ocupe todo el espacio
                 borderRadius: '8px', // Opcional: para bordes redondeados
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra por defecto
               }}
             >
               <Typography variant="body1" sx={{ marginRight: '1rem' }}>
