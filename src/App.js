@@ -14,7 +14,9 @@ import LoginAdmin from './pages/LoginAdmin';
 import RegisterOrga from './pages/RegisterOrga';
 import Dashboard from './pages/Dashboard';
 import Success from './pages/Success';
-
+import DialogTicket from './client/tickets/dialogue_ticket';
+import CompraDetalles from './client/tickets/CompraDetalles';
+import HistorialCompra from './client/tickets/HistorialCompra';
 
 const RedirectToCustomHTML = () => {
   const navigate = useNavigate();
@@ -37,19 +39,23 @@ const App = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        setRole(decodedToken.role);
+        setRole(decodedToken.rol);
       } catch (error) {
-        console.error('Error decoding token:', error);
         setRole(null);
       }
     }
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    if (role !== null) {
+    }
+  }, [role]);
+
   const handleLogin = (token) => {
     localStorage.setItem('token', token);
     const decodedToken = jwtDecode(token);
-    setRole(decodedToken.role);
+    setRole(decodedToken.rol);
   };
 
   const handleLogout = () => {
@@ -78,6 +84,12 @@ const App = () => {
           <Route path="/cliente/home" element={<HomeEventClient />} />
           <Route path="/evento/home/:eventId" element={<EventDetailClient />} />
           <Route path="/cliente/event/:id" element={<Escenarios />} />
+          <Route path="/cliente/historypay" element={<HistorialCompra role={role} onLogout={handleLogout}/>} />
+          <Route path="/compra/:pago_id" element={<CompraDetalles />} />
+          {/* Obtebner ticketts */}
+          <Route path="/cliente/ticked/:eventId" element={<DialogTicket />} />
+
+
 
           {/* Rutas para navegar dentro del home admin y organizador*/}
           <Route path="/login-admin" element={role ? <Navigate to="/dashboard" /> : <LoginAdmin onLogin={handleLogin} />} />

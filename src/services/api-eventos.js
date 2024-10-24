@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define la URL de la API
-const API_URL = 'https://api-digitalevent.onrender.com/api/eventos/events';
+const API_URL = `${process.env.REACT_APP_BASE_API}/events/approved`;
 
 // Función para obtener eventos
 export const fetchEvents = async () => {
