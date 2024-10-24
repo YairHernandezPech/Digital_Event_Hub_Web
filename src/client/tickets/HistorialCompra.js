@@ -38,7 +38,7 @@ const HistorialCompra = () => {
 
     const fetchCompras = async (token) => {
         try {
-            const response = await fetch(`${API_URL}/payment/history/detailed`, {
+            const response = await fetch(`${API_URL}/payment/history`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,

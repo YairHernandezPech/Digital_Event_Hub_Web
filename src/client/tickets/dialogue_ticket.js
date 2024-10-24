@@ -18,7 +18,6 @@ import axios from 'axios';
 import { QRCodeCanvas } from 'qrcode.react';
 
 
-
 const CinemaPage = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
@@ -65,15 +64,16 @@ const CinemaPage = () => {
   const handlePayment = async () => {
     try {
       const data = {
-        movie: 'La Leyenda Del Dragón',
-        time: selectedTimes[todayIndex],
-        cardNumber,
-        cardHolder,
-        expiryDate,
-        cvv,
-        code,
+        evento_id: eventId,
+        code: code,
+        horario_id: selectedTimeId
       };
-      const response = await axios.post('https://api-digital.fly.dev/api/ticket/check', data);
+      const token = localStorage.getItem('token');
+      console.log('Token:', token);
+      //SUBIR Y ACTUALIZAR CUPONES CON PAGOS, ¡¡¡¡¡EXCLUSIVO PARA PAGOS CON CUPONES!!!!
+      const response = await axios.post('https://api-digital.fly.dev/api/ticket/redeem', data, {
+        headers: { Authorization: `Bearer ${token}` },
+     });
       console.log('Pago realizado con éxito', response.data);
 
       setMessage('Cupón aplicado y pago realizado con éxito.');
@@ -84,8 +84,21 @@ const CinemaPage = () => {
       handleCloseModal();
     } catch (error) {
       console.error('Error en el pago', error);
-      setMessage('Error al encontrar el código, vuelva a intentarlo');
-      setMessageType('error');
+      
+      if (error.response) {
+        if (error.response.status === 404) {
+          setMessage('El cupón no existe o ya ha sido canjeado.');
+        } else {
+          setMessage('Error al procesar el pago, vuelva a intentarlo.');
+        }
+        setMessageType('error');
+      } else if (error.request) {
+        setMessage('No se recibió respuesta del servidor, por favor intente más tarde.');
+        setMessageType('error');
+      } else {
+        setMessage('Error inesperado: ' + error.message);
+        setMessageType('error');
+      }
     }
   };
 

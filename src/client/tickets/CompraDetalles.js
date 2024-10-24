@@ -4,27 +4,43 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import '../../styles/compraDetallesStyles.css';
 import ClientNavbarHome from '../home_init/navbar_home';
+import {jwtDecode} from 'jwt-decode';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
 
 const CompraDetalles = () => {
     const location = useLocation();
     const compra = location.state?.compra; // Obtener los datos de la compra desde el estado
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const userData = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
 
-        if (userData && token) {
-            setUser(JSON.parse(userData));
+    useEffect(() => {
+        const userData = localStorage.getItem("token");
+        if (userData) {
+            const decodedToken = jwtDecode(userData);
+            setUser({ id: decodedToken.id, rol: decodedToken.rol });
         } else {
-            navigate("/login");
+            navigate("/login"); // Redirige al login si no hay datos del usuario
         }
     }, [navigate]);
 
+    useEffect(() => {
+        if (user && user.id) {
+            axios.get(`${API_URL}/users/${user.id}`)
+                .then(response => {
+                    setUserId(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                });
+        }
+    }, [user]);
+
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
         navigate("/login");
     };
 
@@ -59,7 +75,7 @@ const CompraDetalles = () => {
     return (
         <div className="detalles-compra-container">
             {/* Navbar */}
-            <ClientNavbarHome user={user} onLogout={handleLogout} />
+            <ClientNavbarHome user={userId} onLogout={handleLogout} />
             
             {/* Título */}
             <h1>Detalles de la Compra</h1>
