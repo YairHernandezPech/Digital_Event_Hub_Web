@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/newStyles.css'
 import ClientNavbarHome from './navbar_home';
 import {jwtDecode} from 'jwt-decode';
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
 
 const HomeEventClient = () => {
     const [events, setEvents] = useState([]);
@@ -16,6 +19,7 @@ const HomeEventClient = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedEventType, setSelectedEventType] = useState('');
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     const filterRef = useRef(null);
     const navigate = useNavigate();
@@ -24,7 +28,6 @@ const HomeEventClient = () => {
         fetch('https://api-digital.fly.dev/api/events/approved')
             .then(response => response.json())
             .then(data => {
-                console.log('Datos de eventos:', data);
                 setEvents(data);
                 setFilteredEvents(data);
                 const uniqueCategories = [...new Set(data.map(event => event.categoria))];
@@ -86,13 +89,24 @@ const HomeEventClient = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
         navigate("/login");
     };
 
+    useEffect(() => {
+        if (user && user.id) {
+            axios.get(`${API_URL}/users/${user.id}`)
+                .then(response => {
+                    setUserId(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                });
+        }
+    }, [user]);
+
     return (
         <div>
-            <ClientNavbarHome user={user} onLogout={handleLogout} /><hr/><br/><br/>
+            <ClientNavbarHome user={userId} onLogout={handleLogout} /><hr/><br/><br/>
             <div style={{ padding: '30px'}}>
                 <h1 style={{ textAlign: 'center', marginBottom: '20px', color: '#333', fontSize: '2em', fontWeight: 'bold' }}>Eventos Digital Event Hub:</h1>
 
