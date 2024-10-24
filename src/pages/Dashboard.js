@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate, useMatch } from 'react-router-dom';
+import { Routes, Route, Navigate, useMatch, useParams } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import Navbar from '../components/Navbar';
@@ -14,6 +14,8 @@ import UpdateEvent from '../organizador/updateEvent';
 import Aprobados from '../admin/EventosAprobados';
 import Desaprobados from '../admin/EventosDesaprobados';
 import Pendientes from '../admin/EventosPendientes';
+import VerMembresia from '../organizador/VerMembresia';
+import Cupones from '../organizador/Cupones';
 
 const Dashboard = ({ role, onLogout }) => {
   let match = useMatch('/dashboard/*');
@@ -37,8 +39,10 @@ const Dashboard = ({ role, onLogout }) => {
             <Route path="permisos/:roleId" element={<Permisos />} />
             <Route path="membresias" element={<Membresias />} />
             <Route path="usuariosMembre" element={<UsuarioMembre/>} />
+            <Route path="ver-Membresia" element={<VerMembresia/>} />
             <Route path="membresia" element={<Membresia />} />
             <Route path="formulario" element={<Formulario/>} />
+            <Route path="cupones" element={<Cupones />} />
             <Route path="updateEvent/:evento_id" element={<UpdateEvent/>} />
             <Route path="aprobados" element={<Aprobados/>} />
             <Route path="desaprobados" element={<Desaprobados/>} />

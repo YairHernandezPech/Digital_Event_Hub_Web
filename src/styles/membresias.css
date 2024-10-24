@@ -1,39 +1,78 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Fondo de la página */
+.page-background {
+  background-color: #f0f4f8; /* Un tono claro para el fondo */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Cambiado de center a flex-start */
+  padding-top: 50px; /* Agregado para dar un margen superior */
 }
 
+/* Título */
+.page-title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-top: 1rem; /* Reducido de 2rem a 1rem para acercar el título al tope */
+  color: #333;
+  font-weight: bold;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 1.5rem auto; /* Reducido para subir los contenidos */
+}
+
+/* Estilo de las tarjetas de membresía */
 .cardss-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: center;
 }
 
 .membership-cards {
-  border: 2px solid;
+  border: 2px solid #3498db;
   border-radius: 0.5rem;
   padding: 1rem;
   flex: 1;
   min-width: 200px;
+  max-width: 300px;
   background-color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
 
+.membership-cards:hover {
+  transform: scale(1.05);
+}
+
+/* Título de membresía */
 .membership-title {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
 }
 
+/* Descripción de membresía */
 .membership-description {
   font-size: 1rem;
   margin-bottom: 0.5rem;
+  color: #555;
 }
 
+/* Precio de membresía */
 .membership-price {
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 1rem;
+  color: #e74c3c;
 }
 
+/* Estilos del modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -66,4 +105,33 @@
 
 .modal-body {
   margin: 1rem 0;
+}
+
+/* Estilos para los botones */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #95a5a6;
+  color: white;
+}
+
+.btn-primary:hover,
+.btn-danger:hover,
+.btn-secondary:hover {
+  opacity: 0.9;
 }

@@ -1,13 +1,13 @@
 .sidebar {
   width: 235px;
-  background-color: #8E44AD; /* Cambio de color a morado */
+  background-color: #8E44AD;
   padding: 0;
-  height: 150vh;
+  height: 175vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
-  color: #ffffff; /* Cambio de color de texto a blanco */
+  color: #ffffff;
 }
 
 .sidebar h2 {
