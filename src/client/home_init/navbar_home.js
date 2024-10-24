@@ -9,7 +9,7 @@ const ClientNavbarHome = ({ user, onLogout }) => {
       <div className='container4'>
         <div id="logo4" class="pull-left">
 
-          <a href="/cliente/home" class="scrollto4"><img src={logo} alt="" title="" /></a>
+          <a href="/cliente/home" className="scrollto4"><img src={logo} alt="" title="" /></a>
         </div>
         <nav id="nav-menu-container">
           <ul className="nav-menu">

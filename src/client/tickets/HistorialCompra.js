@@ -2,27 +2,43 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/historialcomprastyles.css';
 import ClientNavbarHome from '../home_init/navbar_home';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+
+const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
 
 const HistorialCompra = () => {
     const [compras, setCompras] = useState([]);
     const [user, setUser] = useState(null);
+    const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const userData = localStorage.getItem("user");
         const token = localStorage.getItem("token");
-
-        if (userData && token) {
-            setUser(JSON.parse(userData));
+        const decodedToken = jwtDecode(token);
+        setUser({ id: decodedToken.id, rol: decodedToken.rol });
+        if (token) {
             fetchCompras(token);
         } else {
             navigate("/login");
         }
     }, [navigate]);
 
+    useEffect(() => {
+        if (user && user.id) {
+            axios.get(`${API_URL}/users/${user.id}`)
+                .then(response => {
+                    setUserId(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                });
+        }
+    }, [user]);
+
     const fetchCompras = async (token) => {
         try {
-            const response = await fetch('http://localhost:4000/api/payment/history/detailed', {
+            const response = await fetch('https://api-digital.fly.dev/api/payment/history/detailed', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -43,7 +59,6 @@ const HistorialCompra = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
         navigate("/login");
     };
 
@@ -54,7 +69,7 @@ const HistorialCompra = () => {
 
     return (
         <div className="historial-container">
-            <ClientNavbarHome user={user} onLogout={handleLogout} />
+            <ClientNavbarHome user={userId} onLogout={handleLogout} />
             <h1 className="historial-title">Historial de Compras</h1>
             
             <div>

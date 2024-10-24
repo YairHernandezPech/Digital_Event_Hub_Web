@@ -24,17 +24,14 @@ const Login = () => {
       const { token } = await loginUser(email, contrasena);
       const decoteToken = jwtDecode(token);
       const rol_id = decoteToken.rol;
-      console.log("tu rol es:", rol_id)
 
       if (rol_id !== 2) {
         Swal.fire('Hay un problema', 'Tu rol no coincide con el rol seleccionado.', 'warning');
         navigate("/login");
-        console.log("no se cumple")
         return;
       }
-      else if(rol_id == 2){
+      else if(rol_id === 2){
         navigate("/cliente/home");
-        console.log("cumplido")
       }
 
       localStorage.setItem("token", token);
