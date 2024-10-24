@@ -12,7 +12,7 @@ const EventDetailClient = () => {
         const fetchEventDetails = async () => {
             try {
                 // Fetch event details from local API
-                const response = await fetch(`http://localhost:4000/api/events/find/${eventId}`);
+                const response = await fetch(`${process.env.REACT_APP_BASE_API}/events/find/${eventId}`);
                 if (!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
                 }
@@ -21,7 +21,7 @@ const EventDetailClient = () => {
 
                 // Fetch authorizedBy user details if exists
                 if (selectedEvent.autorizado_por) {
-                    const responseUser = await fetch(`http://localhost:4000/api/users/${selectedEvent.autorizado_por}`);
+                    const responseUser = await fetch(`https://api-digital.fly.dev/api/users/${selectedEvent.autorizado_por}`);
                     if (!responseUser.ok) {
                         throw new Error(`Error ${responseUser.status}: ${responseUser.statusText}`);
                     }

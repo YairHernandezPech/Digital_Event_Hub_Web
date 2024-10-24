@@ -73,7 +73,7 @@ const CinemaPage = () => {
         cvv,
         code,
       };
-      const response = await axios.post('http://localhost:4000/api/ticket/check', data);
+      const response = await axios.post('https://api-digital.fly.dev/api/ticket/check', data);
       console.log('Pago realizado con éxito', response.data);
 
       setMessage('Cupón aplicado y pago realizado con éxito.');
@@ -94,12 +94,12 @@ const CinemaPage = () => {
    useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/events/find/${eventId}`);
+        const response = await fetch(`https://api-digital.fly.dev/api/events/find/${eventId}`);
         const data = await response.json();
         setEventData(data);
   
         // Ahora que tenemos el evento, vamos a obtener los horarios
-        const schedulesResponse = await fetch(`http://localhost:4000/api/schedule/by-event/${data.evento_id}`);
+        const schedulesResponse = await fetch(`https://api-digital.fly.dev/api/schedule/by-event/${data.evento_id}`);
         const schedulesData = await schedulesResponse.json();
         setSchedules(schedulesData); // Almacena los horarios en el estado
       } catch (error) {

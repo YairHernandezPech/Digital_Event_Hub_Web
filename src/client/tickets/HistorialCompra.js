@@ -38,7 +38,7 @@ const HistorialCompra = () => {
 
     const fetchCompras = async (token) => {
         try {
-            const response = await fetch('https://api-digital.fly.dev/api/payment/history/detailed', {
+            const response = await fetch('${process.env.REACT_APP_BASE_API}/payment/history/detailed', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
