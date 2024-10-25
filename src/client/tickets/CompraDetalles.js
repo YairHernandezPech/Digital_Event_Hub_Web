@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import jsPDF from 'jspdf';
 import '../../styles/compraDetallesStyles.css';
 import ClientNavbarHome from '../home_init/navbar_home';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { Button } from '@mui/material';  // Importa el botón de Material-UI
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://api-digital.fly.dev/api';
 
@@ -15,7 +16,6 @@ const CompraDetalles = () => {
     const [user, setUser] = useState(null);
     const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
-
 
     useEffect(() => {
         const userData = localStorage.getItem("token");
@@ -76,25 +76,55 @@ const CompraDetalles = () => {
         <div className="detalles-compra-container">
             {/* Navbar */}
             <ClientNavbarHome user={userId} onLogout={handleLogout} />
-            
+
             {/* Título */}
             <h1>Detalles de la Compra</h1>
-            
+
             <div className="detalles-compra-content">
                 {/* Cart design */}
                 <div className="compra-cart">
                     <div className="qr-code">
                         <p><strong>Código del Ticket (QR):</strong></p>
-                        <QRCodeCanvas 
-                            value={compra.codigo_ticket} 
+                        <QRCodeCanvas
+                            value={compra.codigo_ticket}
                             size={256}           // Tamaño del QR
                             bgColor="#ffffff"    // Fondo blanco
                             fgColor="#000000"    // Color del código (negro)
                             includeMargin={true} // Incluir margen alrededor del código
                         />
-                         {/* Botones para descargar como imagen o PDF */}
-                <button onClick={downloadQRCodeAsImage}>Descargar como Imagen</button>
-                <button onClick={downloadQRCodeAsPDF}>Descargar como PDF</button>
+                        {/* Botones para descargar como imagen o PDF */}
+                        <Button
+                            variant="contained"
+                            onClick={downloadQRCodeAsImage}
+                            sx={{
+                                backgroundColor: '#a569bd',
+                                color: 'white',  // Color del texto
+                                margin: '10px',
+                                fontWeight: 'bold',
+                                '&:hover': {
+                                    backgroundColor: '#8e44ad'  // Color al pasar el ratón
+                                }
+                            }}
+                        >
+                            Descargar como Imagen
+                        </Button>
+
+                        <Button
+                            variant="contained"
+                            onClick={downloadQRCodeAsPDF}
+                            sx={{
+                                backgroundColor: '#6c3483',
+                                color: 'white',
+                                margin: '10px',
+                                fontWeight: 'bold',
+                                '&:hover': {
+                                    backgroundColor: '#512e5f'
+                                }
+                            }}
+                        >
+                            Descargar como PDF
+                        </Button>
+
                     </div>
 
                     <div className="detalles-info">
@@ -111,8 +141,6 @@ const CompraDetalles = () => {
                         <p><strong>Código del Ticket:</strong> {compra.codigo_ticket}</p>
                     </div>
                 </div>
-                
-                
             </div>
         </div>
     );
