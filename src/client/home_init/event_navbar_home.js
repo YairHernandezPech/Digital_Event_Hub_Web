@@ -4,7 +4,7 @@ import SeatIcon from '@mui/icons-material/EventSeat';
 import ClientNavbarHome from './navbar_home';
 import { useNavigate } from 'react-router-dom';
 import DialogTicket from '../tickets/dialogue_ticket';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 
@@ -79,6 +79,39 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
     };
 
     useEffect(() => {
+        const initMap = () => {
+            const map = new window.google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 15
+            });
+
+            const geocoder = new window.google.maps.Geocoder();
+            geocoder.geocode({ address: location }, (results, status) => {
+                if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    new window.google.maps.Marker({
+                        map,
+                        position: results[0].geometry.location
+                    });
+                } else {
+                    console.error('Geocode no fue exitoso debido a: ' + status);
+                }
+            });
+        };
+
+        if (window.google && window.google.maps) {
+            initMap();
+        } else {
+            const script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCkJwrcOuqFszjXYAJDDepaFA3dGkble88';
+            script.async = true;
+            script.defer = true;
+            script.onload = initMap;
+            document.head.appendChild(script);
+        }
+    }, [location]);
+
+    useEffect(() => {
         const userData = localStorage.getItem("token");
         if (userData) {
             const decodedToken = jwtDecode(userData);
@@ -115,7 +148,7 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                     {authorizedBy && <Typography variant="body1">Organizado por {authorizedBy}</Typography>}
 
                     <Stack direction="row" spacing={1}>
-                        <Title variant="h1" style={{color:"white"}}>{title}</Title>
+                        <Title variant="h1" style={{ color: "white" }}>{title}</Title>
                         <Chip label={eventType} color={eventType === 'Publico' ? 'primary' : 'secondary'} sx={{ fontWeight: '800', fontSize: '1rem' }} />
                     </Stack>
                     <p>Description: {description}</p>
@@ -162,22 +195,22 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
             </Box>
 
             {/* Botón para redirigir a la compra de boletos */}
-                <Fab 
-                    color="secondary" 
-                    aria-label="add" 
-                    variant="extended" 
-                    onClick={handleTicketPurchase} 
-                    sx={{
-                        position: 'fixed',
-                        bottom: 20,
-                        right: 30,
-                        zIndex: 1000,
-                        borderRadius: '5px',
-                    }}
-                >
-                    <ConfirmationNumberIcon sx={{ mr: 1 }} /> 
-                    Canjear boleto
-                </Fab>
+            <Fab
+                color="secondary"
+                aria-label="add"
+                variant="extended"
+                onClick={handleTicketPurchase}
+                sx={{
+                    position: 'fixed',
+                    bottom: 20,
+                    right: 30,
+                    zIndex: 1000,
+                    borderRadius: '5px',
+                }}
+            >
+                <ConfirmationNumberIcon sx={{ mr: 1 }} />
+                Canjear boleto
+            </Fab>
         </>
     );
 };
