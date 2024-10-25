@@ -22,6 +22,8 @@ const CinemaPage = () => {
   const { eventId } = useParams();
   const [eventData, setEventData] = useState(null);
   const [user, setUser] = useState(null); // Simular datos del usuario
+  const [availableTicketsH1, setAvailableTicketsH1] = useState(null);
+  const [availableTicketsH2, setAvailableTicketsH2] = useState(null);
 
   const [schedules, setSchedules] = useState([]);
   const [selectedTimeId, setSelectedTimeId] = useState(null);
@@ -32,8 +34,6 @@ const CinemaPage = () => {
 
   const todayIndex = new Date().getDay() - 1;
 
-  // const times = ['4:30 p.m.', '6:40 p.m.', '9:00 p.m.'];
-  // const [selectedTimes, setSelectedTimes] = useState(Array(7).fill(''));
 
   
   const [openModal, setOpenModal] = useState(false);
@@ -134,6 +134,30 @@ const CinemaPage = () => {
 
   const qrCodeValue = `${couponCode}`;
 
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const responseH1 = await fetch('https://api-digital.fly.dev/api/ticket/available/h1');
+        const dataH1 = await responseH1.json();
+        console.log('Tickets Horario 1:', dataH1);
+  
+        const responseH2 = await fetch('https://api-digital.fly.dev/api/ticket/available/h2');
+        const dataH2 = await responseH2.json();
+        console.log('Tickets Horario 2:', dataH2);
+  
+        // Asegúrate de usar el nombre correcto de la propiedad
+        setAvailableTicketsH1(dataH1.tickets_disponibles);
+        setAvailableTicketsH2(dataH2.tickets_disponibles);
+        
+      } catch (error) {
+        console.error('Error al obtener los tickets disponibles:', error);
+      }
+    };
+  
+    fetchTickets();
+  }, []);
+
+
   return (
     <>
       <Box
@@ -228,70 +252,6 @@ const CinemaPage = () => {
             Información de Canjeo
           </Typography>
 
-          {/* <TextField
-            fullWidth
-            label="Número de Tarjeta"
-            variant="outlined"
-            sx={{ mb: 2 }}
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CreditCard />
-                </InputAdornment>
-              ),
-            }}
-          /> */}
-
-          {/* <TextField
-            fullWidth
-            label="Nombre del Titular"
-            variant="outlined"
-            sx={{ mb: 2 }}
-            value={cardHolder}
-            onChange={(e) => setCardHolder(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Person />
-                </InputAdornment>
-              ),
-            }}
-          /> */}
-{/* 
-          <TextField
-            fullWidth
-            label="Fecha de Expiración"
-            variant="outlined"
-            sx={{ mb: 2 }}
-            placeholder="MM/AA"
-            value={expiryDate}
-            onChange={(e) => setExpiryDate(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <CalendarToday />
-                </InputAdornment>
-              ),
-            }}
-          /> */}
-
-          {/* <TextField
-            fullWidth
-            label="CVV"
-            variant="outlined"
-            sx={{ mb: 3 }}
-            value={cvv}
-            onChange={(e) => setCvv(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Lock />
-                </InputAdornment>
-              ),
-            }}
-          /> */}
 
           <Typography variant="subtitle1" sx={{ mb: 1 }}>
             ¿Tienes un código promocional?
@@ -358,17 +318,6 @@ const CinemaPage = () => {
     </Typography>
     <QRCodeCanvas id="qrCode" value={qrCodeValue} size={256} style={{ margin: '20px 0' }} />
 
-    {/* Botón para descargar el QR */}
-    {/* <Button
-      variant="contained"
-      color="primary"
-      sx={{ mt: 2, px: 4 }}
-      onClick={() => {
-        downloadQRCodeAsImage();
-      }}
-    >
-      Descargar QR
-    </Button> */}
 
     <Button
       variant="outlined"
@@ -421,7 +370,7 @@ const CinemaPage = () => {
               }}
             >
               <Typography variant="body1" sx={{ marginRight: '1rem' }}>
-                {schedule.hora_inicio} - {schedule.hora_fin} {/* Mostrar hora de inicio y fin */}
+                {schedule.hora_inicio} {/* Mostrar hora de inicio y fin */}
               </Typography>
             </Button>
           </Grid>
@@ -454,6 +403,27 @@ const CinemaPage = () => {
             </CardContent>
           </Card>
         </Grid>
+        <Box sx={{ mt: 4 }}>
+  <Typography variant="h5">Tickets Disponibles</Typography>
+  <Grid container spacing={2}>
+    <Grid item xs={12} sm={6}>
+      <Paper elevation={3} sx={{ p: 2 }}>
+        <Typography variant="h6">Horario 1:</Typography>
+        <Typography variant="body1">
+          {availableTicketsH1 !== null && availableTicketsH1 !== undefined ? `${availableTicketsH1} tickets disponibles` : 'Cargando...'}
+        </Typography>
+      </Paper>
+    </Grid>
+    <Grid item xs={12} sm={6}>
+      <Paper elevation={3} sx={{ p: 2 }}>
+        <Typography variant="h6">Horario 2:</Typography>
+        <Typography variant="body1">
+          {availableTicketsH2 !== null && availableTicketsH2 !== undefined ? `${availableTicketsH2} tickets disponibles` : 'Cargando...'}
+        </Typography>
+      </Paper>
+    </Grid>
+  </Grid>
+</Box>
 
       </Grid>
     </>

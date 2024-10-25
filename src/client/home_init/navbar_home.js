@@ -26,7 +26,7 @@ const ClientNavbarHome = ({ user, onLogout }) => {
                   <a href="/cliente/historypay">Historial de Compra</a>
                 </li>
                 <li className="buy-tickets">
-                  <a href="#" onClick={onLogout}>Cerrar Sesión</a>
+                  <a href="/landing-page/home.html" onClick={onLogout}>Cerrar Sesión</a>
                 </li>
 
               </>
