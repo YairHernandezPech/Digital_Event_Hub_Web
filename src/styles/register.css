@@ -303,3 +303,77 @@ h2 {
     font-size: 16px;
     margin-top: 10px;
   }
+
+  /* Para pantallas pequeñas como teléfonos (hasta 600px de ancho) */
+@media only screen and (max-width: 600px) {
+    .registro-container {
+        height: auto; /* Ajusta la altura en pantallas más pequeñas */
+        padding: 20px;
+    }
+
+    .registro-content {
+        flex-direction: column; /* Apila el logo y el formulario verticalmente */
+        max-width: 100%; /* Asegúrate de que ocupe todo el ancho */
+    }
+
+    .registro-logo-container {
+        padding: 20px;
+        background-color: transparent; /* Elimina el fondo en pantallas móviles para mejor aspecto */
+    }
+
+    .registro-logo {
+        max-width: 150px; /* Reduce el tamaño del logo */
+    }
+
+    .registro-form-container {
+        padding: 20px; /* Reduce el padding del formulario */
+    }
+
+    .registro-form h2 {
+        font-size: 28px; /* Reduce el tamaño del título */
+    }
+
+    .form-group input {
+        width: 100%; /* Asegúrate de que los inputs ocupen todo el ancho disponible */
+    }
+
+    .form-row.horizontal {
+        flex-direction: column; /* Alinea los inputs uno debajo del otro */
+    }
+
+    .registro-form button {
+        width: 100%; /* Botón ocupa todo el ancho disponible */
+        padding: 10px;
+    }
+
+    .login-register {
+        font-size: 14px; /* Reduce el tamaño del texto */
+        text-align: center;
+    }
+
+    /* Ajusta el tamaño de los botones del contenedor */
+    .switch-button1,
+    .switch-button2 {
+        width: 100%; /* Los botones ocuparán todo el ancho */
+        margin: 5px 0; /* Añade margen para espacio entre botones */
+    }
+}
+
+/* Para pantallas medianas como tablets (hasta 900px de ancho) */
+@media only screen and (max-width: 900px) {
+    .registro-content {
+        max-width: 100%; /* Ajusta el ancho en tablets */
+    }
+
+    .registro-form-container {
+        padding: 30px; /* Reduce un poco el padding */
+    }
+
+    .registro-form h2 {
+        font-size: 30px; /* Ajusta el tamaño del título */
+    }
+
+    .form-row.horizontal {
+        flex-direction: column; /* Inputs alineados en columna */
+    }
+}
