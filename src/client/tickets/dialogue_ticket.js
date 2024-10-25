@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Typography,
@@ -29,16 +29,16 @@ const CinemaPage = () => {
   const [selectedTimeId, setSelectedTimeId] = useState(null);
   const [selectedTimes, setSelectedTimes] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  
+
 
 
   const todayIndex = new Date().getDay() - 1;
 
 
-  
+
   const [openModal, setOpenModal] = useState(false);
   const [openQRCodeModal, setOpenQRCodeModal] = useState(false);
-  
+
   const [cardNumber, setCardNumber] = useState('');
   const [cardHolder, setCardHolder] = useState('');
   const [expiryDate, setExpiryDate] = useState('');
@@ -53,7 +53,7 @@ const CinemaPage = () => {
 
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
-  
+
   const handleOpenQRCodeModal = () => setOpenQRCodeModal(true);
   const handleCloseQRCodeModal = () => setOpenQRCodeModal(false);
 
@@ -69,7 +69,7 @@ const CinemaPage = () => {
       //SUBIR Y ACTUALIZAR CUPONES CON PAGOS, ¡¡¡¡¡EXCLUSIVO PARA PAGOS CON CUPONES!!!!
       const response = await axios.post('https://api-digital.fly.dev/api/ticket/redeem', data, {
         headers: { Authorization: `Bearer ${token}` },
-     });
+      });
       console.log('Pago realizado con éxito', response.data);
 
       setMessage('Cupón aplicado y pago realizado con éxito.');
@@ -80,7 +80,7 @@ const CinemaPage = () => {
       handleCloseModal();
     } catch (error) {
       console.error('Error en el pago', error);
-      
+
       if (error.response) {
         if (error.response.status === 404) {
           setMessage('El cupón no existe o ya ha sido canjeado.');
@@ -99,26 +99,26 @@ const CinemaPage = () => {
   };
 
 
-      // Función para descargar el div como imagen
-      const downloadQRCodeAsImage = () => {
-        const canvas = document.querySelector('.qr-code canvas');
-        const image = canvas.toDataURL("image/png");
-        const link = document.createElement('a');
-        link.href = image;
-        link.download = 'ticket_qr.png';
-        link.click();
-    };
+  // Función para descargar el div como imagen
+  const downloadQRCodeAsImage = () => {
+    const canvas = document.querySelector('.qr-code canvas');
+    const image = canvas.toDataURL("image/png");
+    const link = document.createElement('a');
+    link.href = image;
+    link.download = 'ticket_qr.png';
+    link.click();
+  };
 
 
-  console.log("Dato que recibe redeem",selectedTimeId);
-   // Función para obtener los datos del evento
-   useEffect(() => {
+  console.log("Dato que recibe redeem", selectedTimeId);
+  // Función para obtener los datos del evento
+  useEffect(() => {
     const fetchEventDetails = async () => {
       try {
         const response = await fetch(`https://api-digital.fly.dev/api/events/find/${eventId}`);
         const data = await response.json();
         setEventData(data);
-  
+
         // Ahora que tenemos el evento, vamos a obtener los horarios
         const schedulesResponse = await fetch(`https://api-digital.fly.dev/api/schedule/by-event/${data.evento_id}`);
         const schedulesData = await schedulesResponse.json();
@@ -127,7 +127,7 @@ const CinemaPage = () => {
         console.error('Error fetching event details or schedules:', error);
       }
     };
-  
+
     fetchEventDetails();
   }, [eventId]);
 
@@ -140,20 +140,20 @@ const CinemaPage = () => {
         const responseH1 = await fetch('https://api-digital.fly.dev/api/ticket/available/h1');
         const dataH1 = await responseH1.json();
         console.log('Tickets Horario 1:', dataH1);
-  
+
         const responseH2 = await fetch('https://api-digital.fly.dev/api/ticket/available/h2');
         const dataH2 = await responseH2.json();
         console.log('Tickets Horario 2:', dataH2);
-  
+
         // Asegúrate de usar el nombre correcto de la propiedad
         setAvailableTicketsH1(dataH1.tickets_disponibles);
         setAvailableTicketsH2(dataH2.tickets_disponibles);
-        
+
       } catch (error) {
         console.error('Error al obtener los tickets disponibles:', error);
       }
     };
-  
+
     fetchTickets();
   }, []);
 
@@ -186,7 +186,7 @@ const CinemaPage = () => {
             zIndex: 1,
           }}
         />
-          
+
         {/* Botón en la esquina superior izquierda */}
         <Button
           variant="contained"
@@ -209,7 +209,7 @@ const CinemaPage = () => {
           Volver a Inicio
         </Button>
 
-  
+
         <Typography
           variant="h3"
           fontWeight="bold"
@@ -229,7 +229,7 @@ const CinemaPage = () => {
         </Typography>
       </Box>
 
-  
+
 
 
       {/* Modal de Información de Pago */}
@@ -286,7 +286,7 @@ const CinemaPage = () => {
             startIcon={<LocalMall />}
             onClick={handlePayment}
           >
-            Aplicar Cupón 
+            Aplicar Cupón
           </Button>
 
           <Typography variant="body2" color="textSecondary" sx={{ textAlign: 'center' }}>
@@ -295,90 +295,112 @@ const CinemaPage = () => {
         </Box>
       </Modal>
 
-{/* Modal del Código QR */}
-{/* Modal del Código QR */}
-<Modal open={openQRCodeModal} onClose={handleCloseQRCodeModal}>
-  <Box
-    sx={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      bgcolor: 'background.paper',
-      boxShadow: 24,
-      p: 4,
-      borderRadius: '16px',
-      border: '2px solid #6a1b9a',
-      textAlign: 'center',
-      width: { xs: '90%', sm: '400px' }, // Responsive width
-    }}
-  >
-    <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', color: '#6a1b9a' }}>
-      ¡Aquí está tu Código QR!
-    </Typography>
-    <QRCodeCanvas id="qrCode" value={qrCodeValue} size={256} style={{ margin: '20px 0' }} />
+      {/* Modal del Código QR */}
+      {/* Modal del Código QR */}
+      <Modal open={openQRCodeModal} onClose={handleCloseQRCodeModal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            borderRadius: '16px',
+            border: '2px solid #6a1b9a',
+            textAlign: 'center',
+            width: { xs: '90%', sm: '400px' }, // Responsive width
+          }}
+        >
+          <Typography variant="h5" sx={{ mb: 3, fontWeight: 'bold', color: '#6a1b9a' }}>
+            ¡Aquí está tu Código QR!
+          </Typography>
+          <QRCodeCanvas id="qrCode" value={qrCodeValue} size={256} style={{ margin: '20px 0' }} />
 
 
-    <Button
-      variant="outlined"
-      color="primary"
-      onClick={handleCloseQRCodeModal}
-      sx={{ mt: 3, px: 4 }}
-    >
-      Cerrar
-    </Button>
-  </Box>
-</Modal>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleCloseQRCodeModal}
+            sx={{ mt: 3, px: 4 }}
+          >
+            Cerrar
+          </Button>
+        </Box>
+      </Modal>
 
 
 
       <Grid container spacing={2} sx={{ padding: '2rem' }}>
-{/* HORARIO */}
- <Grid item xs={12} md={8}>
-    <Paper sx={{ padding: '1rem' }}>
-      <Typography variant="h4" fontWeight="bold" gutterBottom>
-        {eventData && <h3>{eventData.evento_nombre}</h3>}
-      </Typography>
-      <Typography variant="body1" paragraph>
-      {eventData && <p>{eventData.descripcion}</p>}
-      </Typography>
+        {/* HORARIO */}
+        <Grid item xs={12} md={8}>
+          <Paper sx={{ padding: '1rem' }}>
+            <Typography variant="h4" fontWeight="bold" gutterBottom>
+              {eventData && <h3>{eventData.evento_nombre}</h3>}
+            </Typography>
+            <Typography variant="body1" paragraph>
+              {eventData && <p>{eventData.descripcion}</p>}
+            </Typography>
 
-      <Typography variant="h6" fontWeight="bold" gutterBottom>
-        Horarios:
-      </Typography>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Horarios:
+            </Typography>
 
-      <Grid container spacing={1}>
-        {schedules.map((schedule, index) => (
-          <Grid item key={index}>
-            <Button
-              onClick={() => {
-                setSelectedIndex(index);
-                setSelectedTimeId(schedule.horario_id);
-                console.log("parametro que se pasa a SelectedTimeID:",schedule.horario_id);
-              }}
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '0.5rem',
-                backgroundColor: selectedIndex === index ? '#8e44ad' : '#d2b4de', // Cambia a morado si está seleccionado
-                color: selectedIndex === index ? '#4a235a' : '#8e44ad', // Cambia a blanco si está seleccionado
-                textAlign: 'left',
-                width: '100%', // Para que ocupe todo el espacio
-                borderRadius: '8px', // Opcional: para bordes redondeados
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra por defecto
-              }}
-            >
-              <Typography variant="body1" sx={{ marginRight: '1rem' }}>
-                {schedule.hora_inicio} {/* Mostrar hora de inicio y fin */}
-              </Typography>
-            </Button>
-          </Grid>
-        ))}
-      </Grid>
-    </Paper>
-  </Grid>
-          <Grid item xs={12} md={4}>
+            <Grid container spacing={1}>
+              {schedules.map((schedule, index) => (
+                <Grid item key={index}>
+                  <Button
+                    onClick={() => {
+                      setSelectedIndex(index);
+                      setSelectedTimeId(schedule.horario_id);
+                      console.log("parametro que se pasa a SelectedTimeID:", schedule.horario_id);
+                    }}
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: '0.5rem',
+                      backgroundColor: selectedIndex === index ? '#8e44ad' : '#d2b4de', // Cambia a morado si está seleccionado
+                      color: selectedIndex === index ? '#4a235a' : '#8e44ad', // Cambia a blanco si está seleccionado
+                      textAlign: 'left',
+                      width: '100%', // Para que ocupe todo el espacio
+                      borderRadius: '8px', // Opcional: para bordes redondeados
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra por defecto
+                    }}
+                  >
+                    <Typography variant="body1" sx={{ marginRight: '1rem' }}>
+                      {schedule.hora_inicio} {/* Mostrar hora de inicio y fin */}
+                    </Typography>
+                  </Button>
+
+                </Grid>
+
+              ))}
+
+            </Grid>
+            <Typography variant="h5" paddingTop={5} paddingBottom={3}>Tickets Disponibles:</Typography>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <Paper elevation={3} sx={{ p: 2 }}>
+                  <Typography variant="h6">Horario 1:</Typography>
+                  <Typography variant="body1">
+                    {availableTicketsH1 !== null && availableTicketsH1 !== undefined ? `${availableTicketsH1} tickets disponibles` : 'Cargando...'}
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Paper elevation={3} sx={{ p: 2 }}>
+                  <Typography variant="h6">Horario 2:</Typography>
+                  <Typography variant="body1">
+                    {availableTicketsH2 !== null && availableTicketsH2 !== undefined ? `${availableTicketsH2} tickets disponibles` : 'Cargando...'}
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
           {eventData && (
             <h4 style={{ textAlign: 'center', marginBottom: '1rem' }}>
               {eventData.evento_nombre}
@@ -404,26 +426,8 @@ const CinemaPage = () => {
           </Card>
         </Grid>
         <Box sx={{ mt: 4 }}>
-  <Typography variant="h5">Tickets Disponibles</Typography>
-  <Grid container spacing={2}>
-    <Grid item xs={12} sm={6}>
-      <Paper elevation={3} sx={{ p: 2 }}>
-        <Typography variant="h6">Horario 1:</Typography>
-        <Typography variant="body1">
-          {availableTicketsH1 !== null && availableTicketsH1 !== undefined ? `${availableTicketsH1} tickets disponibles` : 'Cargando...'}
-        </Typography>
-      </Paper>
-    </Grid>
-    <Grid item xs={12} sm={6}>
-      <Paper elevation={3} sx={{ p: 2 }}>
-        <Typography variant="h6">Horario 2:</Typography>
-        <Typography variant="body1">
-          {availableTicketsH2 !== null && availableTicketsH2 !== undefined ? `${availableTicketsH2} tickets disponibles` : 'Cargando...'}
-        </Typography>
-      </Paper>
-    </Grid>
-  </Grid>
-</Box>
+
+        </Box>
 
       </Grid>
     </>

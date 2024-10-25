@@ -580,3 +580,11 @@
 }
 
 
+/* Menú móvil */
+#mobile-nav {
+  height: 100%; /* Asegúrate de que la altura sea del 100% */
+  background: rgba(34, 6, 6, 0.9);
+
+}
+
+

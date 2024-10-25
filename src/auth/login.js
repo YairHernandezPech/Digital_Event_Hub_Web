@@ -83,7 +83,7 @@ const Login = () => {
       </div>
       <div className="right-section">
         <div className="login-container-2">
-          <h2>¡Bienvenido!</h2>
+          <h2>¡Bienvenido Usuario!</h2>
           <p>Por favor, ingresa tus datos para poder iniciar sesión en Digital Event Hub y ver nuestros eventos.</p>
           <br />
           <button onClick={() => navigate("/login-orga")}>Organizador</button>

@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import logo from '../img/LOGO HUB BLANCO 3.png'; 
 import '../styles/navbars.css';
 
-// Estilos para el primer Navbar
 const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: 'cover',
@@ -22,7 +21,7 @@ const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
         left: 0,
         width: '100%',
         height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Superposición oscura
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         zIndex: 1,
     },
     '& > div': {
@@ -47,9 +46,9 @@ const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
     textAlign: 'left',
     marginBottom: theme.spacing(1),
-    fontSize: '2rem', // Ajustado para que se vea mejor en móvil
+    fontSize: '2rem',
     [theme.breakpoints.up('sm')]: {
-        fontSize: '4.5rem', // Más grande en pantallas más grandes
+        fontSize: '4.5rem',
     },
 }));
 
@@ -61,12 +60,12 @@ const Info = styled(Typography)(({ theme }) => ({
 }));
 
 const MapCard = styled(Card)(({ theme }) => ({
-    height: '300px', // Ajustado para que se vea mejor en móvil
+    height: '300px',
     width: '100%',
 }));
 
 const InfoCard = styled(Card)(({ theme }) => ({
-    height: '300px', // Ajustado para que se vea mejor en móvil
+    height: '300px',
     width: '100%',
 }));
 
@@ -112,7 +111,6 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
 
     return (
         <>
-            {/* Primer Navbar con fondo de imagen */}
             <NavbarContainer position="static" backgroundImage={imageUrl}>
                 <Toolbar style={{ width: '80%' }}>
                     <IconButton
@@ -120,7 +118,7 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
                         color="inherit"
                         aria-label="menu"
                         onClick={toggleDrawer}
-                        sx={{ display: { xs: 'block', sm: 'none' } }} // Mostrar solo en móviles
+                        sx={{ display: { xs: 'block', sm: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -140,15 +138,24 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
                 </div>
             </NavbarContainer>
 
+            {/* Drawer único controlado por el estado drawerOpen */}
+            <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer}>
+                <Box sx={{ width: 250, padding: 2 }}>
+                    <Typography variant="h6">Menú</Typography>
+                    <Link to="/">Inicio</Link>
+                    <Link to="/about">Acerca de</Link>
+                </Box>
+            </Drawer>
+
             <Box sx={{
-                width: '100%', // Asegura que el contenedor ocupe el 100% del ancho disponible
-                display: 'flex', // Utiliza flex para centrar los hijos
-                flexDirection: 'column', // Coloca los elementos en una columna
-                alignItems: 'center', // Alinea los elementos al centro
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
                 margin: '0 auto',
-                paddingTop: '20px', // Espacio superior para mejor visualización
+                paddingTop: '20px',
             }}>
-                <Grid container spacing={2} sx={{ maxWidth: '600px' }}> {/* Ajusta el ancho máximo */}
+                <Grid container spacing={2} sx={{ maxWidth: '600px' }}>
                     <Grid item xs={12}>
                         <MapCard>
                             <CardContent>
@@ -160,33 +167,15 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
                         <InfoCard>
                             <CardContent>
                                 <Typography variant="h6">Información Adicional</Typography>
-                                <Typography variant="body2">
-                                    <strong>Título:</strong> {title}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Fecha:</strong> {date}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Hora:</strong> {time}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Descripción:</strong> {description}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Ubicación:</strong> {location}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Categoría:</strong> {category}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Tipo de Evento:</strong> {eventType}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Organizado por:</strong> {organizer}
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong>Autorizado por:</strong> {authorizedBy}
-                                </Typography>
+                                <Typography variant="body2"><strong>Título:</strong> {title}</Typography>
+                                <Typography variant="body2"><strong>Fecha:</strong> {date}</Typography>
+                                <Typography variant="body2"><strong>Hora:</strong> {time}</Typography>
+                                <Typography variant="body2"><strong>Descripción:</strong> {description}</Typography>
+                                <Typography variant="body2"><strong>Ubicación:</strong> {location}</Typography>
+                                <Typography variant="body2"><strong>Categoría:</strong> {category}</Typography>
+                                <Typography variant="body2"><strong>Tipo de Evento:</strong> {eventType}</Typography>
+                                <Typography variant="body2"><strong>Organizado por:</strong> {organizer}</Typography>
+                                <Typography variant="body2"><strong>Autorizado por:</strong> {authorizedBy}</Typography>
                             </CardContent>
                         </InfoCard>
                     </Grid>
