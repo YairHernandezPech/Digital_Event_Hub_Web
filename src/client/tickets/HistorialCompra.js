@@ -78,13 +78,17 @@ const HistorialCompra = () => {
                         {compras.map((compra) => (
                             <li key={compra.pago_id} className="compra-card" onClick={() => manejarClickCompra(compra)}>
                                 <div className="compra-info">
-                                    <h2 className="compra-titulo">{compra.nombre_evento}</h2>
+                                    <span className="compra-titulo">{compra.nombre_evento}</span>
+                                    <span>No. Ticket: {compra.ticket_id}</span>
                                     <p><strong>Fecha de Inicio:</strong> {new Date(compra.fecha_inicio).toLocaleDateString()}</p>
                                     <p><strong>Fecha de Término:</strong> {new Date(compra.fecha_termino).toLocaleDateString()}</p>
                                     <p><strong>Ubicación:</strong> {compra.ubicacion}</p>
                                 </div>
-                                <div className="compra-monto">
-                                    <p className="monto-texto"><strong>Monto: ${compra.monto}</strong></p>
+                                <div className="event-image-container">
+                                    <img src={compra.imagen_url} alt={compra.nombre_evento} className="event-image" />
+                                    <div className="event-amount">
+                                        <p><strong>Monto: ${compra.monto}</strong></p>
+                                    </div>
                                 </div>
                             </li>
                         ))}
@@ -94,7 +98,7 @@ const HistorialCompra = () => {
                 )}
             </div>
         </div>
-    );
+    );        
 };
 
 export default HistorialCompra;

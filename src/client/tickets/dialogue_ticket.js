@@ -65,7 +65,6 @@ const CinemaPage = () => {
         horario_id: selectedTimeId
       };
       const token = localStorage.getItem('token');
-      console.log('Token:', token);
       //SUBIR Y ACTUALIZAR CUPONES CON PAGOS, ¡¡¡¡¡EXCLUSIVO PARA PAGOS CON CUPONES!!!!
       const response = await axios.post('https://api-digital.fly.dev/api/ticket/redeem', data, {
         headers: { Authorization: `Bearer ${token}` },

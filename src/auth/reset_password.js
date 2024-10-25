@@ -19,7 +19,7 @@ const ResetPassword = () => {
       return;
     }
     try {
-      const response = await fetch("https://api-digitalevent.onrender.com/api/password/forgot-password", {
+      const response = await fetch("https://api-digital.fly.dev/api/password/forgot-password", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

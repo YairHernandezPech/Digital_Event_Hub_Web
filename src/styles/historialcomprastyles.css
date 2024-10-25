@@ -1,42 +1,119 @@
+/* Estilos generales */
 .historial-container {
-    padding: 150px;
+    padding: 50px;
+    background-color: #f4f4f8;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .historial-title {
     text-align: center;
-    margin-bottom: 20px;
-    color: #333; /* Verifica que este color sea visible sobre el fondo */
-    font-size: 2em;
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 2.5em;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
+/* Lista de compras */
+.compras-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0;
+    list-style: none;
+}
 
-
+/* Tarjetas de compra */
 .compra-card {
     cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 15px 0;
-    display: flex;
-    justify-content: space-between; /* Espacio entre el contenido y el QR */
-    align-items: center; /* Centra verticalmente los elementos */
-    background-color: #fff; /* Fondo blanco */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-}
-
-.compra-info {
-    flex: 1; /* Permite que la sección de información ocupe el espacio restante */
-}
-
-.qr-code {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra el QR */
-    margin-left: 20px; /* Espacio entre la información y el QR */
+    position: relative;
+    overflow: hidden; /* Para un borde suave */
+    border-left: 5px solid #4CAF50; /* Línea a la izquierda como un ticket */
+    position: relative;
 }
 
+.compra-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Información de compra */
+.compra-info {
+    flex-grow: 1;
+    margin-bottom: 15px;
+    padding: 20px;
+}
+
+.compra-titulo {
+    display: block;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.compra-info p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.compra-info strong {
+    color: #333;
+}
+
+.event-image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.event-image {
+    height: 200px;    
+    width: 100%;
+    border-left: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    overflow: hidden;
+}
+
+.event-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)); /* De negro a transparente */
+    border-radius: 15px; /* Asegura que el borde del gradiente siga la forma de la imagen */
+    pointer-events: none; /* Permite que el mouse interactúe con la imagen debajo */
+}
+
+
+.event-amount {
+    position: absolute; /* Posiciona el monto sobre la imagen */
+    bottom: 10px; /* Ajusta la posición inferior */
+    left: 20px; /* Ajusta la posición lateral */
+    font-size: 1.3em;
+    color: #e67300;
+    text-align: right; /* Alinear el monto a la derecha */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente para mejorar legibilidad */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+}
+
+
+/* Mensaje de no compras */
 .no-compras {
     text-align: center;
-    color: #777;
+    color: #999;
+    font-size: 1.2em;
+    margin-top: 20px;
 }
