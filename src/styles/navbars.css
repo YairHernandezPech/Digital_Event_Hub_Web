@@ -346,4 +346,237 @@
   .scrollto4:hover {
     color: #f82249;
   }
-  
+  /* Media Query para dispositivos móviles */
+@media (max-width: 768px) {
+    #nav-menu-container {
+        display: none; /* Oculta el menú de navegación */
+    }
+
+    #mobile-nav-toggle {
+        display: block; /* Muestra el botón de menú */
+    }
+
+    /* Ajustes para el logo */
+    #logo4 {
+        margin-left: 0; /* Elimina el margen para que el logo esté centrado */
+        justify-content: center; /* Centra el logo */
+    }
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+#header {
+  height: 90px;
+  padding: 25px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  background-color: #300d31;
+  transition: all 0.5s;
+  z-index: 997;
+}
+
+#header .container4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+#logo4 {
+  display: flex;
+  align-items: center;
+}
+
+#logo4 img {
+  max-width: 99px;
+  max-height: 95px;
+}
+
+/* Menú de navegación */
+#nav-menu-container {
+  display: flex;
+}
+
+#nav-menu-container ul {
+  display: flex;
+  align-items: center;
+}
+
+/* Ocultar el menú en dispositivos móviles */
+#nav-menu-container.active {
+  display: block; /* Mostrar el menú cuando se active en móviles */
+}
+
+/* Botón de menú hamburguesa */
+#mobile-nav-toggle {
+  display: none;
+}
+
+#mobile-nav-toggle i {
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Media Queries para móviles
+--------------------------------------------------------------*/
+
+/* Ocultar menú y mostrar el botón de hamburguesa en dispositivos móviles */
+@media (max-width: 768px) {
+  #nav-menu-container {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background: #300d31;
+    z-index: 998;
+    padding: 15px;
+    text-align: center;
+  }
+
+  #mobile-nav-toggle {
+    display: block;
+    margin-right: 20px;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-menu li {
+    margin: 10px 0;
+  }
+
+  /* Estilo para el fondo oscuro al abrir el menú en móviles */
+  #mobile-body-overly {
+    width: 100%;
+    height: 100%;
+    z-index: 997;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(6, 12, 34, 0.8);
+    display: block;
+  }
+
+  body.mobile-nav-active #mobile-nav-toggle {
+    color: #fff;
+  }
+}
+
+/*--------------------------------------------------------------
+# Header
+--------------------------------------------------------------*/
+
+#header {
+  height: 90px;
+  padding: 25px 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  background-color: #300d31;
+  transition: all 0.5s;
+  z-index: 997;
+}
+
+#header .container4 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+#logo4 {
+  display: flex;
+  align-items: center;
+}
+
+#logo4 img {
+  max-width: 99px;
+  max-height: 95px;
+}
+
+/* Menú de navegación */
+#nav-menu-container {
+  display: flex;
+}
+
+#nav-menu-container ul {
+  display: flex;
+  align-items: center;
+}
+
+/* Ocultar el menú en dispositivos móviles */
+#nav-menu-container.active {
+  display: block; /* Mostrar el menú cuando se active en móviles */
+}
+
+/* Botón de menú hamburguesa */
+#mobile-nav-toggle {
+  display: none;
+}
+
+#mobile-nav-toggle i {
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Media Queries para móviles
+--------------------------------------------------------------*/
+
+/* Ocultar menú y mostrar el botón de hamburguesa en dispositivos móviles */
+@media (max-width: 768px) {
+  #nav-menu-container {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    background: #300d31;
+    z-index: 998;
+    padding: 15px;
+    text-align: center;
+  }
+
+  #mobile-nav-toggle {
+    display: block;
+    margin-right: 20px;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-menu li {
+    margin: 10px 0;
+  }
+
+  /* Estilo para el fondo oscuro al abrir el menú en móviles */
+  #mobile-body-overly {
+    width: 100%;
+    height: 100%;
+    z-index: 997;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: rgba(6, 12, 34, 0.8);
+    display: block;
+  }
+
+  body.mobile-nav-active #mobile-nav-toggle {
+    color: #fff;
+  }
+}
+
+

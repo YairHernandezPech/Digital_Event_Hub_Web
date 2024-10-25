@@ -70,7 +70,10 @@ const HistorialCompra = () => {
     return (
         <div className="historial-container">
             <ClientNavbarHome user={userId} onLogout={handleLogout} />
-            <h1 className="historial-title">Historial de Compras</h1>
+br
+            
+<h1 className="historial-title">Historial de Compras </h1>
+<h1 className="historial-title">Historial de Compras </h1>
             
             <div>
                 {compras.length > 0 ? (
