@@ -20,8 +20,8 @@ const NavbarContainer = styled(AppBar)(({ theme, backgroundImage }) => ({
         position: 'absolute',
         top: 0,
         left: 0,
-        width: '90%',
-        height: '90%',
+        width: '100%',
+        height: '100%',
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // Superposición oscura
         zIndex: 1,
     },
@@ -141,13 +141,14 @@ const EventNavbar = ({ title, description, imageUrl, date, time, location, categ
             </NavbarContainer>
 
             <Box sx={{
-                width: '90%',
-                '@media (min-width:600px)': {
-                    width: '90%'
-                },
-                margin: '0 auto'
+                width: '100%', // Asegura que el contenedor ocupe el 100% del ancho disponible
+                display: 'flex', // Utiliza flex para centrar los hijos
+                flexDirection: 'column', // Coloca los elementos en una columna
+                alignItems: 'center', // Alinea los elementos al centro
+                margin: '0 auto',
+                paddingTop: '20px', // Espacio superior para mejor visualización
             }}>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{ maxWidth: '600px' }}> {/* Ajusta el ancho máximo */}
                     <Grid item xs={12}>
                         <MapCard>
                             <CardContent>

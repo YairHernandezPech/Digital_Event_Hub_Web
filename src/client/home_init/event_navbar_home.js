@@ -48,18 +48,6 @@ const floatingDivStyle = {
     borderRadius: '20px 0px 0px 0px',
 };
 
-const CustomTitle = styled(Typography)(({ theme }) => ({
-    fontWeight: 'bold',
-    textAlign: 'left',
-    marginBottom: theme.spacing(1),
-}));
-
-const CustomInfoCard = styled(Card)(({ theme }) => ({
-    height: '400px',
-    width: '100%',
-    marginLeft: theme.spacing(2),
-}));
-
 const Title = styled(Typography)(({ theme }) => ({
     fontWeight: 'bold',
     textAlign: 'left',
@@ -72,10 +60,9 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
 
-    // Nueva función para redirigir a la compra de boletos con evento_id
     const handleTicketPurchase = () => {
         console.log('Redirecting to ticket purchase with evento_id:', evento_id);
-        navigate(`/cliente/ticked/${evento_id}`);  // Redirigir usando el evento_id
+        navigate(`/cliente/ticked/${evento_id}`);
     };
 
     useEffect(() => {
@@ -117,7 +104,7 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
             const decodedToken = jwtDecode(userData);
             setUser({ id: decodedToken.id, rol: decodedToken.rol });
         } else {
-            navigate("/login"); // Redirige al login si no hay datos del usuario
+            navigate("/login");
         }
     }, [navigate]);
 
@@ -125,6 +112,7 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
         localStorage.removeItem("user");
         navigate("/login");
     };
+
     useEffect(() => {
         if (user && user.id) {
             axios.get(`${API_URL}/users/${user.id}`)
@@ -153,11 +141,11 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                     </Stack>
                     <p>Description: {description}</p>
                     <Typography variant="body1">Fecha: {date} a las {time}</Typography>
-                    {location && <Typography variant="body1">Te esperamos en el {location}</Typography>}
+                    {location && <Typography variant="body1" paddingBottom={10}>Te esperamos en el {location}</Typography>}
                     <br />
                 </Toolbar>
                 <div style={floatingDivStyle}>
-                    <Typography variant="h4" fontWeight={800}>Categoría: {category}</Typography>
+                    <Typography variant="h4" fontWeight={800} fontSize={35}>Categoría: {category}</Typography>
                 </div>
             </CustomNavbarContainer>
 
@@ -168,16 +156,16 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                 },
                 margin: '0 auto'
             }}>
-                <Grid container spacing={2} style={{ width: '90%' }}>
-                    <Grid item xs={12} sm={6}>
+                <Grid container justifyContent="center">
+                    <Grid item xs={12} sm={8} md={6}>
                         <Card>
                             <CardContent>
-                                <div id="map" style={{ width: '100%', height: '400px' }}></div>
+                                <div id="map" style={{ width: '100%', height: '400px', margin: '0 auto' }}></div>
                             </CardContent>
                         </Card>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                        <CustomInfoCard>
+                        <Card>
                             <CardContent>
                                 <Typography variant="h6">Información Adicional</Typography>
                                 <Typography variant="body2"><strong>Título:</strong> {title}</Typography>
@@ -189,12 +177,11 @@ const EventInformationNavbar = ({ title, imageUrl, date, time, location, categor
                                 <Typography variant="body2"><strong>Tipo de Evento:</strong> {eventType}</Typography>
                                 <Typography variant="body2"><strong>Autorizado por:</strong> {authorizedBy}</Typography>
                             </CardContent>
-                        </CustomInfoCard>
+                        </Card>
                     </Grid>
                 </Grid>
             </Box>
 
-            {/* Botón para redirigir a la compra de boletos */}
             <Fab
                 color="secondary"
                 aria-label="add"
