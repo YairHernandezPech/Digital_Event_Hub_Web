@@ -14,8 +14,6 @@ const MainContent = ({ role }) => {
     switch(roleStr) {
       case '1':
         return <HomeAdmin />;
-      case '2':
-        return <HomeClient />;
       case '3':
         return <HomeOrga />;
       default:
