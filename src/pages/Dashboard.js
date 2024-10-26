@@ -14,6 +14,7 @@ import UpdateEvent from '../organizador/updateEvent';
 import Aprobados from '../admin/EventosAprobados';
 import Desaprobados from '../admin/EventosDesaprobados';
 import Pendientes from '../admin/EventosPendientes';
+import Cupones from '../organizador/Cupones';
 
 const Dashboard = ({ role, onLogout }) => {
   let match = useMatch('/dashboard/*');
@@ -42,6 +43,7 @@ const Dashboard = ({ role, onLogout }) => {
             <Route path="updateEvent/:evento_id" element={<UpdateEvent/>} />
             <Route path="aprobados" element={<Aprobados/>} />
             <Route path="desaprobados" element={<Desaprobados/>} />
+            <Route path="cupones" element={<Cupones/>} />
             <Route path="pendientes" element={<Pendientes/>} />
           </Routes>
         </div>
