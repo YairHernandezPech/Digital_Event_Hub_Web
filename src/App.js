@@ -39,7 +39,7 @@ const App = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        setRole(decodedToken.rol);
+        setRole(decodedToken.role);
       } catch (error) {
         setRole(null);
       }
