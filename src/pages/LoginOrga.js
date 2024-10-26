@@ -13,7 +13,7 @@ const LoginOrga = ({ onLogin }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://digital-event.onrender.com/api/login', { email, contrasena });
+      const response = await axios.post('https://api-digital.fly.dev/api/users/login', { email, contrasena });
       const { token } = response.data;
       onLogin(token);
       setNotification({ message: 'Datos correctos', type: 'success' });

@@ -14,35 +14,37 @@ import UpdateEvent from '../organizador/updateEvent';
 import Aprobados from '../admin/EventosAprobados';
 import Desaprobados from '../admin/EventosDesaprobados';
 import Pendientes from '../admin/EventosPendientes';
+import Cupones from '../organizador/Cupones';
 
-const Dashboard = ({ role, onLogout }) => {
-  let match = useMatch('/dashboard/*');
+const Dashboard = ({ rol, onLogout }) => {
+  const match = useMatch('/dashboard/*');
 
-  if (!role) {
+  if (!rol) {
     return <Navigate to="/login" />;
   }
 
-  const user = {};
+  const user = {}; // Esto puede configurarse según el contexto o token de autenticación
 
   return (
     <div>
       <Navbar user={user} />
       <div style={{ display: 'flex', flexDirection: 'row', height: '100%', marginTop: '70px' }}>
-        <Sidebar onLogout={onLogout} role={role} />
+        <Sidebar onLogout={onLogout} rol={rol} />
         <div style={{ flex: 1, padding: '20px' }}>
           <Routes>
-            <Route path="/" element={<MainContent role={role} user={user} />} />
+            <Route path="/" element={<MainContent rol={rol} user={user} />} />
             <Route path="roles" element={<Roles />} />
             <Route path="usuarios" element={<Usuarios />} />
             <Route path="permisos/:roleId" element={<Permisos />} />
             <Route path="membresias" element={<Membresias />} />
-            <Route path="usuariosMembre" element={<UsuarioMembre/>} />
+            <Route path="usuariosMembre" element={<UsuarioMembre />} />
             <Route path="membresia" element={<Membresia />} />
-            <Route path="formulario" element={<Formulario/>} />
-            <Route path="updateEvent/:evento_id" element={<UpdateEvent/>} />
-            <Route path="aprobados" element={<Aprobados/>} />
-            <Route path="desaprobados" element={<Desaprobados/>} />
-            <Route path="pendientes" element={<Pendientes/>} />
+            <Route path="formulario" element={<Formulario />} />
+            <Route path="updateEvent/:evento_id" element={<UpdateEvent />} />
+            <Route path="aprobados" element={<Aprobados />} />
+            <Route path="desaprobados" element={<Desaprobados />} />
+            <Route path="cupones" element={<Cupones />} />
+            <Route path="pendientes" element={<Pendientes />} />
           </Routes>
         </div>
       </div>

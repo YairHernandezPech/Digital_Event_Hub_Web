@@ -7,11 +7,9 @@ import HomeAdmin from '../admin/homeAdmin';
 import HomeOrga from '../organizador/homeOrga';
 import '../styles/mainContent.css';
 
-const MainContent = ({ role }) => {
+const MainContent = ({ rol }) => {
   const renderHomePage = () => {
-    const roleStr = role.toString();
-
-    switch(roleStr) {
+    switch (rol.toString()) {
       case '1':
         return <HomeAdmin />;
       case '3':
