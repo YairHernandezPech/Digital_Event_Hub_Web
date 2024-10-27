@@ -19,7 +19,10 @@
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "date-fns": "^3.6.0",
+ cupones
+=======
     "event_hub_web": "file:",
+ login-new
     "file-saver": "^2.0.5",
     "framer-motion": "^11.3.21",
     "html2canvas": "^1.4.1",
@@ -36,7 +39,8 @@
     "react-scripts": "^5.0.1",
     "sweetalert2": "^11.12.4",
     "sweetalert2-react-content": "^5.0.7",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

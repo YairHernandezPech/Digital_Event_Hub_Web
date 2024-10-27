@@ -1,0 +1,116 @@
+/* Fondo general para el contenedor */
+.membership-container {
+    text-align: center;
+    margin-top: 50px;
+    font-family: 'Poppins', sans-serif; /* Mejor tipografía */
+    background: linear-gradient(135deg, #f5f7fa, #d4c3e2); /* Fondo con gradiente suave */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Tarjeta de membresía */
+  .membership-card {
+    width: 400px;
+    height: 250px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 15px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background: #F0E68C;
+    position: relative;
+    animation: floatCard 1.5s ease-in-out infinite; /* Animación */
+  }
+  
+  /* Contenido de la tarjeta */
+  .card-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  /* Tipo de membresía */
+  .membership-type {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: #333; /* Color de texto mejorado */
+  }
+  
+  /* Nombre del usuario */
+  .user-name {
+    font-size: 18px;
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #666; /* Color de texto mejorado */
+  }
+  
+  /* Tarjetas de distintos tipos */
+  .vip-card {
+    background: #dfb748;
+  }
+  
+  .basic-card {
+    background: #ebe9ea;
+  }
+  
+  .default-card {
+    background: #d5a678;
+  }
+  
+  /* Sección para desbloquear nuevas funciones */
+  .unlock-features {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  /* Botón de Stripe */
+  .stripe-pay-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out; /* Efecto de hover */
+  }
+  
+  .stripe-pay-button:hover {
+    transform: scale(1.05); /* Pequeño aumento al hacer hover */
+  }
+  
+  /* Imagen del logo de Stripe dentro del botón */
+  .stripe-pay-button img {
+    margin-right: 10px;
+    width: 70px;
+    height: 30px;
+  }
+  
+  /* Animación de flotación para la tarjeta */
+  @keyframes floatCard {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
