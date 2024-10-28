@@ -58,8 +58,8 @@ const EventDetailClient = () => {
                 title={event.evento_nombre}
                 imageUrl={event.imagen_url}
                 date={`${new Date(event.fecha_inicio).toLocaleDateString()} - ${new Date(event.fecha_termino).toLocaleDateString()}`}
-                time={`${event.horario_inicio_1} - ${event.horario_fin_1}, ${event.horario_inicio_2} - ${event.horario_fin_2}`}
-                description={event.descripcion}
+                time={`${event.horario_inicio_1}, 
+                ${event.horario_inicio_2} `}                description={event.descripcion}
                 location={event.ubicacion}
                 authorizedBy={authorizedBy}
                 idScenary={event._id} 

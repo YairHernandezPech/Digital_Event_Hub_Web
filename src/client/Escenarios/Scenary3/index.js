@@ -41,10 +41,6 @@ const Escenario3 = ({data, setSelectedSeats}) => {
   ];
   const seats = dividirArray(data.asientos, 3)[2];
 
-
-  
-  
-  
   return (
     <div className="stage-container">
 
@@ -83,9 +79,5 @@ const Escenario3 = ({data, setSelectedSeats}) => {
     </div>
   );
 }
-
-
-
-
 
 export default Escenario3;

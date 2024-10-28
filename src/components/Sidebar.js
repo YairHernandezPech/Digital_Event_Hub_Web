@@ -1,67 +1,32 @@
-// src/components/Sidebar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faFolder, faTicket, faUsers, faCalendarDays, faUserGroup, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import '../styles/sidebar.css';
 
-const Sidebar = ({ onLogout, role }) => {
-  const [showDropdownCuentas, setShowDropdownCuentas] = useState(false);
-  const [showDropdownMembresias, setShowDropdownMembresias] = useState(false);
-  const [showDropdownContenido, setShowDropdownContenido] = useState(false);
-  const [showDropdownEventos, setShowDropdownEventos] = useState(false);
-  const [showDropdownAsistentes, setShowDropdownAsistentes] = useState(false);
-  const [showDropdownGestion, setShowDropdownGestion] = useState(false);
-  const [showDropdownMembresia, setShowDropdownMembresia] = useState(false);
-  const [showDropdownverEventos, setShowDropdownverEventos] = useState(false);
+const Sidebar = ({ onLogout, rol }) => {
+  const [activeDropdown, setActiveDropdown] = useState(null);
 
-  const toggleDropdownCuentas = () => {
-    setShowDropdownCuentas(!showDropdownCuentas);
+  const toggleDropdown = (dropdownName) => {
+    setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName);
   };
-
-  const toggleDropdownMembresias = () => {
-    setShowDropdownMembresias(!showDropdownMembresias);
-  };
-
-  const toggleDropdownContenido = () => {
-    setShowDropdownContenido(!showDropdownContenido);
-  };
-
-  const toggleDropdownEventos = () => {
-    setShowDropdownEventos(!showDropdownEventos);
-  };
-
-  const toggleDropdownAsistentes = () => {
-    setShowDropdownAsistentes(!showDropdownAsistentes);
-  };
-
-  const toggleDropdownGestion = () => {
-    setShowDropdownGestion(!showDropdownGestion);
-  };
-
-  const toggleDropdownMembresia = () => {
-    setShowDropdownMembresia(!showDropdownMembresia);
-  };
-
-  const toggleDropdownverEventos = () => {
-    setShowDropdownverEventos(!showDropdownverEventos);
-  };
-
-
 
   return (
     <div className="sidebar">
       <div>
-        {role === 1 && (
+        {rol === 1 && (
           <>
             <h2>Dashboard</h2>
             <ul>
-              <li className={showDropdownCuentas ? 'dropdown-active' : ''} onClick={toggleDropdownCuentas}>
+              <li
+                className={activeDropdown === 'cuentas' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('cuentas')}
+              >
                 <FontAwesomeIcon icon={faUsers} className="menu-icon" />
                 Cuentas
-                {showDropdownCuentas && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'cuentas' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownCuentas && (
+              {activeDropdown === 'cuentas' && (
                 <ul>
                   <li className="roles-link">
                     <Link to="/dashboard/roles">Roles</Link>
@@ -73,12 +38,15 @@ const Sidebar = ({ onLogout, role }) => {
               )}
             </ul>
             <ul>
-              <li className={showDropdownMembresias ? 'dropdown-active' : ''} onClick={toggleDropdownMembresias}>
+              <li
+                className={activeDropdown === 'membresias' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('membresias')}
+              >
                 <FontAwesomeIcon icon={faTicket} className="menu-icon" />
                 Membresias
-                {showDropdownMembresias && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'membresias' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownMembresias && (
+              {activeDropdown === 'membresias' && (
                 <ul>
                   <li className="membresias-link">
                     <Link to="/dashboard/membresias">Membresias</Link>
@@ -90,40 +58,48 @@ const Sidebar = ({ onLogout, role }) => {
               )}
             </ul>
             <ul>
-              <li className={showDropdownContenido ? 'dropdown-active' : ''} onClick={toggleDropdownContenido}>
+              <li
+                className={activeDropdown === 'contenido' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('contenido')}
+              >
                 <FontAwesomeIcon icon={faFolder} className="menu-icon" />
                 Contenido
-                {showDropdownContenido && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'contenido' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownContenido && (
+              {activeDropdown === 'contenido' && (
                 <ul>
-                <li>
-                  <Link to="/dashboard/aprobados">Eventos aprobados</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/desaprobados">Eventos desaprobados</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard/pendientes">Eventos pendientes</Link>
-                </li>
-              </ul>
+                  <li>
+                    <Link to="/dashboard/aprobados">Eventos aprobados</Link>
+                  </li>
+                  <li>
+                    <Link to="/dashboard/desaprobados">Eventos desaprobados</Link>
+                  </li>
+                  <li>
+                    <Link to="/dashboard/pendientes">Eventos pendientes</Link>
+                  </li>
+                </ul>
               )}
             </ul>
           </>
         )}
 
-        {(role === 1 || role === 3) && (
+        {(rol === 1 || rol === 3) && (
           <>
             <h2>Organizador</h2>
             <ul>
-              <li className={showDropdownMembresia ? 'dropdown-active' : ''} onClick={toggleDropdownMembresia}>
+              <li
+                className={activeDropdown === 'membresia' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('membresia')}
+              >
                 <FontAwesomeIcon icon={faCalendarDays} className="menu-icon" />
                 Membresia
-                {showDropdownMembresia && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'membresia' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownMembresia && (
+              {activeDropdown === 'membresia' && (
                 <ul>
-                  <li>Ver membresia</li>
+                  <li>
+                    <Link to="/dashboard/Ver-Membresia">Ver membresia</Link>
+                  </li>
                   <li>
                     <Link to="/dashboard/membresia">Actualizar membresia</Link>
                   </li>
@@ -131,26 +107,32 @@ const Sidebar = ({ onLogout, role }) => {
               )}
             </ul>
             <ul>
-              <li className={showDropdownEventos ? 'dropdown-active' : ''} onClick={toggleDropdownEventos}>
+              <li
+                className={activeDropdown === 'eventos' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('eventos')}
+              >
                 <FontAwesomeIcon icon={faCalendarDays} className="menu-icon" />
                 Eventos
-                {showDropdownEventos && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'eventos' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownEventos && (
+              {activeDropdown === 'eventos' && (
                 <ul>
-                <li>
-                  <Link to="/dashboard/formulario">Formulario</Link>
-                </li>
-              </ul>
+                  <li>
+                    <Link to="/dashboard/formulario">Formulario</Link>
+                  </li>
+                </ul>
               )}
             </ul>
             <ul>
-              <li className={showDropdownAsistentes ? 'dropdown-active' : ''} onClick={toggleDropdownAsistentes}>
+              <li
+                className={activeDropdown === 'asistentes' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('asistentes')}
+              >
                 <FontAwesomeIcon icon={faUserGroup} className="menu-icon" />
                 Asistentes
-                {showDropdownAsistentes && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'asistentes' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownAsistentes && (
+              {activeDropdown === 'asistentes' && (
                 <ul>
                   <li>Asistentes 1</li>
                   <li>Asistentes 2</li>
@@ -158,31 +140,38 @@ const Sidebar = ({ onLogout, role }) => {
               )}
             </ul>
             <ul>
-              <li className={showDropdownGestion ? 'dropdown-active' : ''} onClick={toggleDropdownGestion}>
+              <li
+                className={activeDropdown === 'gestion' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('gestion')}
+              >
                 <FontAwesomeIcon icon={faFolderOpen} className="menu-icon" />
                 Gestion
-                {showDropdownGestion && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'gestion' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownGestion && (
+              {activeDropdown === 'gestion' && (
                 <ul>
-                  <li>Contenido 1</li>
-                  <li>Contenido 2</li>
+                  <li>
+                    <Link to="/dashboard/cupones">Cupones</Link>
+                  </li>
                 </ul>
               )}
             </ul>
           </>
         )}
 
-        {(role === 1 || role === 2) && (
+        {(rol === 1 || rol === 2) && (
           <>
             <h2>Cliente</h2>
             <ul>
-              <li className={showDropdownverEventos ? 'dropdown-active' : ''} onClick={toggleDropdownverEventos}>
+              <li
+                className={activeDropdown === 'verEventos' ? 'dropdown-active' : ''}
+                onClick={() => toggleDropdown('verEventos')}
+              >
                 <FontAwesomeIcon icon={faCalendarDays} className="menu-icon" />
                 Ver eventos
-                {showDropdownverEventos && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
+                {activeDropdown === 'verEventos' && <FontAwesomeIcon icon={faChevronDown} className="chevron-icon" />}
               </li>
-              {showDropdownverEventos && (
+              {activeDropdown === 'verEventos' && (
                 <ul>
                   <li>
                     <Link to="/dashboard/evento">Ver eventos</Link>

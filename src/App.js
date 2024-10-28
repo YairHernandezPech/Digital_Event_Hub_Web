@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useNavigate, BrowserRouter, Route, Routes } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-// Importar los componentes de las páginas
 import Escenarios from './client/Escenarios/componentes/Escenarios';
 import EventDetail from './loading-page/event_detail';
 import EventDetailClient from './client/home_init/event_details_home';
@@ -26,12 +25,10 @@ const RedirectToCustomHTML = () => {
   }, [navigate]);
 
   return null;
-
-
 };
 
 const App = () => {
-  const [role, setRole] = useState(null);
+  const [rol, setRol] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -39,43 +36,38 @@ const App = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        setRole(decodedToken.rol);
+        setRol(decodedToken.rol);
       } catch (error) {
-        setRole(null);
+        setRol(null);
       }
     }
     setLoading(false);
   }, []);
 
-  useEffect(() => {
-    if (role !== null) {
-    }
-  }, [role]);
-
   const handleLogin = (token) => {
     localStorage.setItem('token', token);
     const decodedToken = jwtDecode(token);
-    setRole(decodedToken.rol);
+    setRol(decodedToken.rol);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
-    setRole(null);
+    setRol(null);
   };
 
   if (loading) {
     return <div>Loading...</div>;
   }
+
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          {/* Rutas del lading_Page*/}
+          {/* Rutas del landing_page */}
           <Route path="/" element={<RedirectToCustomHTML />} />
           <Route path="/evento/:eventId" element={<EventDetail />} />
 
-
-          {/* Rutas del login, registro y reset password*/}
+          {/* Rutas del login, registro y reset password */}
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/reset" element={<ResetPassword />} />
@@ -84,20 +76,17 @@ const App = () => {
           <Route path="/cliente/home" element={<HomeEventClient />} />
           <Route path="/evento/home/:eventId" element={<EventDetailClient />} />
           <Route path="/cliente/event/:id" element={<Escenarios />} />
-          <Route path="/cliente/historypay" element={<HistorialCompra role={role} onLogout={handleLogout}/>} />
+          <Route path="/cliente/historypay" element={<HistorialCompra rol={rol} onLogout={handleLogout} />} />
           <Route path="/compra/:pago_id" element={<CompraDetalles />} />
-          {/* Obtebner ticketts */}
+          {/* Obtener tickets */}
           <Route path="/cliente/ticked/:eventId" element={<DialogTicket />} />
 
-
-
-          {/* Rutas para navegar dentro del home admin y organizador*/}
-          <Route path="/login-admin" element={role ? <Navigate to="/dashboard" /> : <LoginAdmin onLogin={handleLogin} />} />
-          <Route path="/login-orga" element={role ? <Navigate to="/dashboard" /> : <LoginOrga onLogin={handleLogin} />}/>
-          <Route path="/register-orga" element={role ? <Navigate to="/dashboard" /> : <RegisterOrga />} />
-          <Route path="/dashboard/*" element={role ? <Dashboard role={role} onLogout={handleLogout} /> : <Navigate to="/" />} />
+          {/* Rutas para navegar dentro del home admin y organizador */}
+          <Route path="/login-admin" element={rol ? <Navigate to="/dashboard" /> : <LoginAdmin onLogin={handleLogin} />} />
+          <Route path="/login-orga" element={rol ? <Navigate to="/dashboard" /> : <LoginOrga onLogin={handleLogin} />} />
+          <Route path="/register-orga" element={rol ? <Navigate to="/dashboard" /> : <RegisterOrga />} />
+          <Route path="/dashboard/*" element={rol ? <Dashboard rol={rol} onLogout={handleLogout} /> : <Navigate to="/" />} />
           <Route path="/success" element={<Success />} />
-
         </Routes>
       </div>
     </BrowserRouter>

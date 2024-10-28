@@ -5,8 +5,7 @@ import "../styles/login.css";
 import logo from '../img/logo3.png';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+
 
 const Login = () => {
   const [email, setEmail] = useState("");

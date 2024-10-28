@@ -22,7 +22,6 @@ function dividirArray(arr, numPartes) {
   return partes;
 }
 
-
 const Escenario4 = ({data, setSelectedSeats}) => {
   const seatsLeft = [
     dividirArray(dividirArray(data.asientos, 3)[0], 6) [0],
@@ -141,7 +140,5 @@ const Escenario4 = ({data, setSelectedSeats}) => {
 //     </Fragment>
 //   );
 // }
-
-
 
 export default Escenario4;

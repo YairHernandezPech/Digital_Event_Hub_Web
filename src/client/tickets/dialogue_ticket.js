@@ -24,6 +24,7 @@ const CinemaPage = () => {
   const [user, setUser] = useState(null); // Simular datos del usuario
   const [availableTicketsH1, setAvailableTicketsH1] = useState(null);
   const [availableTicketsH2, setAvailableTicketsH2] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [schedules, setSchedules] = useState([]);
   const [selectedTimeId, setSelectedTimeId] = useState(null);
@@ -333,20 +334,67 @@ const CinemaPage = () => {
 
 
       <Grid container spacing={2} sx={{ padding: '2rem' }}>
-        {/* HORARIO */}
+        {/* Contenedor de evento y tickets disponibles */}
         <Grid item xs={12} md={8}>
           <Paper sx={{ padding: '1rem' }}>
-            <Typography variant="h4" fontWeight="bold" gutterBottom>
-              {eventData && <h3>{eventData.evento_nombre}</h3>}
-            </Typography>
+            <Grid container alignItems="center" justifyContent="space-between">
+              <Grid item>
+                <Typography variant="h4" fontWeight="bold">
+                  {eventData && eventData.evento_nombre}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Box
+                  sx={{
+                    border: '1px solid #7D287D', 
+                    borderRadius: '4px', 
+                    padding: '8px', 
+                    marginBottom: '8px', 
+                    backgroundColor: '#E8DAEF' 
+                  }}
+                >
+                  <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+                    Horario 18:30
+                  </Typography>
+                  <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                    {availableTicketsH1 !== null && availableTicketsH1 !== undefined
+                      ? `${availableTicketsH1} tickets disponibles`
+                      : 'Cargando...'}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item>
+                <Box
+                  sx={{
+                    border: '1px solid #7D287D',
+                    borderRadius: '4px',
+                    padding: '8px',
+                    marginBottom: '8px',
+                    backgroundColor: '#E8DAEF'
+                  }}
+                >
+                  <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
+                    Horario 19:30
+                  </Typography>
+                  <Typography variant="body1" sx={{ textAlign: 'center' }}>
+                    {availableTicketsH2 !== null && availableTicketsH2 !== undefined
+                      ? `${availableTicketsH2} tickets disponibles`
+                      : 'Cargando...'}
+                  </Typography>
+                </Box>
+              </Grid>
+
+            </Grid>
+
             <Typography variant="body1" paragraph>
-              {eventData && <p>{eventData.descripcion}</p>}
+              {eventData && eventData.descripcion}
             </Typography>
 
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-              Horarios:
+              Selecciona el horario:
             </Typography>
 
+            {/* Contenedor de horarios */}
             <Grid container spacing={1}>
               {schedules.map((schedule, index) => (
                 <Grid item key={index}>
@@ -361,45 +409,25 @@ const CinemaPage = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '0.5rem',
-                      backgroundColor: selectedIndex === index ? '#8e44ad' : '#d2b4de', // Cambia a morado si está seleccionado
-                      color: selectedIndex === index ? '#4a235a' : '#8e44ad', // Cambia a blanco si está seleccionado
+                      backgroundColor: selectedIndex === index ? '#8e44ad' : '#d2b4de',
+                      color: selectedIndex === index ? '#4a235a' : '#8e44ad',
                       textAlign: 'left',
-                      width: '100%', // Para que ocupe todo el espacio
-                      borderRadius: '8px', // Opcional: para bordes redondeados
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Sombra por defecto
+                      width: '100%',
+                      borderRadius: '8px',
+                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     }}
                   >
                     <Typography variant="body1" sx={{ marginRight: '1rem' }}>
-                      {schedule.hora_inicio} {/* Mostrar hora de inicio y fin */}
+                      {schedule.hora_inicio}
                     </Typography>
                   </Button>
-
                 </Grid>
-
               ))}
-
-            </Grid>
-            <Typography variant="h5" paddingTop={5} paddingBottom={3}>Tickets Disponibles:</Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <Paper elevation={3} sx={{ p: 2 }}>
-                  <Typography variant="h6">Horario 1:</Typography>
-                  <Typography variant="body1">
-                    {availableTicketsH1 !== null && availableTicketsH1 !== undefined ? `${availableTicketsH1} tickets disponibles` : 'Cargando...'}
-                  </Typography>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Paper elevation={3} sx={{ p: 2 }}>
-                  <Typography variant="h6">Horario 2:</Typography>
-                  <Typography variant="body1">
-                    {availableTicketsH2 !== null && availableTicketsH2 !== undefined ? `${availableTicketsH2} tickets disponibles` : 'Cargando...'}
-                  </Typography>
-                </Paper>
-              </Grid>
             </Grid>
           </Paper>
         </Grid>
+
+        {/* Contenedor de imagen y botón de canjeo */}
         <Grid item xs={12} md={4}>
           {eventData && (
             <h4 style={{ textAlign: 'center', marginBottom: '1rem' }}>
@@ -419,17 +447,15 @@ const CinemaPage = () => {
                 fullWidth
                 sx={{ marginTop: '1rem' }}
                 onClick={handleOpenModal}
+                disabled={!selectedTimeId} // Deshabilita el botón si no hay horario seleccionado
               >
                 Proceder al canjeo
               </Button>
             </CardContent>
           </Card>
         </Grid>
-        <Box sx={{ mt: 4 }}>
-
-        </Box>
-
       </Grid>
+
     </>
   );
 };

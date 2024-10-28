@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from '../img/LOGO HUB 1.png';
 import '../styles/login.css';
 
 const LoginAdmin = ({ onLogin }) => {
   const [email, setEmail] = useState('');
-  const [contrasena, setContrasena] = useState(''); // Cambio de nombre de 'password' a 'contrasena'
+  const [contrasena, setContrasena] = useState('');
   const [notification, setNotification] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://digital-event.onrender.com/api/login', { email, contrasena }); // Cambio de 'password' a 'contrasena'
+      const response = await axios.post('https://api-digital.fly.dev/api/users/login', { email, contrasena });
       const { token } = response.data;
-      onLogin(token);
+      onLogin(token); // Asegúrate de que `onLogin` maneje el token y configure el rol correspondiente
       setNotification({ message: 'Datos correctos', type: 'success' });
     } catch (error) {
       setNotification({ message: 'Datos incorrectos', type: 'error' });
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (notification) {
-      const timer = setTimeout(() => {
-        setNotification(null);
-      }, 3000);
+      const timer = setTimeout(() => setNotification(null), 3000);
       return () => clearTimeout(timer);
     }
   }, [notification]);
@@ -59,12 +57,6 @@ const LoginAdmin = ({ onLogin }) => {
                 required
                 className="login-input"
               />
-            </div>
-            <div className="login-divider"></div>
-            <div className="login-social-buttons">
-              <button className="login-social-button"><i className="fab fa-facebook-f"></i></button>
-              <button className="login-social-button"><i className="fab fa-google"></i></button>
-              <button className="login-social-button"><i className="fab fa-twitter"></i></button>
             </div>
             <button type="submit" className="login-button">Acceder</button>
           </form>
