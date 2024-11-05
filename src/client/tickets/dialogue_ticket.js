@@ -374,7 +374,7 @@ const CinemaPage = () => {
                   }}
                 >
                   <Typography variant="subtitle1" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
-                    Horario 19:30
+                    Horario 20:30
                   </Typography>
                   <Typography variant="body1" sx={{ textAlign: 'center' }}>
                     {availableTicketsH2 !== null && availableTicketsH2 !== undefined
