@@ -15,6 +15,8 @@ import Aprobados from '../admin/EventosAprobados';
 import Desaprobados from '../admin/EventosDesaprobados';
 import Pendientes from '../admin/EventosPendientes';
 import Cupones from '../organizador/Cupones';
+import RegistroQR from '../organizador/RegistroQR';
+import CanjeoQR from '../organizador/CanjeoQR';
 
 const Dashboard = ({ rol, onLogout }) => {
   const match = useMatch('/dashboard/*');
@@ -45,6 +47,8 @@ const Dashboard = ({ rol, onLogout }) => {
             <Route path="desaprobados" element={<Desaprobados />} />
             <Route path="cupones" element={<Cupones />} />
             <Route path="pendientes" element={<Pendientes />} />
+            <Route path="registro" element={<RegistroQR />} />
+            <Route path="canjeo/:eventId" element={<CanjeoQR />} />
           </Routes>
         </div>
       </div>

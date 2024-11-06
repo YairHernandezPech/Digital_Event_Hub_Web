@@ -153,6 +153,9 @@ const Sidebar = ({ onLogout, rol }) => {
                   <li>
                     <Link to="/dashboard/cupones">Cupones</Link>
                   </li>
+                  <li>
+                    <Link to="/dashboard/registro">Registro</Link>
+                  </li>
                 </ul>
               )}
             </ul>

@@ -151,16 +151,17 @@ const Cupones = () => {
             </tr>
           </thead>
           <tbody>
-            {currentCupones.map((cupon, index) => (
-              <tr key={cupon.ticket_id || index}>
-                <td>{cupon.ticket_id || cupon.id}</td>
-                <td>{cupon.info}</td>
-                <td>{cupon.status === 1 ? 'Ya entró al evento' : 'No ha entrado'}</td>
-                <td>{cupon.code}</td>
-                <td>{cupon.redeem ? 'Sí' : 'No'}</td>
-              </tr>
-            ))}
-          </tbody>
+  {currentCupones.map((cupon, index) => (
+    <tr key={cupon.ticket_id || index}>
+      <td>{cupon.ticket_id || cupon.id}</td>
+      <td>{cupon.info}</td>
+      <td>{cupon.status === 1 ? 'Ya entró al evento' : 'No ha entrado'}</td>
+      <td>{cupon.code}</td>
+      <td>{cupon.redeem ? 'Sí' : 'No'}</td>
+      <td>{cupon.canjeado_por || 'No especificado'}</td> {/* Mostrar el nombre aquí */}
+    </tr>
+  ))}
+</tbody>
         </table>
       </div>
 
