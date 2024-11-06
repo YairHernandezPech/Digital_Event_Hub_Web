@@ -104,6 +104,13 @@ const HomeEventClient = () => {
         }
     }, [user]);
 
+
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split('T')[0].split('-');
+        return `${day}/${month}/${year}`;
+    };
+    
+
     return (
         <div>
             <ClientNavbarHome user={userId} onLogout={handleLogout} /><hr/><br/><br/>
@@ -218,7 +225,7 @@ const HomeEventClient = () => {
                                     </p>
                                     <p style={{ margin: '0', fontSize: '0.9em', color: '#ddd', display: 'flex', alignItems: 'center' }}>
                                         <FaCalendarAlt style={{ marginRight: '5px', fontSize: '1em' }} />
-                                        {new Date(event.fecha_inicio).toLocaleDateString()}
+                                        {formatDate(event.fecha_inicio)}
                                     </p>
                                 </div>
                             </div>
