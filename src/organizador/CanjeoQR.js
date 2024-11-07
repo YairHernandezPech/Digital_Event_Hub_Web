@@ -23,6 +23,8 @@ const CanjeoQR = () => {
   const [selectedTimeId, setSelectedTimeId] = useState(null);
   const [schedules, setSchedules] = useState([]);
   const [qrCodeValue, setQrCodeValue] = useState('');
+  const [availableTicketsH1, setAvailableTicketsH1] = useState(null); // Para horario 1
+  const [availableTicketsH2, setAvailableTicketsH2] = useState(null); // Para horario 2
   const qrRef = useRef(null);
 
   const handleOpenModal = () => setOpenModal(true);
@@ -37,9 +39,9 @@ const CanjeoQR = () => {
         code: code,
         id_horario: selectedTimeId, // Enviar id_horario correctamente
       };
-      
+
       const response = await axios.post('https://api-digital.fly.dev/api/canjeo-sin-registro', data);
-      
+
       setMessage('Cupón aplicado y pago realizado con éxito.');
       setMessageType('success');
       setTicketCode(response.data.ticketCode);
@@ -58,7 +60,6 @@ const CanjeoQR = () => {
       }
     }
   };
-  
 
   const downloadQRCodeAsImage = () => {
     const canvas = qrRef.current;
@@ -87,6 +88,30 @@ const CanjeoQR = () => {
     fetchEventDetails();
   }, [eventId]);
 
+  // Obtener los boletos restantes para los horarios 1 y 2
+  useEffect(() => {
+    const fetchTickets = async () => {
+      try {
+        const responseH1 = await fetch('https://api-digital.fly.dev/api/ticket/available/h1');
+        const dataH1 = await responseH1.json();
+        console.log('Tickets Horario 1:', dataH1);
+
+        const responseH2 = await fetch('https://api-digital.fly.dev/api/ticket/available/h2');
+        const dataH2 = await responseH2.json();
+        console.log('Tickets Horario 2:', dataH2);
+
+        // Asegúrate de usar el nombre correcto de la propiedad
+        setAvailableTicketsH1(dataH1.tickets_disponibles);
+        setAvailableTicketsH2(dataH2.tickets_disponibles);
+
+      } catch (error) {
+        console.error('Error al obtener los tickets disponibles:', error);
+      }
+    };
+
+    fetchTickets();
+  }, []);
+
   // Obtener el horario seleccionado
   const selectedSchedule = schedules.find((schedule) => schedule.horario_id === selectedTimeId);
 
@@ -94,7 +119,7 @@ const CanjeoQR = () => {
     <Box sx={{ padding: '2rem' }}>
       <Typography variant="h4" fontWeight="bold">{eventData && eventData.evento_nombre}</Typography>
       <Typography variant="body1" paragraph>{eventData && eventData.descripcion}</Typography>
-      
+
       <Typography variant="h6" fontWeight="bold" gutterBottom>Selecciona el horario:</Typography>
       <Grid container spacing={1}>
         {schedules.map((schedule, index) => (
@@ -114,6 +139,23 @@ const CanjeoQR = () => {
             </Button>
           </Grid>
         ))}
+      </Grid>
+      <Typography variant="h6" fontWeight="bold" paddingTop={5} gutterBottom>Boletos restantes:</Typography>
+
+      {/* Mostrar los boletos restantes de los horarios */}
+      <Grid container spacing={2} sx={{ marginTop: 2 }}>
+        <Grid item xs={6}>
+          <Box sx={{ padding: '1rem', backgroundColor: '#f5f5f5', borderRadius: '8px', textAlign: 'center' }}>
+            <Typography variant="body1" fontWeight="bold">Horario 1</Typography>
+            <Typography variant="h5" color="primary">{availableTicketsH1 !== null ? availableTicketsH1 : 'Cargando...'}</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box sx={{ padding: '1rem', backgroundColor: '#f5f5f5', borderRadius: '8px', textAlign: 'center' }}>
+            <Typography variant="body1" fontWeight="bold">Horario 2</Typography>
+            <Typography variant="h5" color="primary">{availableTicketsH2 !== null ? availableTicketsH2 : 'Cargando...'}</Typography>
+          </Box>
+        </Grid>
       </Grid>
 
       <Button
@@ -160,8 +202,8 @@ const CanjeoQR = () => {
           <Button variant="outlined" color="primary" onClick={handleCloseQRCodeModal}>
             Cerrar
           </Button>
-          <Button variant="outlined" color="primary" onClick={downloadQRCodeAsImage} sx={{ marginTop: '1rem' }}>
-            Descargar QR como PNG
+          <Button variant="outlined" color="primary" onClick={downloadQRCodeAsImage} sx={{ marginLeft: '1rem' }}>
+            Descargar QR
           </Button>
         </Box>
       </Modal>
