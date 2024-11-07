@@ -507,7 +507,7 @@
   <!--Consumo de la api para traer los eventos-->
   <script>
     // URL de la API
-    const apiUrl = 'https://api-digitalevent.onrender.com/api/events/get/approved';
+    const apiUrl = 'https://api-digital.fly.dev/api/events/approved';
 
     // Función para consumir la API y mostrar solo los eventos públicos
     async function mostrarEventosPublicos() {
@@ -516,7 +516,7 @@
             const eventos = await response.json();
 
             // Filtrar eventos de tipo "Publico"
-            const eventosPublicos = eventos.filter(evento => evento.tipo_evento === "Publico");
+            const eventosPublicos = eventos.filter(evento => evento.tipo_evento === 1);
 
             // Contenedor donde se agregarán los eventos
             const eventosContainer = document.getElementById('eventos-container');
@@ -525,7 +525,7 @@
             eventosPublicos.forEach(evento => {
                 
                 const eventHtml = `
-                <div class="card" onclick="window.location.href='/evento/${evento.evento_id}';">
+                <div class="card" onclick="window.location.href='/login';">
                     <div class="card-image-container">
                         <img src="${evento.imagen_url || 'img/default-image.jpg'}" alt="${evento.evento_nombre}" class="card-image">
                         <div class="card-overlay"></div>
