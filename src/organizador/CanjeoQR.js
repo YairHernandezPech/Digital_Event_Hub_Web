@@ -35,9 +35,10 @@ const CanjeoQR = () => {
       const data = {
         evento_id: eventId,
         code: code,
-        horario_id: selectedTimeId,
+        id_horario: selectedTimeId, // Enviar id_horario correctamente
       };
-      const response = await axios.post('http://localhost:4000/api/canjeo-sin-registro', data);
+      
+      const response = await axios.post('https://api-digital.fly.dev/api/canjeo-sin-registro', data);
       
       setMessage('Cupón aplicado y pago realizado con éxito.');
       setMessageType('success');
@@ -57,6 +58,7 @@ const CanjeoQR = () => {
       }
     }
   };
+  
 
   const downloadQRCodeAsImage = () => {
     const canvas = qrRef.current;
@@ -70,11 +72,11 @@ const CanjeoQR = () => {
   useEffect(() => {
     const fetchEventDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/api/events/find/${eventId}`);
+        const response = await fetch(`https://api-digital.fly.dev/api/events/find/${eventId}`);
         const data = await response.json();
         setEventData(data);
 
-        const schedulesResponse = await fetch(`http://localhost:4000/api/schedule/by-event/${data.evento_id}`);
+        const schedulesResponse = await fetch(`https://api-digital.fly.dev/api/schedule/by-event/${data.evento_id}`);
         const schedulesData = await schedulesResponse.json();
         setSchedules(schedulesData);
       } catch (error) {
@@ -84,6 +86,9 @@ const CanjeoQR = () => {
 
     fetchEventDetails();
   }, [eventId]);
+
+  // Obtener el horario seleccionado
+  const selectedSchedule = schedules.find((schedule) => schedule.horario_id === selectedTimeId);
 
   return (
     <Box sx={{ padding: '2rem' }}>
@@ -148,6 +153,9 @@ const CanjeoQR = () => {
       <Modal open={openQRCodeModal} onClose={handleCloseQRCodeModal}>
         <Box sx={{ padding: '2rem', backgroundColor: 'white', borderRadius: '8px', width: 400, margin: 'auto', marginTop: '20%' }}>
           <Typography variant="h5" sx={{ mb: 3 }}>¡Aquí está tu Código QR!</Typography>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            Horario seleccionado: {selectedSchedule ? selectedSchedule.hora_inicio : 'No seleccionado'}
+          </Typography>
           <QRCodeCanvas ref={qrRef} value={qrCodeValue} size={256} style={{ margin: '20px 0' }} />
           <Button variant="outlined" color="primary" onClick={handleCloseQRCodeModal}>
             Cerrar
